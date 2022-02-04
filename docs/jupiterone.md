@@ -2,9 +2,6 @@
 
 ## Rumble + JupiterOne Integration Benefits
 
-TODO: Iterate the benefits of ingesting data from the provider into JupiterOne.
-Consider the following examples:
-
 - Visualize your Rumble organizations, users, and scanned assets and services in
   the JupiterOne graph.
 - Map Rumble users to employees in your JupiterOne account.
@@ -42,7 +39,8 @@ If you need help with this integration, please contact
 
 ## Integration Walkthrough
 
-You'll need an Account API key to integrate with JupiterOne.
+You'll need an **Account API Key** and administrator access to the account to
+integrate with JupiterOne.
 
 ### In Rumble
 

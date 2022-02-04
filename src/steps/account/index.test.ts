@@ -5,7 +5,6 @@ import {
 import { fetchAccountDetails } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupRumbleRecording } from '../../../test/recording';
-//import { setupMimecastRecording } from '../../../test/recording';
 
 describe('#fetchAccountDetails', () => {
   let recording: Recording;

@@ -35,7 +35,7 @@ export const Entities: Record<
 export const Relationships: Record<
   | 'ACCOUNT_HAS_USER'
   | 'ACCOUNT_HAS_ORGANIZATION'
-  | 'ORGANIZATION_ASSIGNED_USER',
+  | 'USER_ASSIGNED_ORGANIZATION',
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
@@ -50,10 +50,10 @@ export const Relationships: Record<
     _class: RelationshipClass.HAS,
     targetType: Entities.ORGANIZATION._type,
   },
-  ORGANIZATION_ASSIGNED_USER: {
-    _type: 'rumble_group_has_user',
-    sourceType: Entities.ORGANIZATION._type,
+  USER_ASSIGNED_ORGANIZATION: {
+    _type: 'rumble_user_assigned_organization',
+    sourceType: Entities.USER._type,
     _class: RelationshipClass.ASSIGNED,
-    targetType: Entities.USER._type,
+    targetType: Entities.ORGANIZATION._type,
   },
 };

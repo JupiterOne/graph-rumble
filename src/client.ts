@@ -79,6 +79,8 @@ export class APIClient {
 
   /**
    * getOrganizations gets all Rumble Organizations from the /account/orgs endpoint
+   *
+   *  NOTE: Not currently in use. Will be used by organization step
    * @returns Promise for a RumbleOrganization
    */
   public async getOrganizations(): Promise<RumbleOrganization[]> {
