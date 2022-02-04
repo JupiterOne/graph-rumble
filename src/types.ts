@@ -1,15 +1,50 @@
 // Providers often supply types with their API libraries.
 
-export interface AcmeUser {
+import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
+import { IntegrationConfig } from './config';
+
+export interface RumbleAccount {
   id: string;
   name: string;
 }
 
-export interface AcmeGroup {
+export interface RumbleOrganization {
   id: string;
   name: string;
-  users?: Pick<AcmeUser, 'id'>[];
+  created_at: number;
+  created_by: string;
+  updated_at: number;
+  client_id: string;
+  download_token: string;
+  download_token_created_at: number;
+  demo: boolean;
+  project: boolean;
+  parent_id: string;
+  description: string;
+  inactive: boolean;
+  deactivated_at: number;
+  service_count: number;
+  service_count_tcp: number;
+  service_count_udp: number;
+  service_count_arp: number;
+  service_count_icmp: number;
+  asset_count: number;
+  export_token: string;
+  export_token_created_at: number;
+  export_token_last_used_at: number;
+  export_token_last_used_by: string;
+  export_token_counter: number;
+  expiration_assets_stale: number;
+  expiration_assets_offline: number;
+  expiration_scans: number;
+  expiration_warning_last_sent: number;
 }
+
+export type APIClientOptions = {
+  config: IntegrationConfig;
+  name: string;
+  logger: IntegrationLogger;
+};
 
 // Those can be useful to a degree, but often they're just full of optional
 // values. Understanding the response data may be more reliably accomplished by
