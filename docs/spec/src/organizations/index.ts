@@ -25,6 +25,6 @@ export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
       },
     ],
     dependsOn: ['fetch-account'],
-    implemented: false,
+    implemented: true,
   },
 ];
