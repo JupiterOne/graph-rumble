@@ -7,51 +7,53 @@ import {
 export const Steps = {
   ACCOUNT: 'fetch-account',
   USERS: 'fetch-users',
-  GROUPS: 'fetch-groups',
-  GROUP_USER_RELATIONSHIPS: 'build-user-group-relationships',
+  ORGANIZATION: 'fetch-organization',
+  ORGANIZATION_USER_RELATIONSHIPS: 'build-user-organization-relationships',
 };
 
 export const Entities: Record<
-  'ACCOUNT' | 'GROUP' | 'USER',
+  'ACCOUNT' | 'ORGANIZATION' | 'USER',
   StepEntityMetadata
 > = {
   ACCOUNT: {
     resourceName: 'Account',
-    _type: 'acme_account',
+    _type: 'rumble_account',
     _class: ['Account'],
   },
-  GROUP: {
-    resourceName: 'UserGroup',
-    _type: 'acme_group',
-    _class: ['UserGroup'],
+  ORGANIZATION: {
+    resourceName: 'Organization',
+    _type: 'rumble_organization',
+    _class: ['Organization'],
   },
   USER: {
     resourceName: 'User',
-    _type: 'acme_user',
+    _type: 'rumble_user',
     _class: ['User'],
   },
 };
 
 export const Relationships: Record<
-  'ACCOUNT_HAS_USER' | 'ACCOUNT_HAS_GROUP' | 'GROUP_HAS_USER',
+  | 'ACCOUNT_HAS_USER'
+  | 'ACCOUNT_HAS_ORGANIZATION'
+  | 'ORGANIZATION_ASSIGNED_USER',
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
-    _type: 'acme_account_has_user',
+    _type: 'rumble_account_has_user',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.USER._type,
   },
-  ACCOUNT_HAS_GROUP: {
-    _type: 'acme_account_has_group',
+  ACCOUNT_HAS_ORGANIZATION: {
+    _type: 'rumble_account_has_organization',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
-    targetType: Entities.GROUP._type,
+    targetType: Entities.ORGANIZATION._type,
   },
-  GROUP_HAS_USER: {
-    _type: 'acme_group_has_user',
-    sourceType: Entities.GROUP._type,
-    _class: RelationshipClass.HAS,
+  ORGANIZATION_ASSIGNED_USER: {
+    _type: 'rumble_group_has_user',
+    sourceType: Entities.ORGANIZATION._type,
+    _class: RelationshipClass.ASSIGNED,
     targetType: Entities.USER._type,
   },
 };

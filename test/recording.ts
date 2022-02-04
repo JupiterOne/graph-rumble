@@ -7,18 +7,49 @@ import {
 
 export { Recording };
 
-export function setupProjectRecording(
+export function setupRumbleRecording(
   input: Omit<SetupRecordingInput, 'mutateEntry'>,
 ): Recording {
   return setupRecording({
     ...input,
+    options: {
+      recordFailedRequests: false,
+      matchRequestsBy: {
+        url: {
+          hostname: false,
+        },
+      },
+    },
+
     redactedRequestHeaders: ['Authorization'],
     redactedResponseHeaders: ['set-cookie'],
-    mutateEntry: mutations.unzipGzippedRecordingEntry,
-    /*mutateEntry: (entry) => {
+    //mutateEntry: mutations.unzipGzippedRecordingEntry,
+    mutateEntry: (entry) => {
       redact(entry);
-    },*/
+    },
   });
+}
+
+function redact(entry): void {
+  mutations.unzipGzippedRecordingEntry(entry);
+  const DEFAULT_REDACT = '[REDACTED]';
+  const keysToRedactMap = new Map();
+  keysToRedactMap.set('export_token', DEFAULT_REDACT);
+  keysToRedactMap.set('download_token', DEFAULT_REDACT);
+  keysToRedactMap.set('export_token_last_used_by', DEFAULT_REDACT);
+
+  const response = JSON.parse(entry.response.content.text);
+
+  if (response.forEach) {
+    response.forEach((responseValue, responseIndex) => {
+      keysToRedactMap.forEach((redactionValue, keyToRedact) => {
+        if (responseValue[keyToRedact]) {
+          response[responseIndex][keyToRedact] = redactionValue;
+        }
+      });
+    });
+    entry.response.content.text = JSON.stringify(response);
+  }
 }
 
 // a more sophisticated redaction example below:

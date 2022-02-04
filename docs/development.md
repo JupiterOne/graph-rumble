@@ -1,28 +1,37 @@
 # Development
 
-Add details here to give a brief overview of how to work with the provider APIs.
-Please reference any SDKs or API docs used to help build the integration here.
+### Documentation & References:
+
+- [Rumble API Documentation on Swagger](https://app.swaggerhub.com/apis-docs/RumbleDiscovery/Rumble/)
+- [Rumble OpenAPI Specification](https://github.com/RumbleDiscovery/rumble-api)
+- [Rumble Documentation and User Guides](https://www.rumble.run/docs/#download-rumble-documentation-for-offline-use)
 
 ## Prerequisites
 
-Supply details about software or tooling (like maybe Docker or Terraform) that
-is needed for development here.
-
-Please supply references to documentation that details how to install those
-dependencies here.
-
-Tools like Node.js and NPM are already covered in the [README](../README.md) so
-don't bother documenting that here.
+An Enterprise Licensed Account is required for the Rumble Integration to access
+`/account` endpoints.
 
 ## Provider account setup
 
-Please provide information about the steps needed to create an account with a
-provider. Images and references to a provider's documentation is very helpful
-for new developers picking up your work.
+If you have an Enterprise Licensed Account, then the
+[Getting Started Guide](https://www.rumble.run/docs/first-steps/) that Rumble
+provides walks through basic User, Organization, and Explorer setup.
 
 ## Authentication
 
-Supply details here for information on how to authenticate with a provider so
-that developers have an idea of what's needed to hit APIs. It may be useful to
-provide explanations for each value specified in the
-[`IntegrationInstanceConfigFieldMap`](../src/config.ts).
+Rumble uses
+[Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
+for authenticating requests.
+
+An **Account API Key** is needed to authenticate with the Rumble API.
+
+The process for generating an Account Key is as follows:
+
+1. Navigate to the [Rumble Console](htttps://console.rumble.run)
+2. In the navigation bar, navigate to **Account**
+3. At the bottom of the page, use the **Generate API Key** button to create a
+   new **Account API Key**
+4. Using the .env.example file in the root directory of this project as a
+   template, create a new .env file
+5. Use your generated **Account API Key** in the **ACCOUNT_API_KEY** field in
+   the .env file

@@ -34,6 +34,10 @@
   "devDependencies": {
     "@jupiterone/integration-sdk-core": "^8.2.0",
     "@jupiterone/integration-sdk-dev-tools": "^8.2.0",
-    "@jupiterone/integration-sdk-testing": "^8.2.0"
+    "@jupiterone/integration-sdk-testing": "^8.2.0",
+    "@types/got": "^9.6.12"
+  },
+  "dependencies": {
+    "got": "^11.8.3"
   }
 }

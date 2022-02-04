@@ -12,7 +12,7 @@ export const accessSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'User',
-        _type: 'acme_user',
+        _type: 'rumble_user',
         _class: ['User'],
       },
     ],
@@ -32,12 +32,12 @@ export const accessSpec: StepSpec<IntegrationConfig>[] = [
      * ENDPOINT: https://localhost/api/v1/groups
      * PATTERN: Fetch Entities
      */
-    id: 'fetch-groups',
-    name: 'Fetch Groups',
+    id: 'fetch-organizations',
+    name: 'Fetch Organizations',
     entities: [
       {
         resourceName: 'UserGroup',
-        _type: 'acme_group',
+        _type: 'group',
         _class: ['UserGroup'],
       },
     ],
