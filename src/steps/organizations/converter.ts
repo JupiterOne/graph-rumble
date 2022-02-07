@@ -10,8 +10,10 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
     entityData: {
       // for source we could pull in all the non-secret fields
       source: {
-        id: org.id,
-        name: org.name,
+        ...org,
+        download_token: undefined,
+        export_token: undefined,
+        export_token_last_used_by: undefined,
       },
       assign: {
         _key: org.id,

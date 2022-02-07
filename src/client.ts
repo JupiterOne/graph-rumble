@@ -4,7 +4,9 @@ import {
 } from '@jupiterone/integration-sdk-core';
 
 import { APIClientOptions, RumbleAccount, RumbleOrganization } from './types';
-import got from 'got';
+import got, { CancelableRequest, GotRequestFunction, Response } from 'got';
+import { NetworkEndpoint } from '@jupiterone/data-model/dist/IntegrationSchema';
+import { organizationsSteps } from './steps/organizations';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -80,7 +82,6 @@ export class APIClient {
   /**
    * getOrganizations gets all Rumble Organizations from the /account/orgs endpoint
    *
-   *  NOTE: Not currently in use. Will be used by organization step
    * @returns Promise for a RumbleOrganization
    */
   public async getOrganizations(): Promise<RumbleOrganization[]> {
@@ -88,17 +89,25 @@ export class APIClient {
     const endpoint = BASE_URI + uri;
     const request = this.createRequest(endpoint);
 
-    let response: RumbleOrganization[];
+    const organizations: RumbleOrganization[] = await this.getEntity(request);
+
+    return organizations;
+  }
+
+  private async getEntity(
+    request: CancelableRequest<Response<string>>,
+  ): Promise<any> {
+    let response: any;
     try {
       const result = await request;
       response = JSON.parse(result.body);
     } catch (err) {
       throw new IntegrationProviderAPIError({
         cause: err,
-        endpoint: endpoint,
+        endpoint: err.response.requestUrl,
         status: err.response.statusCode,
         statusText: err.response.statusMessage,
-        message: err.response.body ? err.response.body.trim() : err.message,
+        message: err.response.body() ? err.response.body.trim() : err.message,
       });
     }
     return response;

@@ -57,7 +57,6 @@ describe('#fetchOrganizationsDetails', () => {
   });
 
   test('will establish relationship with account entity', async () => {
-    // TODO: Setup recoding and relationship test
     recording = setupRumbleRecording({
       directory: __dirname,
       name: 'fetchOrganizationsDetailsShouldBuildAccountRelationship',
@@ -70,7 +69,6 @@ describe('#fetchOrganizationsDetails', () => {
     await fetchOrganizationDetails(context);
 
     expect(context.jobState.collectedRelationships?.length).toBe(2);
-    console.log(context.jobState.collectedRelationships);
     expect(
       context.jobState.collectedRelationships,
     ).toMatchDirectRelationshipSchema({
