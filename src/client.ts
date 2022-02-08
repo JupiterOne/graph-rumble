@@ -105,7 +105,7 @@ export class APIClient {
         endpoint: err.response.requestUrl,
         status: err.response.statusCode,
         statusText: err.response.statusMessage,
-        message: err.response.body() ? err.response.body.trim() : err.message,
+        message: err.response.body ? err.response.body.trim() : err.message,
       });
     }
     return response;
