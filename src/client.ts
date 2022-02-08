@@ -4,9 +4,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 
 import { APIClientOptions, RumbleAccount, RumbleOrganization } from './types';
-import got, { CancelableRequest, GotRequestFunction, Response } from 'got';
-import { NetworkEndpoint } from '@jupiterone/data-model/dist/IntegrationSchema';
-import { organizationsSteps } from './steps/organizations';
+import got, { CancelableRequest, Response } from 'got';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -89,12 +87,12 @@ export class APIClient {
     const endpoint = BASE_URI + uri;
     const request = this.createRequest(endpoint);
 
-    const organizations: RumbleOrganization[] = await this.getEntity(request);
+    const organizations: RumbleOrganization[] = await this.getEntities(request);
 
     return organizations;
   }
 
-  private async getEntity(
+  private async getEntities(
     request: CancelableRequest<Response<string>>,
   ): Promise<any> {
     let response: any;
