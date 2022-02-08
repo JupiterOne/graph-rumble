@@ -32,7 +32,7 @@ describe('#fetchOrganizationsDetails', () => {
       (r) => r._type === Entities.ORGANIZATION._type,
     );
 
-    expect(filteredEntities.length).toBe(2);
+    expect(filteredEntities.length).toBe(3);
     expect(filteredEntities).toMatchGraphObjectSchema({
       _class: ['Organization'],
       schema: {
@@ -68,7 +68,7 @@ describe('#fetchOrganizationsDetails', () => {
     await fetchAccountDetails(context);
     await fetchOrganizationDetails(context);
 
-    expect(context.jobState.collectedRelationships?.length).toBe(2);
+    expect(context.jobState.collectedRelationships?.length).toBe(3);
     expect(
       context.jobState.collectedRelationships,
     ).toMatchDirectRelationshipSchema({
