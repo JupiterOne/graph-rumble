@@ -78,18 +78,23 @@ export class APIClient {
   }
 
   /**
-   * getOrganizations gets all Rumble Organizations from the /account/orgs endpoint
+   * iterateOrganizations gets all Rumble Organizations from the /account/orgs endpoint
+   * and then calls the iteratee for each organization
    *
    * @returns Promise for a RumbleOrganization
    */
-  public async getOrganizations(): Promise<RumbleOrganization[]> {
+  public async iterateOrganizations(
+    iteratee: ResourceIteratee<RumbleOrganization>,
+  ): Promise<void> {
     const uri = '/api/v1.0/account/orgs';
     const endpoint = BASE_URI + uri;
     const request = this.createRequest(endpoint);
 
     const organizations: RumbleOrganization[] = await this.getEntities(request);
 
-    return organizations;
+    for (const org of organizations) {
+      await iteratee(org);
+    }
   }
 
   private async getEntities(
