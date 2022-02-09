@@ -1,6 +1,7 @@
 import {
   createDirectRelationship,
   Entity,
+  IntegrationMissingKeyError,
   IntegrationStep,
   IntegrationStepExecutionContext,
   RelationshipClass,
@@ -24,6 +25,11 @@ export async function fetchOrganizationDetails({
 
   const organizations = await apiClient.getOrganizations();
   const accountEntity = (await jobState.getData(ACCOUNT_ENTITY_KEY)) as Entity;
+  if (!accountEntity) {
+    throw new IntegrationMissingKeyError(
+      `Expected to find Account Entity in jobState with key: ${ACCOUNT_ENTITY_KEY}`,
+    );
+  }
 
   // build the relationships between the organizations and account
   for (const org of organizations) {

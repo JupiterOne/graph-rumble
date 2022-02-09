@@ -20,7 +20,7 @@ export interface RumbleOrganization {
   demo: boolean;
   project: boolean;
   parent_id: string;
-  description: string;
+  description: string | null;
   inactive: boolean;
   deactivated_at: number;
   service_count: number;

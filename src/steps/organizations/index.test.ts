@@ -32,7 +32,7 @@ describe('#fetchOrganizationsDetails', () => {
       (r) => r._type === Entities.ORGANIZATION._type,
     );
 
-    expect(filteredEntities.length).toBe(3);
+    expect(filteredEntities.length).toBeGreaterThan(0);
     expect(filteredEntities).toMatchGraphObjectSchema({
       _class: ['Organization'],
       schema: {
@@ -46,12 +46,14 @@ describe('#fetchOrganizationsDetails', () => {
           createdBy: { type: 'string' },
           updatedOn: { type: 'number' },
           updatedBy: { type: 'string' },
+          // description is a nullable property
+          description: { type: ['string', 'null'] },
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
         },
-        required: [],
+        required: ['_type', '_key', 'name', 'description'],
       },
     });
   });
@@ -68,7 +70,7 @@ describe('#fetchOrganizationsDetails', () => {
     await fetchAccountDetails(context);
     await fetchOrganizationDetails(context);
 
-    expect(context.jobState.collectedRelationships?.length).toBe(3);
+    expect(context.jobState.collectedRelationships?.length).toBeGreaterThan(0);
     expect(
       context.jobState.collectedRelationships,
     ).toMatchDirectRelationshipSchema({
