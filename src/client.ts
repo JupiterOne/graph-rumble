@@ -3,8 +3,13 @@ import {
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 
-import { APIClientOptions, RumbleAccount, RumbleOrganization } from './types';
-import got, { CancelableRequest, Response } from 'got';
+import {
+  APIClientOptions,
+  RumbleAccount,
+  RumbleOrganization,
+  RumbleUser,
+} from './types';
+import got, { OptionsOfTextResponseBody } from 'got';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -24,7 +29,12 @@ export class APIClient {
   public async verifyAuthentication(): Promise<void> {
     const uri = '/api/v1.0/account/orgs';
     const endpoint = BASE_URI + uri;
-    const request = this.createRequest(endpoint);
+    const request = got.get(endpoint, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${this.options.config.accountAPIKey}`,
+      },
+    });
 
     try {
       await request;
@@ -45,35 +55,22 @@ export class APIClient {
   public async getAccount(): Promise<RumbleAccount> {
     const uri = '/api/v1.0/account/orgs';
     const endpoint = BASE_URI + uri;
-    const request = this.createRequest(endpoint);
 
-    let acc: RumbleAccount;
-    try {
-      const response = await request;
-      const result = await JSON.parse(response.body);
+    // We use the organizations endpoint to get client_id for the account
+    // since there is not an account information endpoint
+    const organizations = await this.callApi({ url: endpoint });
 
-      acc = {
-        // Every account is guaranteed at least one Organization
-        // so we can expect one organization to read the client_id from
-        // See https://www.rumble.run/docs/organizations-and-sites/
-        id: result[0].client_id,
+    const acc: RumbleAccount = {
+      // Every account is guaranteed at least one Organization
+      // so we can expect one organization to read the client_id from
+      // See https://www.rumble.run/docs/organizations-and-sites/
+      id: organizations[0].client_id,
 
-        // we use integration name for the account name
-        // since there is not an obvious name value from
-        // the rumble api. accountId tag might work as well.
-        name: this.options.name,
-      };
-    } catch (err) {
-      throw new IntegrationProviderAPIError({
-        cause: err,
-        endpoint: endpoint,
-        status: err.response.statusCode,
-        statusText: err.response.statusMessage,
-        // if the response comes with a body like '{"error":"API Key Not Found"}'
-        // then use as error message otherwise stick with what we have from got
-        message: err.response.body ? err.response.body.trim() : err.message,
-      });
-    }
+      // we use integration name for the account name
+      // since there is not an obvious name value from
+      // the rumble api. accountId tag might work as well.
+      name: this.options.name,
+    };
     return acc;
   }
 
@@ -81,25 +78,61 @@ export class APIClient {
    * iterateOrganizations gets all Rumble Organizations from the /account/orgs endpoint
    * and then calls the iteratee for each organization
    *
-   * @returns Promise for a RumbleOrganization
+   * @returns Promise<void>
    */
   public async iterateOrganizations(
     iteratee: ResourceIteratee<RumbleOrganization>,
   ): Promise<void> {
     const uri = '/api/v1.0/account/orgs';
     const endpoint = BASE_URI + uri;
-    const request = this.createRequest(endpoint);
 
-    const organizations: RumbleOrganization[] = await this.getEntities(request);
+    const organizations = await this.callApi({ url: endpoint });
 
     for (const org of organizations) {
       await iteratee(org);
     }
   }
 
-  private async getEntities(
-    request: CancelableRequest<Response<string>>,
+  /**
+   * iterateUsers gets all Rumble Users from the /account/orgs endpoint
+   * and then calls the iteratee for each user
+   *
+   * @returns Promise<void>
+   */
+  public async iterateUsers(
+    iteratee: ResourceIteratee<RumbleUser>,
+  ): Promise<void> {
+    const uri = '/api/v1.0/account/users';
+    const endpoint = BASE_URI + uri;
+    const users = await this.callApi({ url: endpoint });
+
+    for (const user of users) {
+      await iteratee(user);
+    }
+  }
+
+  /**
+   * callApi is a generic method for making calls to the Rumble API.
+   * The function takes options. The only mandatory option is `url`.
+   * Default headers will be set if none are passed in the options.
+   *
+   * @param callApiOptions Options for the got.get method to use when calling the API. The url field must be set for a successful call. Headers are set by default but can be overridden by the caller setting them.
+   *
+   * @returns Promise<any>, which will be a JSON formatted response from the API
+   */
+  private async callApi(
+    callApiOptions: OptionsOfTextResponseBody,
   ): Promise<any> {
+    const request = got.get({
+      // we set default headers, but the caller can place custom headers in callApiOptions
+      // and this will be overwritten
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${this.options.config.accountAPIKey}`,
+      },
+      ...callApiOptions,
+    });
+
     let response: any;
     try {
       const result = await request;
@@ -110,19 +143,12 @@ export class APIClient {
         endpoint: err.response.requestUrl,
         status: err.response.statusCode,
         statusText: err.response.statusMessage,
+        // if the response comes with a body like '{"error":"API Key Not Found"}'
+        // then use as error message otherwise stick with what we have from got
         message: err.response.body ? err.response.body.trim() : err.message,
       });
     }
     return response;
-  }
-
-  private createRequest(endpoint: string) {
-    return got.get(endpoint, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.options.config.accountAPIKey}`,
-      },
-    });
   }
 }
 
