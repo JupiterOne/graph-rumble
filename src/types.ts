@@ -40,21 +40,42 @@ export interface RumbleOrganization {
   expiration_warning_last_sent: number;
 }
 
+export interface RumbleUser {
+  id: string;
+  client_id: string;
+  created_at: number;
+  updated_at: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  client_admin: boolean;
+  // the first user can have a role of '' in this case that user will also be a client_admin
+  // and will be assigned a role of 'admin' on their USER_ASSIGNED_ORGANIZATION
+  org_default_role: Role | '';
+  org_roles: Record<string, Role>;
+  reset_token_expiration: number;
+  invite_token_expiration: number;
+  last_login_ip: string;
+  last_login_at: number;
+  last_login_ua: string;
+  last_activity_at: number;
+  sso_only: boolean;
+  login_failures: number;
+  actions: number;
+  last_action_at: number;
+}
+
 export type APIClientOptions = {
   config: IntegrationConfig;
   name: string;
   logger: IntegrationLogger;
 };
 
-// Those can be useful to a degree, but often they're just full of optional
-// values. Understanding the response data may be more reliably accomplished by
-// reviewing the API response recordings produced by testing the wrapper client
-// (./client.ts). However, when there are no types provided, it is necessary to define
-// opaque types for each resource, to communicate the records that are expected
-// to come from an endpoint and are provided to iterating functions.
-
-/*
-import { Opaque } from 'type-fest';
-export type AcmeUser = Opaque<any, 'AcmeUser'>;
-export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
-*/
+export type Role = 'none' | 'viewer' | 'annotator' | 'user' | 'admin';
+export const RoleLevel = {
+  none: 0,
+  viewer: 1,
+  annotator: 2,
+  user: 3,
+  admin: 4,
+};
