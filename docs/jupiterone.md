@@ -93,9 +93,18 @@ https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources | Entity `_type`   | Entity `_class` |
-| --------- | ---------------- | --------------- |
-| Account   | `rumble_account` | `Account`       |
+| Resources    | Entity `_type`        | Entity `_class` |
+| ------------ | --------------------- | --------------- |
+| Account      | `rumble_account`      | `Account`       |
+| Organization | `rumble_organization` | `Organization`  |
+
+### Relationships
+
+The following relationships are created:
+
+| Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
+| --------------------- | --------------------- | --------------------- |
+| `rumble_account`      | **HAS**               | `rumble_organization` |
 
 <!--
 ********************************************************************************
