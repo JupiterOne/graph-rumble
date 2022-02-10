@@ -1,7 +1,7 @@
 import { RelationshipClass, StepSpec } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../../../src/config';
 
-export const organizationSpec: StepSpec<IntegrationConfig>[] = [
+export const usersSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
      * ENDPOINT: https://console.rumble.run/api/v1.0/account/users
@@ -30,7 +30,7 @@ export const organizationSpec: StepSpec<IntegrationConfig>[] = [
         _type: 'rumble_account_has_user',
         sourceType: 'rumble_account',
         _class: RelationshipClass.HAS,
-        targetType: 'rumble_organization',
+        targetType: 'rumble_user',
       },
     ],
     dependsOn: ['fetch-account', 'fetch-organization'],
