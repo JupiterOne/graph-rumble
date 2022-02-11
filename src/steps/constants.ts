@@ -13,7 +13,7 @@ export const Steps = {
 };
 
 export const Entities: Record<
-  'ACCOUNT' | 'ORGANIZATION' | 'USER',
+  'ACCOUNT' | 'ORGANIZATION' | 'USER' | 'SITE',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -87,12 +87,18 @@ export const Entities: Record<
       required: [],
     },
   },
+  SITE: {
+    resourceName: 'Site',
+    _type: 'rumble_site',
+    _class: ['Site'],
+  },
 };
 
 export const Relationships: Record<
   | 'ACCOUNT_HAS_USER'
   | 'ACCOUNT_HAS_ORGANIZATION'
-  | 'USER_ASSIGNED_ORGANIZATION',
+  | 'USER_ASSIGNED_ORGANIZATION'
+  | 'ORGANIZATION_HAS_SITE',
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
@@ -117,5 +123,11 @@ export const Relationships: Record<
         assignedRole: { type: 'string' },
       },
     },
+  },
+  ORGANIZATION_HAS_SITE: {
+    _type: 'rumble_organization_has_site',
+    sourceType: Entities.ORGANIZATION._type,
+    _class: RelationshipClass.HAS,
+    targetType: Entities.SITE._type,
   },
 };

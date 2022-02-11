@@ -7,6 +7,7 @@ import {
   APIClientOptions,
   RumbleAccount,
   RumbleOrganization,
+  RumbleSite,
   RumbleUser,
 } from './types';
 import got, { OptionsOfTextResponseBody } from 'got';
@@ -82,6 +83,7 @@ export class APIClient {
    * iterateOrganizations gets all Rumble Organizations from the /account/orgs endpoint
    * and then calls the iteratee for each organization
    *
+   * @param iteratee the function called for each resource
    * @returns Promise<void>
    */
   public async iterateOrganizations(
@@ -101,6 +103,7 @@ export class APIClient {
    * iterateUsers gets all Rumble Users from the /account/orgs endpoint
    * and then calls the iteratee for each user
    *
+   * @param iteratee the function called for each User
    * @returns Promise<void>
    */
   public async iterateUsers(
@@ -112,6 +115,25 @@ export class APIClient {
 
     for (const user of users) {
       await iteratee(user);
+    }
+  }
+
+  /**
+   * iterateSits gets all Rumble Sites from the /account/sites endpoint
+   * and then calls the iteratee for each site
+   *
+   * @param iteratee the function called for each Site
+   * @return Promise<void>
+   */
+  public async iterateSites(
+    iteratee: ResourceIteratee<RumbleSite>,
+  ): Promise<void> {
+    const uri = '/api/v1.0/account/sites';
+    const endpoint = BASE_URI + uri;
+    const sites = await this.callApi({ url: endpoint });
+
+    for (const site of sites) {
+      await iteratee(site);
     }
   }
 
