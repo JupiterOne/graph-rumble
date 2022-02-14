@@ -16,16 +16,38 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
         _class: ['User'],
       },
     ],
+    relationships: [],
+    dependsOn: ['fetch-account', 'fetch-organization'],
+    implemented: false,
+  },
+  {
+    /**
+     * ENDPOINT: N/A
+     * PATTERN: Build Child Relationships
+     */
+    id: 'build-user-organization-relationships',
+    name: 'Build User Organization Relationships',
+    entities: [],
     relationships: [
       {
-        /**
-         * TODO can we add properties to test in the spec
-         */
         _type: 'rumble_user_assigned_organization',
         sourceType: 'rumble_user',
         _class: RelationshipClass.ASSIGNED,
         targetType: 'rumble_organization',
       },
+    ],
+    dependsOn: ['fetch-users'],
+    implemented: false,
+  },
+  {
+    /**
+     * ENDPOINT: N/A
+     * PATTERN: Build Child Relationships
+     */
+    id: 'build-account-user-relationships',
+    name: 'Build Account User Relationships',
+    entities: [],
+    relationships: [
       {
         _type: 'rumble_account_has_user',
         sourceType: 'rumble_account',
@@ -33,7 +55,7 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
         targetType: 'rumble_user',
       },
     ],
-    dependsOn: ['fetch-account', 'fetch-organization'],
-    implemented: true,
+    dependsOn: ['fetch-users'],
+    implemented: false,
   },
 ];

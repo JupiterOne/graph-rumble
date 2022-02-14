@@ -42,8 +42,12 @@ export class APIClient {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
         endpoint: BASE_URI + uri,
-        status: err.status,
-        statusText: err.statusText,
+        status: err.response.statusCode,
+        // if the response comes with a body like '{"error":"API Key Not Found"}'
+        // then we will append it to statusText for additional context in error message
+        statusText:
+          err.response.statusMessage +
+          (err.response.body ? `\nBody: ${err.response.body.trim()}` : ''),
       });
     }
   }
@@ -143,9 +147,6 @@ export class APIClient {
         endpoint: err.response.requestUrl,
         status: err.response.statusCode,
         statusText: err.response.statusMessage,
-        // if the response comes with a body like '{"error":"API Key Not Found"}'
-        // then use as error message otherwise stick with what we have from got
-        message: err.response.body ? err.response.body.trim() : err.message,
       });
     }
     return response;
