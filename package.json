@@ -1,7 +1,7 @@
 {
-  "name": "@jupiterone/integration-template",
+  "name": "@jupiterone/graph-rumble",
   "version": "1.0.0",
-  "description": "A JupiterOne Integration",
+  "description": "graph-rumble integration project",
   "license": "MPL-2.0",
   "main": "src/index.js",
   "types": "src/index.d.ts",
