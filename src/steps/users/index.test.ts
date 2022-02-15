@@ -32,7 +32,7 @@ describe('#fetchUserDetails', () => {
   test('should collect data', async () => {
     recording = setupRumbleRecording({
       directory: __dirname,
-      name: 'fetchUserDetailsShouldCollectData',
+      name: 'userSteps',
     });
 
     const context = createMockStepExecutionContext({
@@ -72,7 +72,7 @@ describe('#fetchUserDetails', () => {
   test('will establish relationship with account entity', async () => {
     recording = setupRumbleRecording({
       directory: __dirname,
-      name: 'fetchUserDetailsShouldBuildAccountRelationship',
+      name: 'userSteps',
     });
 
     const context = createMockStepExecutionContext({
@@ -100,7 +100,7 @@ describe('#fetchUserDetails', () => {
   test('will establish relationship with organization entities', async () => {
     recording = setupRumbleRecording({
       directory: __dirname,
-      name: 'fetchUserDetailsShouldBuildOrganizationRelationship',
+      name: 'userSteps',
     });
 
     const context = createMockStepExecutionContext({
