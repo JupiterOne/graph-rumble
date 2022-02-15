@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Ingest user entity and create related relationships
+
 [1.0.1] - 2022-02-14
 
 ### Added
