@@ -146,7 +146,9 @@ export class APIClient {
         cause: err,
         endpoint: err.response.requestUrl,
         status: err.response.statusCode,
-        statusText: err.response.statusMessage,
+        statusText:
+          err.response.statusMessage +
+          (err.response.body ? `\nBody: ${err.response.body.trim()}` : ''),
       });
     }
     return response;
