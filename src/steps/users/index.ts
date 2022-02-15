@@ -25,6 +25,8 @@ export async function fetchUserDetails({
 
   await apiClient.iterateUsers(async (user: RumbleUser) => {
     await jobState.addEntity(createUserEntity(user));
+    // Needed in the buildUserOrganizationRelationships
+    await jobState.setData(user.id, user.org_roles);
   });
 }
 
@@ -35,17 +37,29 @@ export async function buildUserOrganizationRelationships({
   const orgFilter = { _type: Entities.ORGANIZATION._type };
 
   await jobState.iterateEntities(userFilter, async (userEntity) => {
+    const assignedRoles: Object | null | undefined = await jobState.getData(
+      userEntity._key,
+    );
     await jobState.iterateEntities(orgFilter, async (orgEntity) => {
+      let assignedRole: string | undefined;
+      if (assignedRoles !== null && typeof assignedRoles === 'object') {
+        if (orgEntity._key in assignedRoles) {
+          // roles are keyed by the organization id
+          assignedRole = assignedRoles[orgEntity._key];
+        }
+      }
+
       await jobState.addRelationship(
         createDirectRelationship({
           from: userEntity,
           to: orgEntity,
           _class: RelationshipClass.ASSIGNED,
           properties: {
-            role:
+            defaultRole:
               typeof userEntity.orgDefaultRole === 'string'
                 ? userEntity.orgDefaultRole
                 : undefined,
+            assignedRole: assignedRole,
           },
         }),
       );

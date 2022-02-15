@@ -120,7 +120,8 @@ describe('#fetchUserDetails', () => {
         properties: {
           _class: { const: RelationshipClass.ASSIGNED },
           _type: { const: Relationships.USER_ASSIGNED_ORGANIZATION._type },
-          role: { type: 'string' },
+          defaultRole: { type: 'string' },
+          assignedRole: { type: 'string' },
         },
       },
     });

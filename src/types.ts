@@ -45,19 +45,19 @@ export interface RumbleUser {
   client_id: string;
   created_at: number;
   updated_at: number;
-  first_name: string;
-  last_name: string;
-  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  email: string | null;
   client_admin: boolean;
   // the first user can have a role of '' in this case that user will also be a client_admin
   // and will be assigned a role of 'admin' on their USER_ASSIGNED_ORGANIZATION
-  org_default_role: Role | '';
+  org_default_role: Role | '' | null;
   org_roles: Record<string, Role>;
   reset_token_expiration: number;
   invite_token_expiration: number;
-  last_login_ip: string;
+  last_login_ip: string | null;
   last_login_at: number;
-  last_login_ua: string;
+  last_login_ua: string | null;
   last_activity_at: number;
   sso_only: boolean;
   login_failures: number;
