@@ -18,7 +18,7 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
     ],
     relationships: [],
     dependsOn: ['fetch-account', 'fetch-organization'],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -37,7 +37,7 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
       },
     ],
     dependsOn: ['fetch-users'],
-    implemented: false,
+    implemented: true,
   },
   {
     /**
@@ -56,6 +56,6 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
       },
     ],
     dependsOn: ['fetch-users'],
-    implemented: false,
+    implemented: true,
   },
 ];

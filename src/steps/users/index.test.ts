@@ -3,12 +3,24 @@ import {
   createMockStepExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { fetchUserDetails } from '.';
+import {
+  buildAccountUserRelationships,
+  buildUserOrganizationRelationships,
+  fetchUserDetails,
+} from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupRumbleRecording } from '../../../test/recording';
 import { fetchAccountDetails } from '../account';
 import { Entities, Relationships } from '../constants';
 import { fetchOrganizationDetails } from '../organizations';
+
+async function executeSteps(context): Promise<void> {
+  await fetchAccountDetails(context);
+  await fetchOrganizationDetails(context);
+  await fetchUserDetails(context);
+  await buildUserOrganizationRelationships(context);
+  await buildAccountUserRelationships(context);
+}
 
 describe('#fetchUserDetails', () => {
   let recording: Recording;
@@ -26,9 +38,8 @@ describe('#fetchUserDetails', () => {
     const context = createMockStepExecutionContext({
       instanceConfig: integrationConfig,
     });
-    await fetchAccountDetails(context);
-    await fetchOrganizationDetails(context);
-    await fetchUserDetails(context);
+
+    await executeSteps(context);
 
     const filteredEntities = context.jobState.collectedEntities?.filter(
       (r) => r._type === Entities.USER._type,
@@ -67,9 +78,8 @@ describe('#fetchUserDetails', () => {
     const context = createMockStepExecutionContext({
       instanceConfig: integrationConfig,
     });
-    await fetchAccountDetails(context);
-    await fetchOrganizationDetails(context);
-    await fetchUserDetails(context);
+
+    await executeSteps(context);
 
     const userAccountRelationships =
       context.jobState.collectedRelationships?.filter(
@@ -97,9 +107,7 @@ describe('#fetchUserDetails', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchAccountDetails(context);
-    await fetchOrganizationDetails(context);
-    await fetchUserDetails(context);
+    await executeSteps(context);
 
     const userOrganizationRelationships =
       context.jobState.collectedRelationships?.filter(
