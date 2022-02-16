@@ -41,13 +41,13 @@ export class APIClient {
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: BASE_URI + uri,
-        status: err.response.statusCode,
+        endpoint: endpoint,
+        status: err.response?.statusCode,
         // if the response comes with a body like '{"error":"API Key Not Found"}'
         // then we will append it to statusText for additional context in error message
         statusText:
-          err.response.statusMessage +
-          (err.response.body ? `\nBody: ${err.response.body.trim()}` : ''),
+          err.response?.statusMessage +
+          (err.response?.body ? `\nBody: ${err.response.body.trim()}` : ''),
       });
     }
   }
@@ -144,11 +144,12 @@ export class APIClient {
     } catch (err) {
       throw new IntegrationProviderAPIError({
         cause: err,
-        endpoint: err.response.requestUrl,
-        status: err.response.statusCode,
+        // we use plain strings for urls so this is valid
+        endpoint: callApiOptions.url as string,
+        status: err.response?.statusCode,
         statusText:
-          err.response.statusMessage +
-          (err.response.body ? `\nBody: ${err.response.body.trim()}` : ''),
+          err.response?.statusMessage +
+          (err.response?.body ? `\nBody: ${err.response.body.trim()}` : ''),
       });
     }
     return response;

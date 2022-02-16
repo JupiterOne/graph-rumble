@@ -30,6 +30,9 @@ function createAssignObject(user: RumbleUser) {
     _class: Entities.USER._class,
     name: name,
     displayName: name,
+    // we add the admin derived admin property to make querying easier
+    // and to resemble other graphs
+    admin: user.client_admin === true || user.org_default_role === 'admin',
     // okay for properties to be undefined, but not okay to be null
     firstName: user.first_name ?? undefined,
     lastName: user.last_name ?? undefined,

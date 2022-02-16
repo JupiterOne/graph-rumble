@@ -1,6 +1,7 @@
 import {
   createDirectRelationship,
   Entity,
+  getRawData,
   IntegrationStep,
   IntegrationStepExecutionContext,
   RelationshipClass,
@@ -22,57 +23,11 @@ export async function fetchUserDetails({
     name: instance.name,
     logger: logger,
   });
+  const accountEntity = (await jobState.getData(ACCOUNT_ENTITY_KEY)) as Entity;
 
   await apiClient.iterateUsers(async (user: RumbleUser) => {
-    await jobState.addEntity(createUserEntity(user));
+    const userEntity = await jobState.addEntity(createUserEntity(user));
     // Needed in the buildUserOrganizationRelationships
-    await jobState.setData(user.id, user.org_roles);
-  });
-}
-
-export async function buildUserOrganizationRelationships({
-  jobState,
-}: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const userFilter = { _type: Entities.USER._type };
-  const orgFilter = { _type: Entities.ORGANIZATION._type };
-
-  await jobState.iterateEntities(userFilter, async (userEntity) => {
-    const assignedRoles: Object | null | undefined = await jobState.getData(
-      userEntity._key,
-    );
-    await jobState.iterateEntities(orgFilter, async (orgEntity) => {
-      let assignedRole: string | undefined;
-      if (assignedRoles !== null && typeof assignedRoles === 'object') {
-        if (orgEntity._key in assignedRoles) {
-          // roles are keyed by the organization id
-          assignedRole = assignedRoles[orgEntity._key];
-        }
-      }
-
-      await jobState.addRelationship(
-        createDirectRelationship({
-          from: userEntity,
-          to: orgEntity,
-          _class: RelationshipClass.ASSIGNED,
-          properties: {
-            defaultRole:
-              typeof userEntity.orgDefaultRole === 'string'
-                ? userEntity.orgDefaultRole
-                : undefined,
-            assignedRole: assignedRole,
-          },
-        }),
-      );
-    });
-  });
-}
-
-export async function buildAccountUserRelationships({
-  jobState,
-}: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const userFilter = { _type: Entities.USER._type };
-  const accountEntity = (await jobState.getData(ACCOUNT_ENTITY_KEY)) as Entity;
-  await jobState.iterateEntities(userFilter, async (userEntity) => {
     await jobState.addRelationship(
       createDirectRelationship({
         from: accountEntity,
@@ -82,14 +37,47 @@ export async function buildAccountUserRelationships({
     );
   });
 }
+export async function buildUserOrganizationRelationships({
+  jobState,
+  logger,
+}: IntegrationStepExecutionContext<IntegrationConfig>) {
+  await jobState.iterateEntities(
+    { _type: Entities.USER._type },
+    async (userEntity) => {
+      const user = getRawData<RumbleUser>(userEntity);
+
+      for (const [orgId, assignedRole] of Object.entries(
+        user?.org_roles || {},
+      )) {
+        const orgEntity = await jobState.findEntity(orgId);
+        if (!orgEntity) {
+          logger.warn(
+            { userId: user?.id, assignedRole, orgId },
+            'Could not locate orgId from user org_roles property',
+          );
+          continue;
+        }
+
+        await jobState.addRelationship(
+          createDirectRelationship({
+            from: userEntity,
+            to: orgEntity,
+            _class: RelationshipClass.ASSIGNED,
+            properties: { assignedRole: assignedRole as string },
+          }),
+        );
+      }
+    },
+  );
+}
 
 export const userSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: Steps.USERS,
     name: 'Fetch User Details',
     entities: [Entities.USER],
-    relationships: [],
-    dependsOn: [],
+    relationships: [Relationships.ACCOUNT_HAS_USER],
+    dependsOn: [Steps.ACCOUNT],
     executionHandler: fetchUserDetails,
   },
   {
@@ -99,13 +87,5 @@ export const userSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [Relationships.USER_ASSIGNED_ORGANIZATION],
     dependsOn: [Steps.USERS, Steps.ORGANIZATION],
     executionHandler: buildUserOrganizationRelationships,
-  },
-  {
-    id: Steps.BUILD_ACCOUNT_USER_RELATIONSHIPS,
-    name: 'Build Account User Relationships',
-    entities: [],
-    relationships: [Relationships.ACCOUNT_HAS_USER],
-    dependsOn: [Steps.USERS, Steps.ACCOUNT],
-    executionHandler: buildAccountUserRelationships,
   },
 ];

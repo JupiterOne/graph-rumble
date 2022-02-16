@@ -3,11 +3,7 @@ import {
   createMockStepExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import {
-  buildAccountUserRelationships,
-  buildUserOrganizationRelationships,
-  fetchUserDetails,
-} from '.';
+import { buildUserOrganizationRelationships, fetchUserDetails } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupRumbleRecording } from '../../../test/recording';
 import { fetchAccountDetails } from '../account';
@@ -19,7 +15,6 @@ async function executeSteps(context): Promise<void> {
   await fetchOrganizationDetails(context);
   await fetchUserDetails(context);
   await buildUserOrganizationRelationships(context);
-  await buildAccountUserRelationships(context);
 }
 
 describe('#fetchUserDetails', () => {
@@ -86,7 +81,7 @@ describe('#fetchUserDetails', () => {
         (r) => r._type === Relationships.ACCOUNT_HAS_USER._type,
       );
 
-    expect(userAccountRelationships.length).toBe(6);
+    expect(userAccountRelationships.length).toBeGreaterThan(0);
     expect(userAccountRelationships).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
@@ -114,7 +109,7 @@ describe('#fetchUserDetails', () => {
         (r) => r._type === Relationships.USER_ASSIGNED_ORGANIZATION._type,
       );
 
-    expect(userOrganizationRelationships.length).toBe(18);
+    expect(userOrganizationRelationships.length).toBeGreaterThan(0);
     expect(userOrganizationRelationships).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
