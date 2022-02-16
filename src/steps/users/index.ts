@@ -89,7 +89,7 @@ export const userSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Fetch User Details',
     entities: [Entities.USER],
     relationships: [],
-    dependsOn: [Steps.ACCOUNT, Steps.ORGANIZATION],
+    dependsOn: [],
     executionHandler: fetchUserDetails,
   },
   {
@@ -97,7 +97,7 @@ export const userSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Build User Organization Relationships',
     entities: [],
     relationships: [Relationships.USER_ASSIGNED_ORGANIZATION],
-    dependsOn: [Steps.USERS],
+    dependsOn: [Steps.USERS, Steps.ORGANIZATION],
     executionHandler: buildUserOrganizationRelationships,
   },
   {
@@ -105,7 +105,7 @@ export const userSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Build Account User Relationships',
     entities: [],
     relationships: [Relationships.ACCOUNT_HAS_USER],
-    dependsOn: [Steps.USERS],
+    dependsOn: [Steps.USERS, Steps.ACCOUNT],
     executionHandler: buildAccountUserRelationships,
   },
 ];

@@ -17,7 +17,7 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    dependsOn: ['fetch-account', 'fetch-organization'],
+    dependsOn: [],
     implemented: true,
   },
   {
@@ -36,7 +36,7 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
         targetType: 'rumble_organization',
       },
     ],
-    dependsOn: ['fetch-users'],
+    dependsOn: ['fetch-users', 'fetch-organization'],
     implemented: true,
   },
   {
@@ -55,7 +55,7 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
         targetType: 'rumble_user',
       },
     ],
-    dependsOn: ['fetch-users'],
+    dependsOn: ['fetch-users', 'fetch-account'],
     implemented: true,
   },
 ];
