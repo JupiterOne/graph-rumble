@@ -16,6 +16,14 @@ export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
         _class: ['Site'],
       },
     ],
+    relationships: [],
+    dependsOn: ['fetch-organization'],
+    implemented: true,
+  },
+  {
+    id: 'build-organization-site-relationships',
+    name: 'Build Organization Site Relationships',
+    entities: [],
     relationships: [
       {
         _type: 'rumble_organization_has_site',
@@ -24,7 +32,7 @@ export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
         targetType: 'rumble_site',
       },
     ],
-    dependsOn: ['fetch-organization'],
-    implemented: false,
+    dependsOn: ['fetch-sites'],
+    implemented: true,
   },
 ];

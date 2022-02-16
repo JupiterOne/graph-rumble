@@ -18,7 +18,7 @@ export function createSiteEntity(site: RumbleSite): Entity {
         clientId: site.client_id,
         organizationId: site.organization_id,
         name: site.name,
-        description: site.description,
+        description: site.description ?? undefined,
         scope: site.scope,
         excludes: site.excludes,
         inactive: site.inactive,

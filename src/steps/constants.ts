@@ -8,8 +8,14 @@ export const Steps = {
   ACCOUNT: 'fetch-account',
   USERS: 'fetch-users',
   ORGANIZATION: 'fetch-organization',
+<<<<<<< HEAD
   BUILD_USER_ORGANIZATION_RELATIONSHIPS:
     'build-user-organization-relationships',
+=======
+  SITES: 'fetch-sites',
+  BUILD_ORGANIZATION_SITE_RELATIONSHIPS:
+    'build-organization-site-relationships',
+>>>>>>> e7a6439 (Broke sites step into fetchEntities and buildChildRealtionship patterns.)
 };
 
 export const Entities: Record<
