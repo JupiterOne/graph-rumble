@@ -19,7 +19,7 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         _type: Entities.ORGANIZATION._type,
         _class: Entities.ORGANIZATION._class,
         name: org.name,
-        displayName: org.name,
+        displayName: org.name ?? undefined,
         // RumbleOrganization specific properties
         clientId: org.client_id,
         createdAt: org.created_at,
@@ -30,7 +30,7 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         project: org.project,
         parentId: org.parent_id,
         // description can be a null field, if it is coerce to empty string
-        description: org.description,
+        description: org.description ?? undefined,
         inactive: org.inactive,
         deactivatedAt: org.deactivated_at,
         serviceCount: org.service_count,

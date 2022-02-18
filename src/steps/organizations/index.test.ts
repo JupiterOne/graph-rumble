@@ -53,7 +53,7 @@ describe('#fetchOrganizationsDetails', () => {
             items: { type: 'object' },
           },
         },
-        required: ['_type', '_key', 'name', 'description'],
+        required: ['_type', '_key', 'name'],
       },
     });
   });

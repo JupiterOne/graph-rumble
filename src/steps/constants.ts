@@ -8,7 +8,8 @@ export const Steps = {
   ACCOUNT: 'fetch-account',
   USERS: 'fetch-users',
   ORGANIZATION: 'fetch-organization',
-  ORGANIZATION_USER_RELATIONSHIPS: 'build-user-organization-relationships',
+  BUILD_USER_ORGANIZATION_RELATIONSHIPS:
+    'build-user-organization-relationships',
 };
 
 export const Entities: Record<
