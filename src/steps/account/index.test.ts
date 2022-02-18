@@ -1,10 +1,10 @@
 import {
-  createMockStepExecutionContext,
+  executeStepWithDependencies,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { fetchAccountDetails } from '.';
-import { integrationConfig } from '../../../test/config';
+import { buildStepTestConfigForStep } from '../../../test/config';
 import { setupRumbleRecording } from '../../../test/recording';
+import { Steps } from '../constants';
 
 describe('#fetchAccountDetails', () => {
   let recording: Recording;
@@ -13,38 +13,14 @@ describe('#fetchAccountDetails', () => {
     await recording.stop();
   });
 
-  test('should collect data', async () => {
+  test('should collect data and create account entity', async () => {
     recording = setupRumbleRecording({
       directory: __dirname,
       name: 'fetchAccountDetailsShouldCollectData',
     });
 
-    const context = createMockStepExecutionContext({
-      instanceConfig: integrationConfig,
-    });
-    await fetchAccountDetails(context);
-
-    expect(context.jobState.collectedEntities?.length).toBe(1);
-    expect(context.jobState.collectedEntities).toMatchGraphObjectSchema({
-      _class: ['Account'],
-      schema: {
-        additionalProperties: true,
-        properties: {
-          _type: { const: 'rumble_account' },
-          _key: { type: 'string' },
-          name: { type: 'string' },
-          displayName: { type: 'string' },
-          createdOn: { type: 'number' },
-          createdBy: { type: 'string' },
-          updatedOn: { type: 'number' },
-          updatedBy: { type: 'string' },
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-        },
-        required: [],
-      },
-    });
+    const stepConfig = buildStepTestConfigForStep(Steps.ACCOUNT);
+    const stepResult = await executeStepWithDependencies(stepConfig);
+    expect(stepResult).toMatchStepMetadata(stepConfig);
   });
 });
