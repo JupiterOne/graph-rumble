@@ -81,7 +81,7 @@ describe('#fetchUserDetails', () => {
         (r) => r._type === Relationships.ACCOUNT_HAS_USER._type,
       );
 
-    expect(userAccountRelationships.length).toBeGreaterThan(0);
+    expect(userAccountRelationships.length).toBe(6);
     expect(userAccountRelationships).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
@@ -109,7 +109,7 @@ describe('#fetchUserDetails', () => {
         (r) => r._type === Relationships.USER_ASSIGNED_ORGANIZATION._type,
       );
 
-    expect(userOrganizationRelationships.length).toBeGreaterThan(0);
+    expect(userOrganizationRelationships.length).toBe(6);
     expect(userOrganizationRelationships).toMatchDirectRelationshipSchema({
       schema: {
         properties: {

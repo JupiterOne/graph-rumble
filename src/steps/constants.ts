@@ -10,7 +10,6 @@ export const Steps = {
   ORGANIZATION: 'fetch-organization',
   BUILD_USER_ORGANIZATION_RELATIONSHIPS:
     'build-user-organization-relationships',
-  BUILD_ACCOUNT_USER_RELATIONSHIPS: 'build-account-user-relationships',
 };
 
 export const Entities: Record<
