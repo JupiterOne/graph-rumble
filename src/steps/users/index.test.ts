@@ -13,18 +13,16 @@ describe('userSteps', () => {
     await recording.stop();
   });
 
-  describe('#fetchUserDetails', () => {
-    test('should create user entities and account user relationships', async () => {
-      recording = setupRumbleRecording({
-        directory: __dirname,
-        name: 'fetchUserDetailsShouldCollectData',
-      });
-
-      const stepConfig = buildStepTestConfigForStep(Steps.USERS);
-      const stepResult = await executeStepWithDependencies(stepConfig);
-
-      expect(stepResult).toMatchStepMetadata(stepConfig);
+  test('should create user entities and account user relationships', async () => {
+    recording = setupRumbleRecording({
+      directory: __dirname,
+      name: 'fetchUserDetailsShouldCollectData',
     });
+
+    const stepConfig = buildStepTestConfigForStep(Steps.USERS);
+    const stepResult = await executeStepWithDependencies(stepConfig);
+
+    expect(stepResult).toMatchStepMetadata(stepConfig);
   });
 
   describe('#buildUserOrganizationRelationships', () => {
