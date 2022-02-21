@@ -4,37 +4,61 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import {
   createMockExecutionContext,
-  setupRecording,
+  Recording,
 } from '@jupiterone/integration-sdk-testing';
+import { integrationConfig } from '../test/config';
+import { setupRumbleRecording } from '../test/recording';
 import { IntegrationConfig, validateInvocation } from './config';
 
-it('requires valid config', async () => {
-  const executionContext = createMockExecutionContext<IntegrationConfig>({
-    instanceConfig: {} as IntegrationConfig,
+describe('configTest', () => {
+  let recording: Recording;
+
+  afterEach(async () => {
+    if (recording) {
+      await recording.stop();
+    }
   });
 
-  await expect(validateInvocation(executionContext)).rejects.toThrow(
-    IntegrationValidationError,
-  );
-});
+  it('requires valid config', async () => {
+    const executionContext = createMockExecutionContext<IntegrationConfig>({
+      instanceConfig: {} as IntegrationConfig,
+    });
 
-it('auth error', async () => {
-  const recording = setupRecording({
-    directory: '__recordings__',
-    name: 'client-auth-error',
+    await expect(validateInvocation(executionContext)).rejects.toThrow(
+      IntegrationValidationError,
+    );
   });
 
-  recording.server.any().intercept((req, res) => {
-    res.status(401);
+  it('validates invocation', async () => {
+    recording = setupRumbleRecording({
+      directory: __dirname,
+      name: 'client-validates-invocation',
+    });
+
+    const executionContext = createMockExecutionContext({
+      instanceConfig: integrationConfig,
+    });
+
+    await expect(validateInvocation(executionContext)).resolves.toBe(undefined);
   });
 
-  const executionContext = createMockExecutionContext({
-    instanceConfig: {
-      accountAPIKey: 'INVALID',
-    },
-  });
+  it('auth error', async () => {
+    recording = setupRumbleRecording({
+      directory: __dirname,
+      name: 'client-auth-error',
+      options: {
+        recordFailedRequests: true,
+      },
+    });
 
-  await expect(validateInvocation(executionContext)).rejects.toThrow(
-    IntegrationProviderAuthenticationError,
-  );
+    const executionContext = createMockExecutionContext({
+      instanceConfig: {
+        accountAPIKey: 'INVALID',
+      },
+    });
+
+    await expect(validateInvocation(executionContext)).rejects.toThrow(
+      IntegrationProviderAuthenticationError,
+    );
+  });
 });

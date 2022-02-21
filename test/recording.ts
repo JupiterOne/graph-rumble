@@ -12,17 +12,6 @@ export function setupRumbleRecording(
 ): Recording {
   return setupRecording({
     ...input,
-    options: {
-      recordFailedRequests: false,
-      matchRequestsBy: {
-        url: {
-          hostname: false,
-        },
-      },
-    },
-
-    redactedRequestHeaders: ['Authorization'],
-    redactedResponseHeaders: ['set-cookie'],
     mutateEntry: (entry) => {
       redact(entry);
     },
