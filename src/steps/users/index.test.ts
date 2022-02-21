@@ -17,7 +17,7 @@ describe('userSteps', () => {
     test('should create user entities and account user relationships', async () => {
       recording = setupRumbleRecording({
         directory: __dirname,
-        name: 'userSteps',
+        name: 'fetchUserDetailsShouldCollectData',
       });
 
       const stepConfig = buildStepTestConfigForStep(Steps.USERS);
@@ -31,7 +31,7 @@ describe('userSteps', () => {
     test('should establish relationship with organization entities', async () => {
       recording = setupRumbleRecording({
         directory: __dirname,
-        name: 'userSteps',
+        name: 'buildUserOrganizationRelationshipsShouldCollectData',
       });
 
       const stepConfig = buildStepTestConfigForStep(
