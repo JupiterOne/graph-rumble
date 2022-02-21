@@ -20,16 +20,72 @@ export const Entities: Record<
     resourceName: 'Account',
     _type: 'rumble_account',
     _class: ['Account'],
+    schema: {
+      additionalProperties: true,
+      properties: {
+        _type: { const: 'rumble_account' },
+        _key: { type: 'string' },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        createdOn: { type: 'number' },
+        createdBy: { type: 'string' },
+        updatedOn: { type: 'number' },
+        updatedBy: { type: 'string' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+      },
+      required: [],
+    },
   },
   ORGANIZATION: {
     resourceName: 'Organization',
     _type: 'rumble_organization',
     _class: ['Organization'],
+    schema: {
+      additionalProperties: true,
+      properties: {
+        _type: { const: 'rumble_organization' },
+        _key: { type: 'string' },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        createdOn: { type: 'number' },
+        createdBy: { type: 'string' },
+        updatedOn: { type: 'number' },
+        updatedBy: { type: 'string' },
+        // description is a nullable property
+        description: { type: ['string', 'null'] },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+      },
+      required: ['_type', '_key', 'name'],
+    },
   },
   USER: {
     resourceName: 'User',
     _type: 'rumble_user',
     _class: ['User'],
+    schema: {
+      additionalProperties: true,
+      properties: {
+        _type: { const: 'rumble_user' },
+        _key: { type: 'string' },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        createdOn: { type: 'number' },
+        createdBy: { type: 'string' },
+        updatedOn: { type: 'number' },
+        updatedBy: { type: 'string' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+      },
+      required: [],
+    },
   },
 };
 
@@ -56,5 +112,10 @@ export const Relationships: Record<
     sourceType: Entities.USER._type,
     _class: RelationshipClass.ASSIGNED,
     targetType: Entities.ORGANIZATION._type,
+    schema: {
+      properties: {
+        assignedRole: { type: 'string' },
+      },
+    },
   },
 };
