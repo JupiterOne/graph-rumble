@@ -10,6 +10,7 @@ and this project adheres to
 
 ### Added
 
+- Ingest site entities and site relationships
 - Ingest user entity and create related relationships
 
 [1.0.1] - 2022-02-14
