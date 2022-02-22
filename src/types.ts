@@ -71,7 +71,7 @@ export interface RumbleSite {
   updated_at: number;
   client_id: string;
   organization_id: string;
-  name: string;
+  name: string | null;
   description: string | null;
   scope: string | null;
   excludes: string | null;
@@ -83,11 +83,11 @@ export interface RumbleSite {
   service_count_arp: number;
   service_count_icmp: number;
   asset_count: number;
-  subnets: Record<string, string>;
+  subnets: Record<string, string | null>;
   asset_address_count: number;
-  last_task_id: string;
+  last_task_id: string | null;
   last_task_at: number;
-  last_task_by: string;
+  last_task_by: string | null;
   last_task_duration: number;
 }
 

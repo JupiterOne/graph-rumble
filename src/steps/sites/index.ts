@@ -1,5 +1,6 @@
 import {
   createDirectRelationship,
+  getRawData,
   IntegrationMissingKeyError,
   IntegrationStep,
   IntegrationStepExecutionContext,
@@ -33,11 +34,8 @@ export async function buildOrganizationSiteRelationships({
   await jobState.iterateEntities(
     { _type: Entities.SITE._type },
     async (siteEntity) => {
-      const orgId =
-        typeof siteEntity.organizationId === 'string'
-          ? siteEntity.organizationId
-          : undefined;
-      // error message for this
+      const site = getRawData<RumbleSite>(siteEntity);
+      const orgId = site?.organization_id;
 
       const orgEntity = await jobState.findEntity(orgId);
       if (!orgEntity) {
@@ -59,7 +57,7 @@ export async function buildOrganizationSiteRelationships({
 export const siteSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: Steps.SITES,
-    name: 'Fetch Site Details',
+    name: 'Fetch Sites Details',
     entities: [Entities.SITE],
     relationships: [],
     dependsOn: [],

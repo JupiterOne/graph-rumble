@@ -1,7 +1,7 @@
 import { RelationshipClass, StepSpec } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../../../src/config';
 
-export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
+export const sitesSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
      * ENDPOINT: https://console.rumble.run/api/v1.0/account/sites
@@ -17,7 +17,7 @@ export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    dependsOn: ['fetch-organization'],
+    dependsOn: [],
     implemented: true,
   },
   {
@@ -32,7 +32,7 @@ export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
         targetType: 'rumble_site',
       },
     ],
-    dependsOn: ['fetch-sites'],
+    dependsOn: ['fetch-sites', 'fetch-organization'],
     implemented: true,
   },
 ];

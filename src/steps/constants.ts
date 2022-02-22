@@ -8,14 +8,11 @@ export const Steps = {
   ACCOUNT: 'fetch-account',
   USERS: 'fetch-users',
   ORGANIZATION: 'fetch-organization',
-<<<<<<< HEAD
   BUILD_USER_ORGANIZATION_RELATIONSHIPS:
     'build-user-organization-relationships',
-=======
   SITES: 'fetch-sites',
   BUILD_ORGANIZATION_SITE_RELATIONSHIPS:
     'build-organization-site-relationships',
->>>>>>> e7a6439 (Broke sites step into fetchEntities and buildChildRealtionship patterns.)
 };
 
 export const Entities: Record<
@@ -97,6 +94,24 @@ export const Entities: Record<
     resourceName: 'Site',
     _type: 'rumble_site',
     _class: ['Site'],
+    schema: {
+      additionalProperties: true,
+      properties: {
+        _type: { const: 'rumble_site ' },
+        _key: { type: 'string' },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        createdOn: { type: 'number' },
+        createdBy: { type: 'string' },
+        updatedOn: { type: 'number' },
+        updatedBy: { type: 'string' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+      },
+      required: ['_type', '_key', 'name', 'displayName'],
+    },
   },
 };
 
