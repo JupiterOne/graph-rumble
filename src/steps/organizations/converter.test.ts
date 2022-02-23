@@ -54,7 +54,8 @@ describe('#createOrganizationEntity', () => {
       project: false,
       parentId: 'test_parent_id',
       inactive: false,
-      deactivatedAt: 0,
+      // parsePropertyTimeValue will change a 0 to undefined
+      deactivatedAt: undefined,
       serviceCount: 100,
       serviceCountTCP: 25,
       serviceCountUDP: 25,
