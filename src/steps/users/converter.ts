@@ -1,6 +1,7 @@
 import {
   createIntegrationEntity,
   Entity,
+  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { RumbleUser } from '../../types';
 import { Entities } from '../constants';
@@ -39,16 +40,16 @@ function createAssignObject(user: RumbleUser) {
     username: user.email ?? undefined,
     email: user.email ?? undefined,
     orgDefaultRole: user.org_default_role ?? undefined,
-    resetTokenExpiration: user.reset_token_expiration,
-    inviteTokenExpiration: user.invite_token_expiration,
+    resetTokenExpiration: parseTimePropertyValue(user.reset_token_expiration),
+    inviteTokenExpiration: parseTimePropertyValue(user.invite_token_expiration),
     lastLoginIP: user.last_login_ip ?? undefined,
-    lastLoginAt: user.last_login_at,
+    lastLoginAt: parseTimePropertyValue(user.last_login_at),
     lastLoginUa: user.last_login_ua ?? undefined,
-    lastActivityAt: user.last_activity_at,
+    lastActivityAt: parseTimePropertyValue(user.last_activity_at),
     ssoOnly: user.sso_only,
     loginFailures: user.login_failures,
     actions: user.actions,
-    lastActionAt: user.last_action_at,
+    lastActionAt: parseTimePropertyValue(user.last_action_at),
     active: true,
   };
 }

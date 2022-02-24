@@ -1,6 +1,7 @@
 import {
   createIntegrationEntity,
   Entity,
+  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { RumbleOrganization } from '../../types';
 import { Entities } from '../constants';
@@ -22,31 +23,39 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         displayName: org.name ?? undefined,
         // RumbleOrganization specific properties
         clientId: org.client_id,
-        createdAt: org.created_at,
+        createdAt: parseTimePropertyValue(org.created_at),
         createdBy: org.created_by,
-        updatedAt: org.updated_at,
-        downloadTokenCreatedAt: org.download_token_created_at,
+        updatedAt: parseTimePropertyValue(org.updated_at),
+        downloadTokenCreatedAt: parseTimePropertyValue(
+          org.download_token_created_at,
+        ),
         demo: org.demo,
         project: org.project,
         parentId: org.parent_id,
         // description can be a null field, if it is coerce to empty string
         description: org.description ?? undefined,
         inactive: org.inactive,
-        deactivatedAt: org.deactivated_at,
+        deactivatedAt: parseTimePropertyValue(org.deactivated_at),
         serviceCount: org.service_count,
         serviceCountTCP: org.service_count_tcp,
         serviceCountUDP: org.service_count_udp,
         serviceCountARP: org.service_count_arp,
         serviceCountICMP: org.service_count_icmp,
         assetCount: org.asset_count,
-        exportTokenCreatedAt: org.export_token_created_at,
-        exportTokenLastUsedAt: org.export_token_last_used_at,
+        exportTokenCreatedAt: parseTimePropertyValue(
+          org.export_token_created_at,
+        ),
+        exportTokenLastUsedAt: parseTimePropertyValue(
+          org.export_token_last_used_at,
+        ),
         exportTokenLastUsedBy: org.export_token_last_used_by,
         exportTokenCounter: org.export_token_counter,
         expirationAssetsStale: org.expiration_assets_stale,
         expirationAssetsOffline: org.expiration_assets_offline,
         expirationScans: org.expiration_scans,
-        expirationWarningLastSent: org.expiration_warning_last_sent,
+        expirationWarningLastSent: parseTimePropertyValue(
+          org.expiration_warning_last_sent,
+        ),
         // Fields that are on RumbleOrganization but excluded from assign:
         // download_token
         // export_token

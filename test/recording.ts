@@ -30,7 +30,7 @@ function redact(entry): void {
   // email needs to fit the email format
   keysToRedactMap.set('email', 'first.last@example.com');
   keysToRedactMap.set('last_login_ip', DEFAULT_REDACT);
-
+  keysToRedactMap.set('last_task_by', 'first.last@example.com');
   const response = JSON.parse(entry.response.content.text);
 
   if (response.forEach) {

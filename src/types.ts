@@ -65,6 +65,32 @@ export interface RumbleUser {
   last_action_at: number;
 }
 
+export interface RumbleSite {
+  id: string;
+  created_at: number;
+  updated_at: number;
+  client_id: string;
+  organization_id: string;
+  name: string | null;
+  description: string | null;
+  scope: string | null;
+  excludes: string | null;
+  inactive: boolean;
+  deactivated_at: number;
+  service_count: number;
+  service_count_tcp: number;
+  service_count_udp: number;
+  service_count_arp: number;
+  service_count_icmp: number;
+  asset_count: number;
+  subnets: Record<string, string | null>;
+  asset_address_count: number;
+  last_task_id: string | null;
+  last_task_at: number;
+  last_task_by: string | null;
+  last_task_duration: number;
+}
+
 export type APIClientOptions = {
   config: IntegrationConfig;
   name: string;

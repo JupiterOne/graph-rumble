@@ -97,6 +97,7 @@ The following entities are created:
 | ------------ | --------------------- | --------------- |
 | Account      | `rumble_account`      | `Account`       |
 | Organization | `rumble_organization` | `Organization`  |
+| Site         | `rumble_site`         | `Site`          |
 | User         | `rumble_user`         | `User`          |
 
 ### Relationships
@@ -107,6 +108,7 @@ The following relationships are created:
 | --------------------- | --------------------- | --------------------- |
 | `rumble_account`      | **HAS**               | `rumble_organization` |
 | `rumble_account`      | **HAS**               | `rumble_user`         |
+| `rumble_organization` | **HAS**               | `rumble_site`         |
 | `rumble_user`         | **ASSIGNED**          | `rumble_organization` |
 
 <!--
