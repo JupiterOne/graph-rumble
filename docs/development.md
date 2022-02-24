@@ -35,3 +35,14 @@ The process for generating an Account Key is as follows:
    template, create a new .env file
 5. Use your generated **Account API Key** in the **ACCOUNT_API_KEY** field in
    the .env file
+
+You'll need to generate an **Export Token** for each organization whose assets,
+services, and wireless data you want to include in the graph. The integration
+will automatically collect these tokens if they are present. Organizations
+without export tokens will not have assets, services, or wireless data ingested.
+
+1. Navigate to the [Rumble Console](https://console.rumble/run)
+2. In the navigation bar, go to `Organizations`
+3. Click on the organization in which you want to create an `Export Token`
+4. Press the **Generate Export Token** button.
+5. Repeat for all organizations whose data you want to ingest.
