@@ -27,28 +27,21 @@ const BASE_URI = 'https://console.rumble.run';
 export class APIClient {
   constructor(readonly options: APIClientOptions) {}
 
-  public async verifyAuthentication(): Promise<void> {
-    const uri = '/api/v1.0/account/orgs';
-    const endpoint = BASE_URI + uri;
-    const request = got.get(endpoint, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.options.config.accountAPIKey}`,
-      },
-    });
+  /**
+   * Since there are several calls made to /account/orgs
+   * it is worth caching the results
+   */
+  orgCache: { [key: string]: any } = {};
 
+  public async verifyAuthentication(): Promise<void> {
     try {
-      await request;
+      await this.getOrganizations();
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: endpoint,
-        status: err.response?.statusCode,
-        // if the response comes with a body like '{"error":"API Key Not Found"}'
-        // then we will append it to statusText for additional context in error message
-        statusText:
-          err.response?.statusMessage +
-          (err.response?.body ? `\nBody: ${err.response.body.trim()}` : ''),
+        endpoint: err.endpoint,
+        status: err.status,
+        statusText: err.statusText,
       });
     }
   }
@@ -58,12 +51,9 @@ export class APIClient {
    * @returns a Promise for a RumbleAccount
    */
   public async getAccount(): Promise<RumbleAccount> {
-    const uri = '/api/v1.0/account/orgs';
-    const endpoint = BASE_URI + uri;
-
     // We use the organizations endpoint to get client_id for the account
     // since there is not an account information endpoint
-    const organizations = await this.callApi({ url: endpoint });
+    const organizations = await this.getOrganizations();
 
     const acc: RumbleAccount = {
       // Every account is guaranteed at least one Organization
@@ -89,10 +79,7 @@ export class APIClient {
   public async iterateOrganizations(
     iteratee: ResourceIteratee<RumbleOrganization>,
   ): Promise<void> {
-    const uri = '/api/v1.0/account/orgs';
-    const endpoint = BASE_URI + uri;
-
-    const organizations = await this.callApi({ url: endpoint });
+    const organizations = await this.getOrganizations();
 
     for (const org of organizations) {
       await iteratee(org);
@@ -135,6 +122,40 @@ export class APIClient {
     for (const site of sites) {
       await iteratee(site);
     }
+  }
+
+  /**
+   * getExportTokens ingest export tokens from the /account/organizations endpoint
+   * @returns Promise<string[]> an array of export tokens
+   */
+  public async getExportTokens(): Promise<string[]> {
+    const organizations = await this.getOrganizations();
+    const tokens: string[] = [];
+    for (const org of organizations) {
+      // check if the token is empty string or null
+      if (!org.export_token) {
+        tokens.push(org.export_token);
+      } else {
+        this.options.logger.warn(
+          `An organization with name '${org.name}' and id '${org.id}' does not have export token. Asset, Services, and Wireless data for this organization won't be loaded. To generate an export token, follow the steps in jupiterone.md`,
+        );
+      }
+    }
+    return tokens;
+  }
+
+  private async getOrganizations(): Promise<RumbleOrganization[]> {
+    const uri = '/api/v1.0/account/orgs';
+    const endpoint = BASE_URI + uri;
+
+    if (endpoint in this.orgCache) {
+      return this.orgCache[endpoint];
+    }
+    const response = await this.callApi({ url: endpoint });
+
+    // if we succeeded cache the results
+    this.orgCache[endpoint] = response;
+    return this.orgCache[endpoint];
   }
 
   /**
