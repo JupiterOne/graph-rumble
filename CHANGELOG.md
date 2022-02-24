@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+[1.1.0] - 2022-02-24
+
 ### Added
 
 - Ingest site entities and site relationships
