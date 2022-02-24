@@ -10,10 +10,13 @@ export const Steps = {
   ORGANIZATION: 'fetch-organization',
   BUILD_USER_ORGANIZATION_RELATIONSHIPS:
     'build-user-organization-relationships',
+  SITES: 'fetch-sites',
+  BUILD_ORGANIZATION_SITE_RELATIONSHIPS:
+    'build-organization-site-relationships',
 };
 
 export const Entities: Record<
-  'ACCOUNT' | 'ORGANIZATION' | 'USER',
+  'ACCOUNT' | 'ORGANIZATION' | 'USER' | 'SITE',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -87,12 +90,36 @@ export const Entities: Record<
       required: [],
     },
   },
+  SITE: {
+    resourceName: 'Site',
+    _type: 'rumble_site',
+    _class: ['Site'],
+    schema: {
+      additionalProperties: true,
+      properties: {
+        _type: { const: 'rumble_site ' },
+        _key: { type: 'string' },
+        name: { type: 'string' },
+        displayName: { type: 'string' },
+        createdOn: { type: 'number' },
+        createdBy: { type: 'string' },
+        updatedOn: { type: 'number' },
+        updatedBy: { type: 'string' },
+        _rawData: {
+          type: 'array',
+          items: { type: 'object' },
+        },
+      },
+      required: ['_type', '_key', 'name', 'displayName'],
+    },
+  },
 };
 
 export const Relationships: Record<
   | 'ACCOUNT_HAS_USER'
   | 'ACCOUNT_HAS_ORGANIZATION'
-  | 'USER_ASSIGNED_ORGANIZATION',
+  | 'USER_ASSIGNED_ORGANIZATION'
+  | 'ORGANIZATION_HAS_SITE',
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
@@ -117,5 +144,11 @@ export const Relationships: Record<
         assignedRole: { type: 'string' },
       },
     },
+  },
+  ORGANIZATION_HAS_SITE: {
+    _type: 'rumble_organization_has_site',
+    sourceType: Entities.ORGANIZATION._type,
+    _class: RelationshipClass.HAS,
+    targetType: Entities.SITE._type,
   },
 };
