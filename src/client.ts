@@ -31,7 +31,7 @@ export class APIClient {
    * Since there are several calls made to /account/orgs
    * it is worth caching the results
    */
-  orgCache: { [key: string]: any } = {};
+  orgCache: { [key: string]: RumbleOrganization[] } = {};
 
   public async verifyAuthentication(): Promise<void> {
     try {

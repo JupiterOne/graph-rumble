@@ -29,7 +29,8 @@
   whose asset, services, and wireless data you want to include. To generate an
   **Export Token** you'll need:
 
-  -
+  - Admin access to the organization for which you want to generate an **Export
+    Token**
 
 - You must have permission in JupiterOne to install new integrations.
 
