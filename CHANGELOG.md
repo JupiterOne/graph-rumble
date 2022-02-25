@@ -10,7 +10,7 @@ and this project adheres to
 
 ### Removed
 
-- Subnet property from site to fix bug
+- Subnet property removed from `Site` entity to fix error when ingesting objects
 
 [1.1.0] - 2022-02-24
 
