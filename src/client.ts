@@ -133,7 +133,7 @@ export class APIClient {
     const tokens: string[] = [];
     for (const org of organizations) {
       // check if the token is empty string or null
-      if (!org.export_token) {
+      if (org.export_token) {
         tokens.push(org.export_token);
       } else {
         this.options.logger.warn(
