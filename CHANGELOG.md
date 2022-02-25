@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Removed
+
+- Subnet property from site to fix bug
+
 [1.1.0] - 2022-02-24
 
 ### Added
