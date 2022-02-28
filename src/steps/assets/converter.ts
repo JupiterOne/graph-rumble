@@ -7,8 +7,7 @@ import { RumbleAsset } from '../../types';
 import { Entities } from '../constants';
 
 export function createAssetEntity(asset: RumbleAsset): Entity {
-  const name =
-    asset.names && asset.names.length > 0 ? asset.names[0] : asset.id;
+  const name = selectNameForAsset(asset);
 
   return createIntegrationEntity({
     entityData: {
@@ -34,4 +33,14 @@ export function createAssetEntity(asset: RumbleAsset): Entity {
       },
     },
   });
+}
+
+function selectNameForAsset(asset: RumbleAsset) {
+  if (asset.names && asset.names.length > 0) {
+    return asset.names[0];
+  } else if (asset.hw) {
+    return asset.hw;
+  } else {
+    return asset.id;
+  }
 }
