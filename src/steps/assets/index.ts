@@ -58,7 +58,7 @@ export async function buildSiteAssetRelationships({
 export const assetSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: Steps.ASSETS,
-    name: 'Fetch Sites Details',
+    name: 'Fetch Asset Details',
     entities: [Entities.ASSET],
     relationships: [],
     dependsOn: [],
