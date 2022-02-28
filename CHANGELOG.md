@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+[1.1.1] - 2022-02-28
+
 ### Removed
 
 - Subnet property removed from `Site` entity to fix error when ingesting objects
