@@ -1,5 +1,4 @@
 import {
-  convertProperties,
   createIntegrationEntity,
   Entity,
   parseTimePropertyValue,
@@ -31,9 +30,6 @@ export function createSiteEntity(site: RumbleSite): Entity {
         serviceCountARP: site.service_count_arp,
         serviceCountICMP: site.service_count_icmp,
         assetCount: site.asset_count,
-        subnets: convertProperties(site.subnets, {
-          stringifyObject: true,
-        }),
         assetAddressCount: site.asset_address_count,
         lastTaskId: site.last_task_id ?? undefined,
         lastTaskAt: parseTimePropertyValue(site.last_task_at),
