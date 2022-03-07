@@ -6,6 +6,7 @@ import {
 import {
   APIClientOptions,
   RumbleAccount,
+  RumbleAsset,
   RumbleOrganization,
   RumbleSite,
   RumbleUser,
@@ -121,6 +122,36 @@ export class APIClient {
 
     for (const site of sites) {
       await iteratee(site);
+    }
+  }
+
+  /**
+   * iterateAssets gets all RumbleAssets for an organization from the /export/org/assets.json
+   * endpoint and then calls the iteratee for each site. This is repeated for each organization
+   * that has an export token.
+   * @param iteratee the function called for each sites
+   */
+  public async iterateAssets(
+    iteratee: ResourceIteratee<RumbleAsset>,
+  ): Promise<void> {
+    const uri = '/api/v1.0/export/org/assets.json';
+    const endpoint = BASE_URI + uri;
+
+    const tokens = await this.getExportTokens();
+
+    for (const token of tokens) {
+      // we override the authorization header with the
+      // export token for the organization
+      const assets = await this.callApi({
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        url: endpoint,
+      });
+      for (const asset of assets) {
+        await iteratee(asset);
+      }
     }
   }
 

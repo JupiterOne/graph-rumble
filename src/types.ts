@@ -91,6 +91,31 @@ export interface RumbleSite {
   last_task_duration: number;
 }
 
+export interface RumbleAsset {
+  id: string;
+  created_at: number;
+  updated_at: number;
+  organization_id: string;
+  site_id: string;
+  alive: boolean;
+  first_seen: number;
+  last_seen: number;
+  detected_by?: string;
+  type?: string;
+  os?: string;
+  os_vendor?: string;
+  os_product?: string;
+  os_version?: string;
+  hw?: string;
+  hw_vendor?: string;
+  hw_product?: string;
+  hw_version?: string;
+  addresses?: string[];
+  addresses_extra?: string[];
+  macs?: string[];
+  names?: string[];
+}
+
 export type APIClientOptions = {
   config: IntegrationConfig;
   name: string;

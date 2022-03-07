@@ -56,7 +56,4 @@ export async function validateInvocation(
   });
 
   await apiClient.verifyAuthentication();
-  // exportTokens is ingested from the API and needed to retrieve
-  // assets, services, and wireless entities for an organization
-  config.exportTokens = await apiClient.getExportTokens();
 }

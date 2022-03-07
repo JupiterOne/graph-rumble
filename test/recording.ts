@@ -40,7 +40,18 @@ function redact(entry): void {
           response[responseIndex][keyToRedact] = redactionValue;
         }
       });
+      if ('services' in responseValue) {
+        redactFromServices(responseValue.services);
+      }
     });
     entry.response.content.text = JSON.stringify(response);
+  }
+}
+
+function redactFromServices(services) {
+  for (const record in services) {
+    if ('http.body' in services[record]) {
+      services[record]['http.body'] = '<html><body>[[REDACTED]]</body></html>';
+    }
   }
 }

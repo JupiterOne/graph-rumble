@@ -114,6 +114,7 @@ The following entities are created:
 | Resources    | Entity `_type`        | Entity `_class` |
 | ------------ | --------------------- | --------------- |
 | Account      | `rumble_account`      | `Account`       |
+| Asset        | `rumble_asset`        | `Device`        |
 | Organization | `rumble_organization` | `Organization`  |
 | Site         | `rumble_site`         | `Site`          |
 | User         | `rumble_user`         | `User`          |
@@ -127,6 +128,7 @@ The following relationships are created:
 | `rumble_account`      | **HAS**               | `rumble_organization` |
 | `rumble_account`      | **HAS**               | `rumble_user`         |
 | `rumble_organization` | **HAS**               | `rumble_site`         |
+| `rumble_site`         | **HAS**               | `rumble_asset`        |
 | `rumble_user`         | **ASSIGNED**          | `rumble_organization` |
 
 <!--
