@@ -118,7 +118,7 @@ export const Entities: Record<
   ASSET: {
     resourceName: 'Asset',
     _type: 'rumble_asset',
-    _class: ['Record'],
+    _class: ['Device'],
     schema: {
       additionalProperties: true,
       properties: {

@@ -105,10 +105,11 @@ export interface RumbleAsset {
   os?: string;
   os_vendor?: string;
   os_product?: string;
-  os_version: string;
+  os_version?: string;
   hw?: string;
-  hw_vendor: string;
-  hw_product: string;
+  hw_vendor?: string;
+  hw_product?: string;
+  hw_version?: string;
   addresses?: string[];
   addresses_extra?: string[];
   macs?: string[];

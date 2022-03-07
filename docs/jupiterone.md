@@ -114,7 +114,7 @@ The following entities are created:
 | Resources    | Entity `_type`        | Entity `_class` |
 | ------------ | --------------------- | --------------- |
 | Account      | `rumble_account`      | `Account`       |
-| Asset        | `rumble_asset`        | `Record`        |
+| Asset        | `rumble_asset`        | `Device`        |
 | Organization | `rumble_organization` | `Organization`  |
 | Site         | `rumble_site`         | `Site`          |
 | User         | `rumble_user`         | `User`          |

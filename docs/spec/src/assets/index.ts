@@ -9,7 +9,7 @@ export const assetSpec: StepSpec<IntegrationConfig>[] = [
       {
         resourceName: 'Asset',
         _type: 'rumble_asset',
-        _class: ['Asset'],
+        _class: ['Device'],
       },
     ],
     relationships: [],
