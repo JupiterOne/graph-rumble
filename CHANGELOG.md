@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+[1.2.0] - 2022-03-07
+
+- Added `rumble_asset` type and `ASSETS` and `BUILD_SITE_ASSET_RELATIONSHIPS`
+  steps.
+
 [1.1.1] - 2022-02-28
 
 ### Removed
