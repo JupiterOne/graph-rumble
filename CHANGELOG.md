@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+[1.2.1]
+
+### Changed
+
+- The path `src/steps/assets` has been renamed to `src/steps/asset` to avoid
+  having the directory removed by common node_modules pruning scripts
+
 [1.2.0] - 2022-03-07
 
 - Added `rumble_asset` type and `ASSETS` and `BUILD_SITE_ASSET_RELATIONSHIPS`
