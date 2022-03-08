@@ -1,5 +1,5 @@
 import { accountSteps } from './account';
-import { assetSteps } from './assets';
+import { assetSteps } from './asset';
 import { organizationsSteps } from './organizations';
 import { siteSteps } from './sites';
 import { userSteps } from './users';
