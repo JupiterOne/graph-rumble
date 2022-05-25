@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+[1.2.2] - 2022-05-25
+
+### Added
+
+- Added managed question to find last activity of users
+
 [1.2.1] - 2022-03-08
 
 ### Changed
