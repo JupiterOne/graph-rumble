@@ -743,10 +743,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jupiterone/data-model@^0.45.0":
-  version "0.45.0"
-  resolved "https://registry.yarnpkg.com/@jupiterone/data-model/-/data-model-0.45.0.tgz#429ee0dd3a709e7c3c8ad75098d544c4bb633ca6"
-  integrity sha512-zLZaHCTNuG3Ceevwi7pgBsauLkPfC/eFmMCSHhIbDtaVDceLN1vctmE0IX1CyLx7UaRoXHjBYzUg11qivZNAmA==
+"@jupiterone/data-model@^0.50.0":
+  version "0.50.0"
+  resolved "https://registry.yarnpkg.com/@jupiterone/data-model/-/data-model-0.50.0.tgz#a3fb8e84867fc74dc1c656d38c4a6bcd6255ef5e"
+  integrity sha512-G/6+m93PUbZe9hV8Vf6cIyw/m9de4u2rCeQrlReI71STuYkHh8uNmz4R8NDFcGFQOCOewQXW79f7MlCpwQaNJQ==
   dependencies:
     ajv "^8.0.0"
     ajv-formats "^2.0.0"
@@ -771,11 +771,11 @@
     vis "^4.21.0-EOL"
 
 "@jupiterone/integration-sdk-core@^8.5.0":
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-core/-/integration-sdk-core-8.5.0.tgz#e9e7465a66fb8da479759a08c4e0659a1a6e8cfa"
-  integrity sha512-rQKt6zBPkvhXYffiZYX0U+Q//YgsRCJ/P2LicS51ofgQbL9uC1GkytnYaZfkVL0pjrf4galy6wZW6FbHVJ4WbA==
+  version "8.16.0"
+  resolved "https://registry.yarnpkg.com/@jupiterone/integration-sdk-core/-/integration-sdk-core-8.16.0.tgz#c580ccc71b28e5dabfa789e11704d28daa7e34a9"
+  integrity sha512-krrJAhhw7bFu9Vz3Tg2SrrVbkc9ttO1Rp1dqWBmr9o3oe0pUlHgTiGAEVcMhig3Bi6IIquUL63UaWOE/AGr7CQ==
   dependencies:
-    "@jupiterone/data-model" "^0.45.0"
+    "@jupiterone/data-model" "^0.50.0"
     lodash "^4.17.21"
     uuid "^8.3.2"
 
