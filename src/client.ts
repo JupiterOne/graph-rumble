@@ -12,6 +12,7 @@ import {
   RumbleUser,
 } from './types';
 import got, { OptionsOfTextResponseBody } from 'got';
+import split from 'split';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -152,6 +153,30 @@ export class APIClient {
       for (const asset of assets) {
         await iteratee(asset);
       }
+    }
+  }
+
+  /**
+   * iterateServices
+   */
+  public async iterateServices(iteratee: ResourceIteratee<any>): Promise<void> {
+    const url = BASE_URI + '/api/v1.0/export/services.json';
+    const endpoint = BASE_URI + url;
+
+    const tokens = await this.getExportTokens();
+    for (const token of tokens) {
+      const assets = await got
+        .stream({
+          url: endpoint,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Accept-Encoding': 'gzip, deflate',
+          },
+        })
+        .pipe(split())
+        .on('data', async (chunk) => {
+          await iteratee(JSON.parse(chunk));
+        });
     }
   }
 
