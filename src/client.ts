@@ -165,7 +165,7 @@ export class APIClient {
 
     const tokens = await this.getExportTokens();
     for (const token of tokens) {
-      const assets = await got
+      await got
         .stream({
           url: endpoint,
           headers: {

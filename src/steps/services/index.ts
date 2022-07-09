@@ -29,7 +29,7 @@ async function fetchServices({
     config: instance.config,
   });
 
-  await client.iterateServices(async (service) => {
+  await client.iterateServices((service) => {
     console.log('service', service);
   });
 }
