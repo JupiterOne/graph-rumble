@@ -5,6 +5,7 @@ import {
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { Steps } from '../constants';
+import { createServiceEntity } from './converter';
 
 export const servicesStep: IntegrationStep<IntegrationConfig>[] = [
   {
@@ -25,11 +26,11 @@ async function fetchServices({
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const client = createAPIClient({
     logger,
-    name: 'test',
+    name: instance.name,
     config: instance.config,
   });
 
-  await client.iterateServices((service) => {
-    console.log('service', service);
+  await client.iterateServices(async (service) => {
+    await jobState.addEntity(createServiceEntity(service));
   });
 }
