@@ -137,33 +137,7 @@ export class APIClient {
   public async iterateAssets(
     iteratee: ResourceIteratee<RumbleAsset>,
   ): Promise<void> {
-    const uri = '/api/v1.0/export/org/assets.json';
-    const endpoint = BASE_URI + uri;
-
-    const tokens = await this.getExportTokens();
-
-    for (const token of tokens) {
-      // we override the authorization header with the
-      // export token for the organization
-      const assets = await this.callApi({
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        url: endpoint,
-      });
-      for (const asset of assets) {
-        await iteratee(asset);
-      }
-    }
-  }
-
-  /**
-   * iterateServices
-   */
-  public async iterateServices(iteratee: ResourceIteratee<any>): Promise<void> {
-    const url = BASE_URI + '/api/v1.0/export/services.jsonl';
-    const endpoint = BASE_URI + url;
+    const endpoint = BASE_URI + '/api/v1.0/export/org/assets.jsonl';
 
     const tokens = await this.getExportTokens();
     for (const token of tokens) {
@@ -177,7 +151,50 @@ export class APIClient {
       const promisedPipeline = promisify(pipeline);
       const pipe = promisedPipeline(request, jsonlParser);
       try {
-        for await (const { key, value } of jsonlParser) {
+        for await (const { value } of jsonlParser) {
+          await iteratee(value);
+        }
+      } catch (err) {
+        if (err instanceof HTTPError) {
+          throw new IntegrationProviderAPIError({
+            cause: err,
+            status: err.response.statusCode,
+            statusText: err.response.statusMessage as string,
+            endpoint: endpoint,
+          });
+        } else {
+          throw err;
+        }
+      }
+
+      // This doesn't seem to prevent an unhandled rejection
+      try {
+        await pipe;
+      } catch (err) {
+        console.log('Error in pipe', err);
+      }
+    }
+  }
+
+  /**
+   * iterateServices
+   */
+  public async iterateServices(iteratee: ResourceIteratee<any>): Promise<void> {
+    const endpoint = BASE_URI + '/api/v1.0/export/org/services.jsonl';
+
+    const tokens = await this.getExportTokens();
+    for (const token of tokens) {
+      const request = got.stream(endpoint, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+        },
+      });
+      const jsonlParser = parser();
+      const promisedPipeline = promisify(pipeline);
+      const pipe = promisedPipeline(request, jsonlParser);
+      try {
+        for await (const { value } of jsonlParser) {
           await iteratee(value);
         }
       } catch (err) {
