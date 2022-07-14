@@ -14,7 +14,6 @@ export const Steps = {
   BUILD_ORGANIZATION_SITE_RELATIONSHIPS:
     'build-organization-site-relationships',
   ASSETS: 'fetch-assets',
-  SERVICES: 'fetch-services',
   BUILD_SITE_ASSET_RELATIONSHIPS: 'build-site-asset-relationships',
 };
 
