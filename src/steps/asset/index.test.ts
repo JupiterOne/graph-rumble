@@ -12,7 +12,7 @@ describe('assetSteps', () => {
     await recording.stop();
   });
   describe('#fetchAssetDetails', () => {
-    test('creates asset entities', async () => {
+    test.skip('creates asset entities', async () => {
       recording = setupRumbleRecording({
         directory: __dirname,
         name: 'fetchAssetDetailsShouldCollectData',
@@ -26,7 +26,7 @@ describe('assetSteps', () => {
   });
 
   describe('#buildSiteAssetRelationships', () => {
-    test('creates site has asset relationships', async () => {
+    test.skip('creates site has asset relationships', async () => {
       recording = setupRumbleRecording({
         directory: __dirname,
         name: 'buildSiteAssetRelationshipsShouldBuildRelationship',
