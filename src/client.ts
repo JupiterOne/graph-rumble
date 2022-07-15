@@ -15,6 +15,7 @@ import got, { HTTPError, OptionsOfTextResponseBody } from 'got';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
 import { parser } from 'stream-json/jsonl/Parser';
+import { createMockIntegrationLogger } from '@jupiterone/integration-sdk-testing';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -165,13 +166,14 @@ export class APIClient {
         } else {
           throw err;
         }
-      }
-
-      // This doesn't seem to prevent an unhandled rejection
-      try {
-        await pipe;
-      } catch (err) {
-        console.log('Error in pipe', err);
+      } finally {
+        // we need to do finally to ensure the pipe is awaited
+        // and the error in the pipe can be handled
+        try {
+          await pipe;
+        } catch (err) {
+          this.options.logger.error('Error in pipe');
+        }
       }
     }
   }
