@@ -15,7 +15,6 @@ import got, { HTTPError, OptionsOfTextResponseBody } from 'got';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
 import { parser } from 'stream-json/jsonl/Parser';
-import { createMockIntegrationLogger } from '@jupiterone/integration-sdk-testing';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -174,49 +173,6 @@ export class APIClient {
         } catch (err) {
           this.options.logger.error('Error in pipe');
         }
-      }
-    }
-  }
-
-  /**
-   * iterateServices
-   */
-  public async iterateServices(iteratee: ResourceIteratee<any>): Promise<void> {
-    const endpoint = BASE_URI + '/api/v1.0/export/org/services.jsonl';
-
-    const tokens = await this.getExportTokens();
-    for (const token of tokens) {
-      const request = got.stream(endpoint, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-        },
-      });
-      const jsonlParser = parser();
-      const promisedPipeline = promisify(pipeline);
-      const pipe = promisedPipeline(request, jsonlParser);
-      try {
-        for await (const { value } of jsonlParser) {
-          await iteratee(value);
-        }
-      } catch (err) {
-        if (err instanceof HTTPError) {
-          throw new IntegrationProviderAPIError({
-            cause: err,
-            status: err.response.statusCode,
-            statusText: err.response.statusMessage as string,
-            endpoint: endpoint,
-          });
-        } else {
-          throw err;
-        }
-      }
-
-      // This doesn't seem to prevent an unhandled rejection
-      try {
-        await pipe;
-      } catch (err) {
-        console.log('Error in pipe', err);
       }
     }
   }
