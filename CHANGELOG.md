@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Assets step now uses streams to handle response
+
 [1.2.2] - 2022-05-25
 
 Adding new managed question
