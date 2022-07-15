@@ -11,7 +11,10 @@ import {
   RumbleSite,
   RumbleUser,
 } from './types';
-import got, { OptionsOfTextResponseBody } from 'got';
+import got, { HTTPError, OptionsOfTextResponseBody } from 'got';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
+import { parser } from 'stream-json/jsonl/Parser';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -134,23 +137,42 @@ export class APIClient {
   public async iterateAssets(
     iteratee: ResourceIteratee<RumbleAsset>,
   ): Promise<void> {
-    const uri = '/api/v1.0/export/org/assets.json';
-    const endpoint = BASE_URI + uri;
+    const endpoint = BASE_URI + '/api/v1.0/export/org/assets.jsonl';
 
     const tokens = await this.getExportTokens();
-
     for (const token of tokens) {
-      // we override the authorization header with the
-      // export token for the organization
-      const assets = await this.callApi({
+      const request = got.stream(endpoint, {
         headers: {
-          Accept: 'application/json',
           Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
         },
-        url: endpoint,
       });
-      for (const asset of assets) {
-        await iteratee(asset);
+      const jsonlParser = parser();
+      const promisedPipeline = promisify(pipeline);
+      const pipe = promisedPipeline(request, jsonlParser);
+      try {
+        for await (const { value } of jsonlParser) {
+          await iteratee(value);
+        }
+      } catch (err) {
+        if (err instanceof HTTPError) {
+          throw new IntegrationProviderAPIError({
+            cause: err,
+            status: err.response.statusCode,
+            statusText: err.response.statusMessage as string,
+            endpoint: endpoint,
+          });
+        } else {
+          throw err;
+        }
+      } finally {
+        // we need to do finally to ensure the pipe is awaited
+        // and the error in the pipe can be handled
+        try {
+          await pipe;
+        } catch (err) {
+          this.options.logger.error('Error in pipe');
+        }
       }
     }
   }
