@@ -3,12 +3,12 @@ import {
   createMockIntegrationLogger,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { integrationConfig } from '../test/config';
+import { apiKeyIntegrationConfig } from '../test/config';
 import { setupRumbleRecording } from '../test/recording';
 import { createAPIClient } from './client';
 import { IntegrationConfig } from './config';
 
-describe('apiClient', () => {
+describe('apiClient - API Key', () => {
   let recording: Recording;
   afterEach(async () => {
     await recording.stop();
@@ -22,7 +22,7 @@ describe('apiClient', () => {
       });
 
       const executionContext = createMockExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig,
+        instanceConfig: apiKeyIntegrationConfig,
       });
 
       const apiClient = createAPIClient({
@@ -41,7 +41,7 @@ describe('apiClient', () => {
       });
 
       const executionContext = createMockExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig,
+        instanceConfig: apiKeyIntegrationConfig,
       });
 
       const mockLogger = createMockIntegrationLogger();

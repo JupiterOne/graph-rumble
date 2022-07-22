@@ -6,11 +6,11 @@ import {
   createMockExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { integrationConfig } from '../test/config';
+import { apiKeyIntegrationConfig } from '../test/config';
 import { setupRumbleRecording } from '../test/recording';
 import { IntegrationConfig, validateInvocation } from './config';
 
-describe('configTest', () => {
+describe('configTest - API Key', () => {
   let recording: Recording;
 
   afterEach(async () => {
@@ -36,7 +36,7 @@ describe('configTest', () => {
     });
 
     const executionContext = createMockExecutionContext({
-      instanceConfig: integrationConfig,
+      instanceConfig: apiKeyIntegrationConfig,
     });
 
     await expect(validateInvocation(executionContext)).resolves.toBe(undefined);

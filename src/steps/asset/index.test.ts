@@ -2,11 +2,11 @@ import {
   executeStepWithDependencies,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { buildStepTestConfigForStep } from '../../../test/config';
+import { buildStepTestConfigForAPIKey } from '../../../test/config';
 import { setupRumbleRecording } from '../../../test/recording';
 import { Steps } from '../constants';
 
-describe('assetSteps', () => {
+describe('assetSteps - API Key', () => {
   let recording: Recording;
   afterEach(async () => {
     await recording.stop();
@@ -18,7 +18,7 @@ describe('assetSteps', () => {
         name: 'fetchAssetDetailsShouldCollectData',
       });
 
-      const stepConfig = buildStepTestConfigForStep(Steps.ASSETS);
+      const stepConfig = buildStepTestConfigForAPIKey(Steps.ASSETS);
       const stepResult = await executeStepWithDependencies(stepConfig);
 
       expect(stepResult).toMatchStepMetadata(stepConfig);
@@ -32,7 +32,7 @@ describe('assetSteps', () => {
         name: 'buildSiteAssetRelationshipsShouldBuildRelationship',
       });
 
-      const stepConfig = buildStepTestConfigForStep(
+      const stepConfig = buildStepTestConfigForAPIKey(
         Steps.BUILD_SITE_ASSET_RELATIONSHIPS,
       );
       const stepResult = await executeStepWithDependencies(stepConfig);

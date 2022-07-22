@@ -1,14 +1,14 @@
-import { buildStepTestConfigForStep } from '../../../test/config';
+import { buildStepTestConfigForAPIKey } from '../../../test/config';
 import { createStepCollectionTest } from '../../../test/recording';
 import { Steps } from '../constants';
 
-describe('#fetchOrganizationsDetails', () => {
+describe('#fetchOrganizationsDetails - API Key', () => {
   test(
     'should create organization entities and organization account relationships',
     createStepCollectionTest({
       directoryName: __dirname,
       recordingName: 'fetchOrganizationsDetailsShouldCollectData',
-      stepConfig: buildStepTestConfigForStep(Steps.ORGANIZATION),
+      stepConfig: buildStepTestConfigForAPIKey(Steps.ORGANIZATION),
     }),
   );
 });
