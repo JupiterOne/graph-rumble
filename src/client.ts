@@ -141,6 +141,7 @@ export class APIClient {
 
     const tokens = await this.getExportTokens();
     for (const token of tokens) {
+      this.options.logger.info('Fetching assets from export...');
       const request = got.stream(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -171,7 +172,7 @@ export class APIClient {
         try {
           await pipe;
         } catch (err) {
-          this.options.logger.error('Error in pipe');
+          this.options.logger.error({ err }, 'Error in pipe');
         }
       }
     }
