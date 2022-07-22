@@ -8,6 +8,7 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Updated logs for fetching assets
 - Assets step now uses streams to handle response
 
 [1.2.2] - 2022-05-25
