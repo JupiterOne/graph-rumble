@@ -1,45 +1,28 @@
-import {
-  executeStepWithDependencies,
-  Recording,
-} from '@jupiterone/integration-sdk-testing';
 import { buildStepTestConfigForStep } from '../../../test/config';
-import { setupRumbleRecording } from '../../../test/recording';
+import { createStepCollectionTest } from '../../../test/recording';
 import { Steps } from '../constants';
 
 describe('siteSteps', () => {
-  let recording: Recording;
-
-  afterEach(async () => {
-    await recording.stop();
-  });
-
   describe('#fetchSiteDetails', () => {
-    test('creates site entities', async () => {
-      recording = setupRumbleRecording({
-        directory: __dirname,
-        name: 'fetchSiteDetailsShouldCollectData',
-      });
+    test(
+      'creates site entities',
+      createStepCollectionTest({
+        directoryName: __dirname,
+        recordingName: 'fetchSiteDetailsShouldCollectData',
+        stepConfig: buildStepTestConfigForStep(Steps.SITES),
+      }),
+    );
 
-      const stepConfig = buildStepTestConfigForStep(Steps.SITES);
-      const stepResult = await executeStepWithDependencies(stepConfig);
-
-      expect(stepResult).toMatchStepMetadata(stepConfig);
-    });
-  });
-
-  describe('#buildOrganizationSiteRelationship', () => {
-    test('creates organization has site relationships', async () => {
-      recording = setupRumbleRecording({
-        directory: __dirname,
-        name: 'buildOrganizationSiteRelationshipsShouldBuildRelationship',
-      });
-
-      const stepConfig = buildStepTestConfigForStep(
-        Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS,
+    describe('#buildOrganizationSiteRelationship', () => {
+      test(
+        'creates organization has site relationships',
+        createStepCollectionTest({
+          directoryName: __dirname,
+          recordingName:
+            'buildOrganizationSiteRelationshipsShouldBuildRelationship',
+          stepConfig: buildStepTestConfigForStep(Steps.SITES),
+        }),
       );
-      const stepResult = await executeStepWithDependencies(stepConfig);
-
-      expect(stepResult).toMatchStepMetadata(stepConfig);
     });
   });
 });

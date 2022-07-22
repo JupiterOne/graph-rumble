@@ -105,7 +105,6 @@ type AfterStepCollectionExecutionParams = {
 };
 
 type CreateStepCollectionTestParams = WithRecordingParams & {
-  stepId: string;
   stepConfig: StepTestConfig;
   afterExecute?: (params: AfterStepCollectionExecutionParams) => Promise<void>;
 };
