@@ -149,11 +149,13 @@ export class APIClient {
       });
       const jsonlParser = parser();
       const promisedPipeline = promisify(pipeline);
-      const pipe = promisedPipeline(request, jsonlParser);
+
       try {
-        for await (const { value } of jsonlParser) {
-          await iteratee(value);
-        }
+        await promisedPipeline(request, jsonlParser, async (iterable) => {
+          for await (const el of iterable) {
+            await iteratee((el as any).value);
+          }
+        });
       } catch (err) {
         if (err instanceof HTTPError) {
           throw new IntegrationProviderAPIError({
@@ -164,14 +166,6 @@ export class APIClient {
           });
         } else {
           throw err;
-        }
-      } finally {
-        // we need to do finally to ensure the pipe is awaited
-        // and the error in the pipe can be handled
-        try {
-          await pipe;
-        } catch (err) {
-          this.options.logger.error('Error in pipe');
         }
       }
     }
