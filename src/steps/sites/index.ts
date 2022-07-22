@@ -18,8 +18,8 @@ export async function fetchSitesDetails({
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient({
+    instance,
     logger: logger,
-    config: instance.config,
     name: instance.name,
   });
 

@@ -19,7 +19,7 @@ export async function fetchUserDetails({
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient({
-    config: instance.config,
+    instance,
     name: instance.name,
     logger: logger,
   });
@@ -37,6 +37,7 @@ export async function fetchUserDetails({
     );
   });
 }
+
 export async function buildUserOrganizationRelationships({
   jobState,
   logger,

@@ -15,6 +15,7 @@ const DEFAULT_ACCOUNT_API_KEY = 'dummy-rumble-account-api-key';
 
 export const integrationConfig: IntegrationConfig = {
   accountAPIKey: process.env.ACCOUNT_API_KEY || DEFAULT_ACCOUNT_API_KEY,
+  exportTokens: '',
 };
 
 export function buildStepTestConfigForStep(stepId: string): StepTestConfig {

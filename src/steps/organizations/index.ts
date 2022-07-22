@@ -19,7 +19,7 @@ export async function fetchOrganizationDetails({
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient({
-    config: instance.config,
+    instance,
     name: instance.name,
     logger: logger,
   });

@@ -26,7 +26,7 @@ describe('apiClient', () => {
       });
 
       const apiClient = createAPIClient({
-        config: executionContext.instance.config,
+        instance: executionContext.instance,
         logger: executionContext.logger,
         name: executionContext.instance.name,
       });
@@ -48,7 +48,7 @@ describe('apiClient', () => {
       mockLogger.warn = jest.fn();
 
       const apiClient = createAPIClient({
-        config: executionContext.instance.config,
+        instance: executionContext.instance,
         logger: mockLogger,
         name: executionContext.instance.name,
       });

@@ -24,6 +24,10 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
     type: 'string',
     mask: true,
   },
+  exportTokens: {
+    type: 'string',
+    mask: true,
+  },
 };
 
 /**
@@ -35,6 +39,12 @@ export interface IntegrationConfig extends IntegrationInstanceConfig {
    * The Rumble Account API Key used to authenticate requests.
    */
   accountAPIKey: string;
+
+  /**
+   * Comma-separated list of export tokens to use
+   * the export API.
+   */
+  exportTokens: string;
 }
 
 export async function validateInvocation(
@@ -50,7 +60,7 @@ export async function validateInvocation(
   }
 
   const apiClient = createAPIClient({
-    config: config,
+    instance: context.instance,
     name: name,
     logger: logger,
   });

@@ -15,6 +15,7 @@ import got, { HTTPError, OptionsOfTextResponseBody } from 'got';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
 import { parser } from 'stream-json/jsonl/Parser';
+import { splitExportTokens } from './util';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -29,7 +30,22 @@ const BASE_URI = 'https://console.rumble.run';
  * resources.
  */
 export class APIClient {
-  constructor(readonly options: APIClientOptions) {}
+  private accountApiKey: string;
+  // comma separated list of export tokens
+  private exportTokens: string[];
+  private useExportTokens: boolean;
+
+  constructor(readonly options: APIClientOptions) {
+    if (options.instance.config.exportTokens) {
+      this.exportTokens = splitExportTokens(
+        options.instance.config.exportTokens,
+      );
+      this.useExportTokens = true;
+    } else {
+      this.accountApiKey = options.instance.config.apiKey;
+      this.useExportTokens = false;
+    }
+  }
 
   /**
    * Since there are several calls made to /account/orgs
@@ -39,7 +55,11 @@ export class APIClient {
 
   public async verifyAuthentication(): Promise<void> {
     try {
-      await this.getOrganizations();
+      if (this.useExportTokens) {
+        await this.verifyExportTokens();
+      } else {
+        await this.getOrganizations();
+      }
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
@@ -50,11 +70,26 @@ export class APIClient {
     }
   }
 
+  private async verifyExportTokens() {
+    // TODO: decide how to verify tokens
+  }
+
   /**
    * getAccount gets account info from the Rumble API by making a call to /account/orgs
    * @returns a Promise for a RumbleAccount
    */
   public async getAccount(): Promise<RumbleAccount> {
+    // if the integration is configured to use export tokens
+    // instead of the Account API Key, we'll use the instance id
+    // for the account entity id
+    if (this.useExportTokens) {
+      const acc: RumbleAccount = {
+        id: this.options.instance.id,
+        name: this.options.name,
+      };
+      return acc;
+    }
+
     // We use the organizations endpoint to get client_id for the account
     // since there is not an account information endpoint
     const organizations = await this.getOrganizations();
@@ -119,12 +154,29 @@ export class APIClient {
   public async iterateSites(
     iteratee: ResourceIteratee<RumbleSite>,
   ): Promise<void> {
-    const uri = '/api/v1.0/account/sites';
-    const endpoint = BASE_URI + uri;
-    const sites = await this.callApi({ url: endpoint });
+    if (this.useExportTokens) {
+      const uri = '/export/org/assets.json';
+      const endpoint = BASE_URI + uri;
+      const tokens = await this.getExportTokens();
+      for (const token of tokens) {
+        const site = await this.callApi({
+          url: endpoint,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        });
 
-    for (const site of sites) {
-      await iteratee(site);
+        await iteratee(site);
+      }
+    } else {
+      const uri = '/api/v1.0/account/sites';
+      const endpoint = BASE_URI + uri;
+      const sites = await this.callApi({ url: endpoint });
+
+      for (const site of sites) {
+        await iteratee(site);
+      }
     }
   }
 
@@ -183,6 +235,10 @@ export class APIClient {
    * @returns Promise<string[]> an array of export tokens
    */
   public async getExportTokens(): Promise<string[]> {
+    if (this.useExportTokens) {
+      return this.exportTokens;
+    }
+
     const organizations = await this.getOrganizations();
     const tokens: string[] = [];
     for (const org of organizations) {
@@ -229,7 +285,7 @@ export class APIClient {
       // and this will be overwritten
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer ${this.options.config.accountAPIKey}`,
+        Authorization: `Bearer ${this.accountApiKey})`,
       },
       ...callApiOptions,
     });

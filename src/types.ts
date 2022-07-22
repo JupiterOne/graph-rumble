@@ -1,6 +1,9 @@
 // Providers often supply types with their API libraries.
 
-import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationInstance,
+  IntegrationLogger,
+} from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
 
 export interface RumbleAccount {
@@ -117,7 +120,7 @@ export interface RumbleAsset {
 }
 
 export type APIClientOptions = {
-  config: IntegrationConfig;
+  instance: IntegrationInstance<IntegrationConfig>;
   name: string;
   logger: IntegrationLogger;
 };
