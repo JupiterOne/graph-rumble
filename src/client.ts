@@ -42,7 +42,7 @@ export class APIClient {
       );
       this.useExportTokens = true;
     } else {
-      this.accountApiKey = options.instance.config.apiKey;
+      this.accountApiKey = options.instance.config.accountAPIKey;
       this.useExportTokens = false;
     }
   }
