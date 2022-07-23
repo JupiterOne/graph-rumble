@@ -30,6 +30,38 @@ export function setupRumbleRecording(
   });
 }
 
+function redactFromJSONL(entry): void {
+  mutations.unzipGzippedRecordingEntry(entry);
+  const DEFAULT_REDACT = '[REDACTED]';
+  const keysToRedactMap = new Map();
+  keysToRedactMap.set('export_token', DEFAULT_REDACT);
+  keysToRedactMap.set('download_token', DEFAULT_REDACT);
+  keysToRedactMap.set('export_token_last_used_by', DEFAULT_REDACT);
+  keysToRedactMap.set('first_name', DEFAULT_REDACT);
+  keysToRedactMap.set('last_name', DEFAULT_REDACT);
+  // email needs to fit the email format
+  keysToRedactMap.set('email', 'first.last@example.com');
+  keysToRedactMap.set('last_login_ip', DEFAULT_REDACT);
+  keysToRedactMap.set('last_task_by', 'first.last@example.com');
+  const jsonItems = entry.response.content.text.split('\n');
+  let redactedResponse = '';
+  for (const jsonItem of jsonItems) {
+    const jsonObject = JSON.parse(jsonItem);
+
+    if (jsonObject.forEach) {
+      jsonObject.forEach((jsonValue, jsonIndex) => {
+        keysToRedactMap.forEach((redactionValue, keyToRedact) => {
+          if (jsonValue[keyToRedact]) {
+            jsonObject[jsonIndex][keyToRedact] = redactionValue;
+          }
+        });
+      });
+    }
+    redactedResponse += JSON.stringify(jsonObject) + '\n';
+  }
+  entry.response.content.text = redactedResponse;
+}
+
 function redact(entry): void {
   mutations.unzipGzippedRecordingEntry(entry);
   const DEFAULT_REDACT = '[REDACTED]';
