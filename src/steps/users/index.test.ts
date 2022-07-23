@@ -1,5 +1,8 @@
 import { buildStepTestConfigForAPIKey } from '../../../test/config';
-import { createStepCollectionTest } from '../../../test/recording';
+import {
+  createStepCollectionTest,
+  rumbleRecordingOptions,
+} from '../../../test/recording';
 import { Steps } from '../constants';
 
 describe('userSteps - API Key', () => {
@@ -7,8 +10,11 @@ describe('userSteps - API Key', () => {
     test(
       'should create user entities and account user relationships',
       createStepCollectionTest({
-        directoryName: __dirname,
-        recordingName: 'fetchUserDetailsShouldCollectData',
+        recordingSetup: {
+          directory: __dirname,
+          name: 'fetchUserDetailsShouldCollectData',
+          ...rumbleRecordingOptions,
+        },
         stepConfig: buildStepTestConfigForAPIKey(Steps.USERS),
       }),
     );
@@ -18,9 +24,14 @@ describe('userSteps - API Key', () => {
     test(
       'should establish relationship with organization entities',
       createStepCollectionTest({
-        directoryName: __dirname,
-        recordingName: 'buildUserOrganizationRelationshipsShouldCollectData',
-        stepConfig: buildStepTestConfigForAPIKey(Steps.USERS),
+        recordingSetup: {
+          directory: __dirname,
+          name: 'buildUserOrganizationRelationshipsShouldCollectData',
+          ...rumbleRecordingOptions,
+        },
+        stepConfig: buildStepTestConfigForAPIKey(
+          Steps.BUILD_USER_ORGANIZATION_RELATIONSHIPS,
+        ),
       }),
     );
   });

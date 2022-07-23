@@ -15,6 +15,10 @@ import {
 
 export { Recording };
 
+export const rumbleRecordingOptions: Partial<SetupRecordingInput> = {
+  mutateEntry: (entry) => redact(entry),
+};
+
 export function setupRumbleRecording(
   input: Omit<SetupRecordingInput, 'mutateEntry'>,
 ): Recording {
@@ -64,23 +68,13 @@ function redactFromServices(services) {
   }
 }
 
-type WithRecordingParams = {
-  recordingName: string;
-  directoryName: string;
-  recordingSetupOptions?: SetupRecordingInput['options'];
-};
+export type WithRecordingParams = SetupRecordingInput;
 
 export async function withRecording(
-  { recordingName, directoryName, recordingSetupOptions }: WithRecordingParams,
+  withRecordingParams: WithRecordingParams,
   cb: () => Promise<void>,
 ) {
-  const recording = setupRumbleRecording({
-    directory: directoryName,
-    name: recordingName,
-    options: {
-      ...(recordingSetupOptions || {}),
-    },
-  });
+  const recording = setupRecording(withRecordingParams);
 
   try {
     await cb();
@@ -104,64 +98,24 @@ type AfterStepCollectionExecutionParams = {
   };
 };
 
-type CreateStepCollectionTestParams = WithRecordingParams & {
+type CreateStepCollectionTestParams = {
+  recordingSetup: WithRecordingParams;
   stepConfig: StepTestConfig;
   afterExecute?: (params: AfterStepCollectionExecutionParams) => Promise<void>;
 };
 
-function isMappedRelationship(r: Relationship): boolean {
-  return !!r._mapping;
-}
-
-function filterDirectRelationships(
-  relationships: Relationship[],
-): Relationship[] {
-  return relationships.filter((r) => !isMappedRelationship(r));
-}
-
 export function createStepCollectionTest({
-  recordingName,
-  directoryName,
-  recordingSetupOptions,
+  recordingSetup,
   stepConfig,
   afterExecute,
 }: CreateStepCollectionTestParams) {
   return async () => {
-    await withRecording(
-      {
-        directoryName,
-        recordingName,
-        recordingSetupOptions,
-      },
-      async () => {
-        const stepResult = await executeStepWithDependencies(stepConfig);
+    await withRecording(recordingSetup, async () => {
+      const stepResult = await executeStepWithDependencies(stepConfig);
 
-        expect({
-          ...stepResult,
-          // HACK (austinkelleher): `@jupiterone/integration-sdk-testing`
-          // does not currently support `toMatchStepMetadata` with mapped
-          // relationships, which is causing tests to fail. We will add
-          // support soon and remove this hack.
-          collectedRelationships: filterDirectRelationships(
-            stepResult.collectedRelationships,
-          ),
-        }).toMatchStepMetadata({
-          ...stepConfig,
-          invocationConfig: {
-            ...stepConfig.invocationConfig,
-            integrationSteps: stepConfig.invocationConfig.integrationSteps.map(
-              (s) => {
-                return {
-                  ...s,
-                  mappedRelationships: [],
-                };
-              },
-            ),
-          },
-        });
+      expect(stepResult).toMatchStepMetadata(stepConfig);
 
-        if (afterExecute) await afterExecute({ stepResult, stepConfig });
-      },
-    );
+      if (afterExecute) await afterExecute({ stepResult, stepConfig });
+    });
   };
 }

@@ -1,5 +1,8 @@
 import { buildStepTestConfigForAPIKey } from '../../../test/config';
-import { createStepCollectionTest } from '../../../test/recording';
+import {
+  createStepCollectionTest,
+  rumbleRecordingOptions,
+} from '../../../test/recording';
 import { Steps } from '../constants';
 
 describe('siteSteps - API Key', () => {
@@ -7,8 +10,11 @@ describe('siteSteps - API Key', () => {
     test(
       'creates site entities',
       createStepCollectionTest({
-        directoryName: __dirname,
-        recordingName: 'fetchSiteDetailsShouldCollectData',
+        recordingSetup: {
+          directory: __dirname,
+          name: 'fetchSiteDetailsShouldCollectData',
+          ...rumbleRecordingOptions,
+        },
         stepConfig: buildStepTestConfigForAPIKey(Steps.SITES),
       }),
     );
@@ -17,10 +23,14 @@ describe('siteSteps - API Key', () => {
       test(
         'creates organization has site relationships',
         createStepCollectionTest({
-          directoryName: __dirname,
-          recordingName:
-            'buildOrganizationSiteRelationshipsShouldBuildRelationship',
-          stepConfig: buildStepTestConfigForAPIKey(Steps.SITES),
+          recordingSetup: {
+            directory: __dirname,
+            name: 'buildOrganizationSiteRelationshipsShouldBuildRelationship',
+            ...rumbleRecordingOptions,
+          },
+          stepConfig: buildStepTestConfigForAPIKey(
+            Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS,
+          ),
         }),
       );
     });
