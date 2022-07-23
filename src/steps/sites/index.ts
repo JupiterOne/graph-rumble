@@ -12,7 +12,7 @@ import { RumbleSite } from '../../types';
 import { Entities, Relationships, Steps } from '../constants';
 import { createSiteEntity } from './converter';
 
-export async function fetchSitesDetails({
+async function fetchSitesDetails({
   instance,
   jobState,
   logger,
@@ -28,7 +28,7 @@ export async function fetchSitesDetails({
   });
 }
 
-export async function buildOrganizationSiteRelationships({
+async function buildOrganizationSiteRelationships({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   await jobState.iterateEntities(

@@ -12,7 +12,7 @@ import { RumbleAsset } from '../../types';
 import { Entities, Relationships, Steps } from '../constants';
 import { createAssetEntity } from './converter';
 
-export async function fetchAssetDetails({
+async function fetchAssetDetails({
   instance,
   jobState,
   logger,
@@ -28,7 +28,7 @@ export async function fetchAssetDetails({
   });
 }
 
-export async function buildSiteAssetRelationships({
+async function buildSiteAssetRelationships({
   jobState,
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

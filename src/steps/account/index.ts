@@ -11,7 +11,7 @@ import { createAccountEntity } from './converter';
 // account key will be used in later steps to retrieve the account entity
 export const ACCOUNT_ENTITY_KEY = 'entity:account';
 
-export async function fetchAccountDetails({
+async function fetchAccountDetails({
   instance,
   jobState,
   logger,
