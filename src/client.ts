@@ -287,7 +287,7 @@ export class APIClient {
       // and this will be overwritten
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer ${this.accountApiKey})`,
+        Authorization: `Bearer ${this.accountApiKey}`,
       },
       ...callApiOptions,
     });
