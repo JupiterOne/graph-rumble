@@ -155,11 +155,12 @@ export class APIClient {
     iteratee: ResourceIteratee<RumbleSite>,
   ): Promise<void> {
     if (this.useExportTokens) {
-      const uri = '/export/org/assets.json';
+      const uri = '/api/v1.0/export/org/sites.json';
       const endpoint = BASE_URI + uri;
+
       const tokens = await this.getExportTokens();
       for (const token of tokens) {
-        const site = await this.callApi({
+        const sites = await this.callApi({
           url: endpoint,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -167,13 +168,14 @@ export class APIClient {
           },
         });
 
-        await iteratee(site);
+        for (const site of sites) {
+          await iteratee(site);
+        }
       }
     } else {
       const uri = '/api/v1.0/account/sites';
       const endpoint = BASE_URI + uri;
       const sites = await this.callApi({ url: endpoint });
-
       for (const site of sites) {
         await iteratee(site);
       }
