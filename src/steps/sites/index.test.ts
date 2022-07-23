@@ -1,4 +1,7 @@
-import { buildStepTestConfigForAPIKey } from '../../../test/config';
+import {
+  buildStepTestConfigForAPIKey,
+  buildStepTestConfigForExportTokens,
+} from '../../../test/config';
 import {
   createStepCollectionTest,
   rumbleRecordingOptions,
@@ -35,4 +38,18 @@ describe('siteSteps - API Key', () => {
       );
     });
   });
+});
+
+describe('siteSteps - Export Tokens', () => {
+  test(
+    'creates site entities',
+    createStepCollectionTest({
+      recordingSetup: {
+        directory: __dirname,
+        name: 'fetchSiteDetailsExportTokens',
+        ...rumbleRecordingOptions,
+      },
+      stepConfig: buildStepTestConfigForExportTokens(Steps.SITES),
+    }),
+  );
 });

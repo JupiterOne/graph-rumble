@@ -1,4 +1,7 @@
-import { buildStepTestConfigForAPIKey } from '../../../test/config';
+import {
+  buildStepTestConfigForAPIKey,
+  buildStepTestConfigForExportTokens,
+} from '../../../test/config';
 import {
   createStepCollectionTest,
   rumbleRecordingOptions,
@@ -15,6 +18,22 @@ describe('#fetchAccountDetails - API Key', () => {
         ...rumbleRecordingOptions,
       },
       stepConfig: buildStepTestConfigForAPIKey(Steps.ACCOUNT),
+    }),
+  );
+});
+
+describe('#fetchAccountDetails - Export Tokens', () => {
+  // NOTE: This test won't produce a recording under current implementation
+  // of client. Rumble account produced using static integration data.
+  test(
+    'should collect data and create account entity',
+    createStepCollectionTest({
+      recordingSetup: {
+        directory: __dirname,
+        name: 'fetchAccountDetailsExportTokens',
+        ...rumbleRecordingOptions,
+      },
+      stepConfig: buildStepTestConfigForExportTokens(Steps.ACCOUNT),
     }),
   );
 });

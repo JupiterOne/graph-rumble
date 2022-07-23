@@ -53,9 +53,13 @@ export async function validateInvocation(
   const { config, name } = context.instance;
   const logger = context.logger;
 
-  if (!config.accountAPIKey) {
+  if (!config.accountAPIKey && !config.exportTokens) {
     throw new IntegrationValidationError(
-      'Config requires all of { accountAPIKey }',
+      'Config requires either Account API Key or Export Tokens',
+    );
+  } else if (config.accountAPIKey && config.exportTokens) {
+    throw new IntegrationValidationError(
+      'Config requires exactly one of Account API Key or Export Tokens',
     );
   }
 
