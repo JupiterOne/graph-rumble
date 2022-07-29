@@ -38,6 +38,22 @@ describe('siteSteps - API Key', () => {
       );
     });
   });
+
+  describe('#buildAccountSiteRelationships', () => {
+    test(
+      'creates account has site relationships',
+      createStepCollectionTest({
+        recordingSetup: {
+          directory: __dirname,
+          name: 'buildAccountSiteRelationships',
+          ...rumbleRecordingOptions,
+        },
+        stepConfig: buildStepTestConfigForAPIKey(
+          Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS,
+        ),
+      }),
+    );
+  });
 });
 
 describe('siteSteps - Export Tokens', () => {
@@ -50,6 +66,20 @@ describe('siteSteps - Export Tokens', () => {
         ...rumbleRecordingOptions,
       },
       stepConfig: buildStepTestConfigForExportTokens(Steps.SITES),
+    }),
+  );
+
+  test(
+    'creates account has site relationships',
+    createStepCollectionTest({
+      recordingSetup: {
+        directory: __dirname,
+        name: 'buildAccountHasSiteRelationshipsExportToken',
+        ...rumbleRecordingOptions,
+      },
+      stepConfig: buildStepTestConfigForExportTokens(
+        Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS,
+      ),
     }),
   );
 });
