@@ -126,6 +126,7 @@ The following relationships are created:
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
 | `rumble_account`      | **HAS**               | `rumble_organization` |
+| `rumble_account`      | **HAS**               | `rumble_site`         |
 | `rumble_account`      | **HAS**               | `rumble_user`         |
 | `rumble_organization` | **HAS**               | `rumble_site`         |
 | `rumble_site`         | **HAS**               | `rumble_asset`        |

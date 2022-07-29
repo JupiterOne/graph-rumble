@@ -8,7 +8,7 @@ import { Steps } from './steps/constants';
 export function getStepStartStates({
   instance,
 }: IntegrationExecutionContext<IntegrationConfig>): StepStartStates {
-  if (!instance.config.exportTokens) {
+  if (!instance.config.exportToken) {
     return {
       [Steps.ACCOUNT]: { disabled: false },
       [Steps.USERS]: { disabled: false },
@@ -18,6 +18,7 @@ export function getStepStartStates({
       [Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS]: { disabled: false },
       [Steps.ASSETS]: { disabled: false },
       [Steps.BUILD_SITE_ASSET_RELATIONSHIPS]: { disabled: false },
+      [Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
     };
   } else {
     return {
@@ -29,6 +30,7 @@ export function getStepStartStates({
       [Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS]: { disabled: true }, // above
       [Steps.ASSETS]: { disabled: false },
       [Steps.BUILD_SITE_ASSET_RELATIONSHIPS]: { disabled: false },
+      [Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
     };
   }
 }
