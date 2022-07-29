@@ -24,7 +24,7 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
     type: 'string',
     mask: true,
   },
-  exportTokens: {
+  exportToken: {
     type: 'string',
     mask: true,
   },
@@ -41,10 +41,9 @@ export interface IntegrationConfig extends IntegrationInstanceConfig {
   accountAPIKey: string;
 
   /**
-   * Comma-separated list of export tokens to use
-   * the export API.
+   * Export token used to authenticate requests to export API endpoints.
    */
-  exportTokens: string;
+  exportToken: string;
 }
 
 export async function validateInvocation(
@@ -53,13 +52,13 @@ export async function validateInvocation(
   const { config, name } = context.instance;
   const logger = context.logger;
 
-  if (!config.accountAPIKey && !config.exportTokens) {
+  if (!config.accountAPIKey && !config.exportToken) {
     throw new IntegrationValidationError(
-      'Config requires either Account API Key or Export Tokens',
+      'Config requires either Account API Key or Export Token',
     );
-  } else if (config.accountAPIKey && config.exportTokens) {
+  } else if (config.accountAPIKey && config.exportToken) {
     throw new IntegrationValidationError(
-      'Config requires exactly one of Account API Key or Export Tokens',
+      'Config requires only one of an Account API Key or an Export Token',
     );
   }
 

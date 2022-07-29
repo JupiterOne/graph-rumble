@@ -54,7 +54,7 @@ describe('configTest - API Key', () => {
     const executionContext = createMockExecutionContext({
       instanceConfig: {
         accountAPIKey: 'INVALID',
-        exportTokens: '',
+        exportToken: '',
       },
     });
 

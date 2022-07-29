@@ -12,16 +12,16 @@ if (process.env.LOAD_ENV) {
 }
 
 const DEFAULT_ACCOUNT_API_KEY = 'dummy-rumble-account-api-key';
-const DEFAULT_EXPORT_TOKENS = 'dummy-rumble-export-token';
+const DEFAULT_EXPORT_TOKEN = 'dummy-rumble-export-token';
 
 export const apiKeyIntegrationConfig: IntegrationConfig = {
   accountAPIKey: process.env.ACCOUNT_API_KEY || DEFAULT_ACCOUNT_API_KEY,
-  exportTokens: '',
+  exportToken: '',
 };
 
 export const exportTokensIntegrationConfig: IntegrationConfig = {
   accountAPIKey: '',
-  exportTokens: process.env.EXPORT_TOKENS || DEFAULT_EXPORT_TOKENS,
+  exportToken: process.env.EXPORT_TOKEN || DEFAULT_EXPORT_TOKEN,
 };
 
 export function buildStepTestConfigForAPIKey(stepId: string): StepTestConfig {
