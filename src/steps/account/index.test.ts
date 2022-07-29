@@ -1,6 +1,6 @@
 import {
   buildStepTestConfigForAPIKey,
-  buildStepTestConfigForExportTokens,
+  buildStepTestConfigForExportToken,
 } from '../../../test/config';
 import {
   createStepCollectionTest,
@@ -33,7 +33,7 @@ describe('#fetchAccountDetails - Export Tokens', () => {
         name: 'fetchAccountDetailsExportTokens',
         ...rumbleRecordingOptions,
       },
-      stepConfig: buildStepTestConfigForExportTokens(Steps.ACCOUNT),
+      stepConfig: buildStepTestConfigForExportToken(Steps.ACCOUNT),
     }),
   );
 });

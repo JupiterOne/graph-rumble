@@ -1,6 +1,6 @@
 import {
   buildStepTestConfigForAPIKey,
-  buildStepTestConfigForExportTokens,
+  buildStepTestConfigForExportToken,
 } from '../../../test/config';
 import {
   createStepCollectionTest,
@@ -65,7 +65,7 @@ describe('siteSteps - Export Tokens', () => {
         name: 'fetchSiteDetailsExportTokens',
         ...rumbleRecordingOptions,
       },
-      stepConfig: buildStepTestConfigForExportTokens(Steps.SITES),
+      stepConfig: buildStepTestConfigForExportToken(Steps.SITES),
     }),
   );
 
@@ -77,7 +77,7 @@ describe('siteSteps - Export Tokens', () => {
         name: 'buildAccountHasSiteRelationshipsExportToken',
         ...rumbleRecordingOptions,
       },
-      stepConfig: buildStepTestConfigForExportTokens(
+      stepConfig: buildStepTestConfigForExportToken(
         Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS,
       ),
     }),

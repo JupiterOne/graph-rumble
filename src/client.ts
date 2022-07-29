@@ -50,7 +50,7 @@ export class APIClient {
   public async verifyAuthentication(): Promise<void> {
     try {
       if (this.useExportToken) {
-        await this.verifyExportTokens();
+        await this.verifyExportToken();
       } else {
         await this.getOrganizations();
       }
@@ -64,8 +64,18 @@ export class APIClient {
     }
   }
 
-  private async verifyExportTokens() {
-    // TODO: decide how to verify tokens
+  private async verifyExportToken() {
+    const uri = '/api/v1.0/export/org/sites.json';
+    const endpoint = BASE_URI + uri;
+
+    const token = this.options.instance.config.exportToken;
+    await this.callApi({
+      url: endpoint,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });
   }
 
   /**
@@ -295,9 +305,7 @@ export class APIClient {
         // we use plain strings for urls so this is valid
         endpoint: callApiOptions.url as string,
         status: err.response?.statusCode,
-        statusText:
-          err.response?.statusMessage +
-          (err.response?.body ? `\nBody: ${err.response.body.trim()}` : ''),
+        statusText: err.response?.statusMessage,
       });
     }
     return response;

@@ -19,7 +19,7 @@ export const apiKeyIntegrationConfig: IntegrationConfig = {
   exportToken: '',
 };
 
-export const exportTokensIntegrationConfig: IntegrationConfig = {
+export const exportTokenIntegrationConfig: IntegrationConfig = {
   accountAPIKey: '',
   exportToken: process.env.EXPORT_TOKEN || DEFAULT_EXPORT_TOKEN,
 };
@@ -32,12 +32,12 @@ export function buildStepTestConfigForAPIKey(stepId: string): StepTestConfig {
   };
 }
 
-export function buildStepTestConfigForExportTokens(
+export function buildStepTestConfigForExportToken(
   stepId: string,
 ): StepTestConfig {
   return {
     stepId,
-    instanceConfig: exportTokensIntegrationConfig,
+    instanceConfig: exportTokenIntegrationConfig,
     invocationConfig: invocationConfig as IntegrationInvocationConfig,
   };
 }

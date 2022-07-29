@@ -71,6 +71,13 @@ const redactionMap = getRedactionMap();
 function redact(entry): void {
   applyPreredactionMutations(entry);
 
+  // return early when content isn't json. This likely means it's an error response.
+  // Any logic for mimeTypes like 'text/html' or 'text/plain' should probably
+  // have a separate function
+  if (!entry.response?.content?.mimeType.includes('application/json')) {
+    return;
+  }
+
   try {
     const response = JSON.parse(entry.response.content.text);
 
