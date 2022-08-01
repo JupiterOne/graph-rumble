@@ -1,5 +1,6 @@
 import {
   IntegrationExecutionContext,
+  IntegrationInfoEventName,
   StepStartStates,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
@@ -7,6 +8,7 @@ import { Steps } from './steps/constants';
 
 export function getStepStartStates({
   instance,
+  logger,
 }: IntegrationExecutionContext<IntegrationConfig>): StepStartStates {
   if (!instance.config.exportToken) {
     return {
@@ -21,6 +23,11 @@ export function getStepStartStates({
       [Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS]: { disabled: false },
     };
   } else {
+    logger.publishInfoEvent({
+      name: IntegrationInfoEventName.Stats,
+      description:
+        'The integration is using an Export Token for data collection. Users and Organizations will not be ingested.',
+    });
     return {
       [Steps.ACCOUNT]: { disabled: false },
       [Steps.USERS]: { disabled: true }, // can't fetch users with export tokens
