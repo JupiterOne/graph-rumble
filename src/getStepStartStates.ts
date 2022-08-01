@@ -18,7 +18,7 @@ export function getStepStartStates({
       [Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS]: { disabled: false },
       [Steps.ASSETS]: { disabled: false },
       [Steps.BUILD_SITE_ASSET_RELATIONSHIPS]: { disabled: false },
-      [Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
+      [Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS]: { disabled: false },
     };
   } else {
     return {
@@ -30,7 +30,7 @@ export function getStepStartStates({
       [Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS]: { disabled: true }, // above
       [Steps.ASSETS]: { disabled: false },
       [Steps.BUILD_SITE_ASSET_RELATIONSHIPS]: { disabled: false },
-      [Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS]: { disabled: false },
+      [Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS]: { disabled: false },
     };
   }
 }

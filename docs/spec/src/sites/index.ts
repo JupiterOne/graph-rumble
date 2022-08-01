@@ -35,4 +35,19 @@ export const sitesSpec: StepSpec<IntegrationConfig>[] = [
     dependsOn: ['fetch-sites', 'fetch-organization'],
     implemented: true,
   },
+  {
+    id: 'build-site-account-relationships',
+    name: 'Build Account Site Relationships',
+    entities: [],
+    relationships: [
+      {
+        sourceType: 'rumble_account',
+        targetType: 'rumble_site',
+        _type: 'rumble_account_has_site',
+        _class: RelationshipClass.HAS,
+      },
+    ],
+    dependsOn: ['fetch-sites', 'fetch-account'],
+    implemented: true,
+  },
 ];

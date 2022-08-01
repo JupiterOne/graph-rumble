@@ -15,7 +15,7 @@ export const Steps = {
     'build-organization-site-relationships',
   ASSETS: 'fetch-assets',
   BUILD_SITE_ASSET_RELATIONSHIPS: 'build-site-asset-relationships',
-  BUILD_SITE_ACCOUNT_RELATIONSHIPS: 'build-site-account-relationships',
+  BUILD_ACCOUNT_SITE_RELATIONSHIPS: 'build-site-account-relationships',
 };
 
 export const Entities: Record<

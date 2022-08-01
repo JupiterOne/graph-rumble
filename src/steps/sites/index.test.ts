@@ -49,7 +49,7 @@ describe('siteSteps - API Key', () => {
           ...rumbleRecordingOptions,
         },
         stepConfig: buildStepTestConfigForAPIKey(
-          Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS,
+          Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,
         ),
       }),
     );
@@ -78,7 +78,7 @@ describe('siteSteps - Export Tokens', () => {
         ...rumbleRecordingOptions,
       },
       stepConfig: buildStepTestConfigForExportToken(
-        Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS,
+        Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,
       ),
     }),
   );

@@ -57,9 +57,7 @@ async function buildOrganizationSiteRelationships({
 }
 
 async function buildAccountSiteRelationships({
-  instance,
   jobState,
-  logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const accountEntity = await jobState.getData<Entity>(ACCOUNT_ENTITY_KEY);
   if (!accountEntity) {
@@ -98,8 +96,8 @@ export const siteSteps: IntegrationStep<IntegrationConfig>[] = [
     executionHandler: buildOrganizationSiteRelationships,
   },
   {
-    id: Steps.BUILD_SITE_ACCOUNT_RELATIONSHIPS,
-    name: 'Build Site Account Relationships',
+    id: Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,
+    name: 'Build Account Site Relationships',
     entities: [],
     relationships: [Relationships.ACCOUNT_HAS_SITE],
     mappedRelationships: [],
