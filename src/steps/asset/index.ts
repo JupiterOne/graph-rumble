@@ -30,7 +30,6 @@ async function fetchAssetDetails({
 
 async function buildSiteAssetRelationships({
   jobState,
-  logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   await jobState.iterateEntities(
     { _type: Entities.ASSET._type },
