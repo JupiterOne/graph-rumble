@@ -3,6 +3,10 @@ import {
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 
+import got, { HTTPError, OptionsOfTextResponseBody } from 'got';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
+import { parser } from 'stream-json/jsonl/Parser';
 import {
   APIClientOptions,
   RumbleAccount,
@@ -10,15 +14,8 @@ import {
   RumbleOrganization,
   RumbleSite,
   RumbleUser,
-} from './types';
-import got, { HTTPError, OptionsOfTextResponseBody } from 'got';
-import { pipeline } from 'stream';
-import { promisify } from 'util';
-import { parser } from 'stream-json/jsonl/Parser';
-
-export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
-
-const BASE_URI = 'https://console.rumble.run';
+} from '../types';
+import { APIClient, BASE_URI, ResourceIteratee } from '.';
 
 /**
  * An APIClient maintains authentication state and provides an interface to
@@ -28,7 +25,7 @@ const BASE_URI = 'https://console.rumble.run';
  * place to handle error responses and implement common patterns for iterating
  * resources.
  */
-export class APIClient {
+export class AccountAPIKeyClient implements APIClient {
   constructor(readonly options: APIClientOptions) {}
 
   /**
@@ -100,7 +97,7 @@ export class APIClient {
   public async iterateUsers(
     iteratee: ResourceIteratee<RumbleUser>,
   ): Promise<void> {
-    const uri = '/api/v1.0/account/users';
+    const uri = '/account/users';
     const endpoint = BASE_URI + uri;
     const users = await this.callApi({ url: endpoint });
 
@@ -119,7 +116,7 @@ export class APIClient {
   public async iterateSites(
     iteratee: ResourceIteratee<RumbleSite>,
   ): Promise<void> {
-    const uri = '/api/v1.0/account/sites';
+    const uri = '/account/sites';
     const endpoint = BASE_URI + uri;
     const sites = await this.callApi({ url: endpoint });
 
@@ -137,7 +134,7 @@ export class APIClient {
   public async iterateAssets(
     iteratee: ResourceIteratee<RumbleAsset>,
   ): Promise<void> {
-    const endpoint = BASE_URI + '/api/v1.0/export/org/assets.jsonl';
+    const endpoint = BASE_URI + '/export/org/assets.jsonl';
 
     const tokens = await this.getExportTokens();
     for (const token of tokens) {
@@ -199,7 +196,7 @@ export class APIClient {
   }
 
   private async getOrganizations(): Promise<RumbleOrganization[]> {
-    const uri = '/api/v1.0/account/orgs';
+    const uri = '/account/orgs';
     const endpoint = BASE_URI + uri;
 
     if (endpoint in this.orgCache) {
@@ -229,7 +226,7 @@ export class APIClient {
       // and this will be overwritten
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer ${this.options.config.accountAPIKey}`,
+        Authorization: `Bearer ${this.options.instance.config.accountAPIKey}`,
       },
       ...callApiOptions,
     });
@@ -238,21 +235,15 @@ export class APIClient {
     try {
       const result = await request;
       response = JSON.parse(result.body);
+      return response;
     } catch (err) {
       throw new IntegrationProviderAPIError({
         cause: err,
         // we use plain strings for urls so this is valid
         endpoint: callApiOptions.url as string,
         status: err.response?.statusCode,
-        statusText:
-          err.response?.statusMessage +
-          (err.response?.body ? `\nBody: ${err.response.body.trim()}` : ''),
+        statusText: err.response?.statusMessage,
       });
     }
-    return response;
   }
-}
-
-export function createAPIClient(options: APIClientOptions): APIClient {
-  return new APIClient(options);
 }

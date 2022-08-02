@@ -1,45 +1,85 @@
 import {
-  executeStepWithDependencies,
-  Recording,
-} from '@jupiterone/integration-sdk-testing';
-import { buildStepTestConfigForStep } from '../../../test/config';
-import { setupRumbleRecording } from '../../../test/recording';
+  buildStepTestConfigForAPIKey,
+  buildStepTestConfigForExportToken,
+} from '../../../test/config';
+import {
+  createStepCollectionTest,
+  rumbleRecordingOptions,
+} from '../../../test/recording';
 import { Steps } from '../constants';
 
-describe('siteSteps', () => {
-  let recording: Recording;
-
-  afterEach(async () => {
-    await recording.stop();
-  });
-
+describe('siteSteps - API Key', () => {
   describe('#fetchSiteDetails', () => {
-    test('creates site entities', async () => {
-      recording = setupRumbleRecording({
-        directory: __dirname,
-        name: 'fetchSiteDetailsShouldCollectData',
-      });
+    test(
+      'creates site entities',
+      createStepCollectionTest({
+        recordingSetup: {
+          directory: __dirname,
+          name: 'fetchSiteDetailsShouldCollectData',
+          ...rumbleRecordingOptions,
+        },
+        stepConfig: buildStepTestConfigForAPIKey(Steps.SITES),
+      }),
+    );
 
-      const stepConfig = buildStepTestConfigForStep(Steps.SITES);
-      const stepResult = await executeStepWithDependencies(stepConfig);
-
-      expect(stepResult).toMatchStepMetadata(stepConfig);
-    });
-  });
-
-  describe('#buildOrganizationSiteRelationship', () => {
-    test('creates organization has site relationships', async () => {
-      recording = setupRumbleRecording({
-        directory: __dirname,
-        name: 'buildOrganizationSiteRelationshipsShouldBuildRelationship',
-      });
-
-      const stepConfig = buildStepTestConfigForStep(
-        Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS,
+    describe('#buildOrganizationSiteRelationship', () => {
+      test(
+        'creates organization has site relationships',
+        createStepCollectionTest({
+          recordingSetup: {
+            directory: __dirname,
+            name: 'buildOrganizationSiteRelationshipsShouldBuildRelationship',
+            ...rumbleRecordingOptions,
+          },
+          stepConfig: buildStepTestConfigForAPIKey(
+            Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS,
+          ),
+        }),
       );
-      const stepResult = await executeStepWithDependencies(stepConfig);
-
-      expect(stepResult).toMatchStepMetadata(stepConfig);
     });
   });
+
+  describe('#buildAccountSiteRelationships', () => {
+    test(
+      'creates account has site relationships',
+      createStepCollectionTest({
+        recordingSetup: {
+          directory: __dirname,
+          name: 'buildAccountSiteRelationships',
+          ...rumbleRecordingOptions,
+        },
+        stepConfig: buildStepTestConfigForAPIKey(
+          Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,
+        ),
+      }),
+    );
+  });
+});
+
+describe('siteSteps - Export Tokens', () => {
+  test(
+    'creates site entities',
+    createStepCollectionTest({
+      recordingSetup: {
+        directory: __dirname,
+        name: 'fetchSiteDetailsExportTokens',
+        ...rumbleRecordingOptions,
+      },
+      stepConfig: buildStepTestConfigForExportToken(Steps.SITES),
+    }),
+  );
+
+  test(
+    'creates account has site relationships',
+    createStepCollectionTest({
+      recordingSetup: {
+        directory: __dirname,
+        name: 'buildAccountHasSiteRelationshipsExportToken',
+        ...rumbleRecordingOptions,
+      },
+      stepConfig: buildStepTestConfigForExportToken(
+        Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,
+      ),
+    }),
+  );
 });

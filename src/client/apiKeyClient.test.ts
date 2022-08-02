@@ -3,12 +3,12 @@ import {
   createMockIntegrationLogger,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { integrationConfig } from '../test/config';
-import { setupRumbleRecording } from '../test/recording';
-import { createAPIClient } from './client';
-import { IntegrationConfig } from './config';
+import { apiKeyIntegrationConfig } from '../../test/config';
+import { setupRumbleRecording } from '../../test/recording';
+import { IntegrationConfig } from '../config';
+import { AccountAPIKeyClient } from './APIKeyClient';
 
-describe('apiClient', () => {
+describe('apiClient - API Key', () => {
   let recording: Recording;
   afterEach(async () => {
     await recording.stop();
@@ -22,14 +22,15 @@ describe('apiClient', () => {
       });
 
       const executionContext = createMockExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig,
+        instanceConfig: apiKeyIntegrationConfig,
       });
 
-      const apiClient = createAPIClient({
-        config: executionContext.instance.config,
+      const apiClient = new AccountAPIKeyClient({
+        instance: executionContext.instance,
         logger: executionContext.logger,
         name: executionContext.instance.name,
       });
+
       const keys = await apiClient.getExportTokens();
       expect(keys.length).toBeGreaterThan(0);
     });
@@ -41,14 +42,14 @@ describe('apiClient', () => {
       });
 
       const executionContext = createMockExecutionContext<IntegrationConfig>({
-        instanceConfig: integrationConfig,
+        instanceConfig: apiKeyIntegrationConfig,
       });
 
       const mockLogger = createMockIntegrationLogger();
       mockLogger.warn = jest.fn();
 
-      const apiClient = createAPIClient({
-        config: executionContext.instance.config,
+      const apiClient = new AccountAPIKeyClient({
+        instance: executionContext.instance,
         logger: mockLogger,
         name: executionContext.instance.name,
       });

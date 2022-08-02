@@ -1,34 +1,49 @@
-import {
-  IntegrationProviderAuthenticationError,
-  IntegrationValidationError,
-} from '@jupiterone/integration-sdk-core';
+import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
 import {
   createMockExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { integrationConfig } from '../test/config';
+import {
+  apiKeyIntegrationConfig,
+  exportTokenIntegrationConfig,
+} from '../test/config';
 import { setupRumbleRecording } from '../test/recording';
 import { IntegrationConfig, validateInvocation } from './config';
 
-describe('configTest', () => {
-  let recording: Recording;
+let recording: Recording;
 
-  afterEach(async () => {
-    if (recording) {
-      await recording.stop();
-    }
-  });
+afterEach(async () => {
+  if (recording) {
+    await recording.stop();
+  }
+});
 
-  it('requires valid config', async () => {
+describe('validateInvocation - common', () => {
+  it('requires at least one of account api key or export token', async () => {
     const executionContext = createMockExecutionContext<IntegrationConfig>({
       instanceConfig: {} as IntegrationConfig,
     });
 
     await expect(validateInvocation(executionContext)).rejects.toThrow(
-      IntegrationValidationError,
+      'Config requires either Account API Key or Export Token',
     );
   });
 
+  it('requires exactly one of account api key or export token', async () => {
+    const executionContext = createMockExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        accountAPIKey: 'test',
+        exportToken: 'test',
+      } as IntegrationConfig,
+    });
+
+    await expect(validateInvocation(executionContext)).rejects.toThrow(
+      'Config requires either an Account API Key or an Export Token, but not both',
+    );
+  });
+});
+
+describe('configTest - API Key', () => {
   it('validates invocation', async () => {
     recording = setupRumbleRecording({
       directory: __dirname,
@@ -36,7 +51,7 @@ describe('configTest', () => {
     });
 
     const executionContext = createMockExecutionContext({
-      instanceConfig: integrationConfig,
+      instanceConfig: apiKeyIntegrationConfig,
     });
 
     await expect(validateInvocation(executionContext)).resolves.toBe(undefined);
@@ -54,11 +69,48 @@ describe('configTest', () => {
     const executionContext = createMockExecutionContext({
       instanceConfig: {
         accountAPIKey: 'INVALID',
+        exportToken: '',
       },
     });
 
     await expect(validateInvocation(executionContext)).rejects.toThrow(
       IntegrationProviderAuthenticationError,
     );
+  });
+});
+
+describe('validateInvocation - Export Token', () => {
+  it('auth error', async () => {
+    recording = setupRumbleRecording({
+      directory: __dirname,
+      name: 'validateInvocationAuthFailureExportToken',
+      options: {
+        recordFailedRequests: true,
+      },
+    });
+
+    const executionContext = createMockExecutionContext({
+      instanceConfig: {
+        accountAPIKey: '',
+        exportToken: 'Invalid',
+      },
+    });
+
+    await expect(validateInvocation(executionContext)).rejects.toThrow(
+      IntegrationProviderAuthenticationError,
+    );
+  });
+
+  it('validates invocation', async () => {
+    recording = setupRumbleRecording({
+      directory: __dirname,
+      name: 'validatesInvocationSuccessExportToken',
+    });
+
+    const executionContext = createMockExecutionContext({
+      instanceConfig: exportTokenIntegrationConfig,
+    });
+
+    await expect(validateInvocation(executionContext)).resolves.toBe(undefined);
   });
 });

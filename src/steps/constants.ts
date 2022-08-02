@@ -15,6 +15,7 @@ export const Steps = {
     'build-organization-site-relationships',
   ASSETS: 'fetch-assets',
   BUILD_SITE_ASSET_RELATIONSHIPS: 'build-site-asset-relationships',
+  BUILD_ACCOUNT_SITE_RELATIONSHIPS: 'build-site-account-relationships',
 };
 
 export const Entities: Record<
@@ -145,7 +146,8 @@ export const Relationships: Record<
   | 'ACCOUNT_HAS_ORGANIZATION'
   | 'USER_ASSIGNED_ORGANIZATION'
   | 'ORGANIZATION_HAS_SITE'
-  | 'SITE_HAS_ASSET',
+  | 'SITE_HAS_ASSET'
+  | 'ACCOUNT_HAS_SITE',
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
@@ -182,5 +184,11 @@ export const Relationships: Record<
     sourceType: Entities.SITE._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.ASSET._type,
+  },
+  ACCOUNT_HAS_SITE: {
+    sourceType: Entities.ACCOUNT._type,
+    targetType: Entities.SITE._type,
+    _type: 'rumble_account_has_site',
+    _class: RelationshipClass.HAS,
   },
 };

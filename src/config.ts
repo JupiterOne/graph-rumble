@@ -24,6 +24,10 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
     type: 'string',
     mask: true,
   },
+  exportToken: {
+    type: 'string',
+    mask: true,
+  },
 };
 
 /**
@@ -35,6 +39,11 @@ export interface IntegrationConfig extends IntegrationInstanceConfig {
    * The Rumble Account API Key used to authenticate requests.
    */
   accountAPIKey: string;
+
+  /**
+   * Export token used to authenticate requests to export API endpoints.
+   */
+  exportToken: string;
 }
 
 export async function validateInvocation(
@@ -43,14 +52,18 @@ export async function validateInvocation(
   const { config, name } = context.instance;
   const logger = context.logger;
 
-  if (!config.accountAPIKey) {
+  if (!config.accountAPIKey && !config.exportToken) {
     throw new IntegrationValidationError(
-      'Config requires all of { accountAPIKey }',
+      'Config requires either Account API Key or Export Token',
+    );
+  } else if (config.accountAPIKey && config.exportToken) {
+    throw new IntegrationValidationError(
+      'Config requires either an Account API Key or an Export Token, but not both',
     );
   }
 
   const apiClient = createAPIClient({
-    config: config,
+    instance: context.instance,
     name: name,
     logger: logger,
   });

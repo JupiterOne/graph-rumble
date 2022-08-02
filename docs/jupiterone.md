@@ -19,6 +19,12 @@
 
 ## Requirements
 
+You can configure the Rumble Integration using either an **Account API Key** or
+a single **Export Token**. The **Export Token** has more limited read-only
+permissions, but will limit the data collected.
+
+### Using an Account API Key
+
 - JupiterOne integration requires a Rumble **Account API Key**. To generate an
   **Account API Key** you'll need:
 
@@ -34,6 +40,14 @@
 
 - You must have permission in JupiterOne to install new integrations.
 
+### Using an Export Token
+
+If you are configuring the integration using an **Export Token**, you'll need:
+
+- Admin access to the Rumble organization for which you want to generate an
+  **Export Token**.
+- You must have permission in JupiterOne to install new integrations.
+
 ## Support
 
 If you need help with this integration, please contact
@@ -46,6 +60,8 @@ integrate with JupiterOne. You'll also need to generate **Export Tokens** for
 all organizations whose data you want to ingest.
 
 ### In Rumble
+
+#### Configuring Using An Account API Key
 
 **Account API Key Generation**
 
@@ -67,7 +83,18 @@ without export tokens will not have assets, services, or wireless data ingested.
 2. In the navigation bar, go to `Organizations`
 3. Click on the organization in which you want to create an `Export Token`
 4. Press the **Generate Export Token** button.
-5. Repeat for all organizations whosse data you want to ingest.
+5. Repeat for all organizations whose data you want to ingest.
+
+#### Configuring Using An Export Token
+
+You'll need to generate an export token for the organization whose data you want
+to ingest.
+
+1. Navigate to the [Rumble Console](https://console.rumble/run)
+2. In the navigation bar, go to `Organizations`
+3. Click on the organization in which you want to create an `Export Token`
+4. Press the **Generate Export Token** button.
+5. Copy your `Export Token` for use in JupiterOne
 
 ### In JupiterOne
 
@@ -82,11 +109,13 @@ without export tokens will not have assets, services, or wireless data ingested.
   the integration instance.
 - Select a **Polling Interval** that you feel is sufficient for your monitoring
   needs. You may leave this as `DISABLED` and manually execute the integration.
-- Enter the **Account API Key** generated for use by JupiterOne.
+- If you're configuring the integration with an `Account API Key` then put the
+  key in the `Rumble Account API Key` box. If you are configuring the
+  integration with an Export Token put the token into the `Export Token` box.
 
 4. Click **Create Configuration** once all values are provided.
 
-# How to Uninstall
+## How to Uninstall
 
 1. From the configuration **Gear Icon**, select **Integrations**.
 2. Scroll to the **Rumble** integration tile and click it.
@@ -126,6 +155,7 @@ The following relationships are created:
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
 | `rumble_account`      | **HAS**               | `rumble_organization` |
+| `rumble_account`      | **HAS**               | `rumble_site`         |
 | `rumble_account`      | **HAS**               | `rumble_user`         |
 | `rumble_organization` | **HAS**               | `rumble_site`         |
 | `rumble_site`         | **HAS**               | `rumble_asset`        |

@@ -13,13 +13,13 @@ import { ACCOUNT_ENTITY_KEY } from '../account';
 import { Entities, Relationships, Steps } from '../constants';
 import { createUserEntity } from './converter';
 
-export async function fetchUserDetails({
+async function fetchUserDetails({
   instance,
   jobState,
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient({
-    config: instance.config,
+    instance,
     name: instance.name,
     logger: logger,
   });
@@ -37,7 +37,8 @@ export async function fetchUserDetails({
     );
   });
 }
-export async function buildUserOrganizationRelationships({
+
+async function buildUserOrganizationRelationships({
   jobState,
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

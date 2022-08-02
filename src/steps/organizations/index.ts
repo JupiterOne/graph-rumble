@@ -13,13 +13,13 @@ import { ACCOUNT_ENTITY_KEY } from '../account';
 import { Entities, Relationships, Steps } from '../constants';
 import { createOrganizationEntity } from './converter';
 
-export async function fetchOrganizationDetails({
+async function fetchOrganizationDetails({
   instance,
   jobState,
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient({
-    config: instance.config,
+    instance,
     name: instance.name,
     logger: logger,
   });

@@ -1,5 +1,6 @@
 import {
   createDirectRelationship,
+  Entity,
   getRawData,
   IntegrationMissingKeyError,
   IntegrationStep,
@@ -9,17 +10,18 @@ import {
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { RumbleSite } from '../../types';
+import { ACCOUNT_ENTITY_KEY } from '../account';
 import { Entities, Relationships, Steps } from '../constants';
 import { createSiteEntity } from './converter';
 
-export async function fetchSitesDetails({
+async function fetchSitesDetails({
   instance,
   jobState,
   logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient({
+    instance,
     logger: logger,
-    config: instance.config,
     name: instance.name,
   });
 
@@ -28,7 +30,7 @@ export async function fetchSitesDetails({
   });
 }
 
-export async function buildOrganizationSiteRelationships({
+async function buildOrganizationSiteRelationships({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   await jobState.iterateEntities(
@@ -54,6 +56,28 @@ export async function buildOrganizationSiteRelationships({
   );
 }
 
+async function buildAccountSiteRelationships({
+  jobState,
+}: IntegrationStepExecutionContext<IntegrationConfig>) {
+  const accountEntity = await jobState.getData<Entity>(ACCOUNT_ENTITY_KEY);
+  if (!accountEntity) {
+    throw new IntegrationMissingKeyError('Could not find account entity.');
+  }
+
+  await jobState.iterateEntities(
+    { _type: Entities.SITE._type },
+    async (siteEntity) => {
+      await jobState.addRelationship(
+        createDirectRelationship({
+          from: accountEntity,
+          to: siteEntity,
+          _class: RelationshipClass.HAS,
+        }),
+      );
+    },
+  );
+}
+
 export const siteSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: Steps.SITES,
@@ -70,5 +94,14 @@ export const siteSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [Relationships.ORGANIZATION_HAS_SITE],
     dependsOn: [Steps.SITES, Steps.ORGANIZATION],
     executionHandler: buildOrganizationSiteRelationships,
+  },
+  {
+    id: Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,
+    name: 'Build Account Site Relationships',
+    entities: [],
+    relationships: [Relationships.ACCOUNT_HAS_SITE],
+    mappedRelationships: [],
+    dependsOn: [Steps.SITES, Steps.ACCOUNT],
+    executionHandler: buildAccountSiteRelationships,
   },
 ];
