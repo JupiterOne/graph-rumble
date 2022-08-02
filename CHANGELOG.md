@@ -8,7 +8,18 @@ and this project adheres to
 
 ## [Unreleased]
 
-- Updated logs for fetching assets
+[2.0.0]
+
+### Added
+
+- Added the option to authenticate using an `Export Token`.
+  - Added a new ExportToken based client to support the new authentication
+    method
+- Added new `Account` -HAS-> `Site` relationship
+- Added `getStepStartStates` for the different execution flows
+
+### Changed
+
 - Assets step now uses streams to handle response
 
 [1.2.2] - 2022-05-25

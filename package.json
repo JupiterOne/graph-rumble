@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-rumble",
-  "version": "1.3.0-beta.2",
+  "version": "2.0.0",
   "description": "graph-rumble integration project",
   "license": "MPL-2.0",
   "main": "src/index.js",
