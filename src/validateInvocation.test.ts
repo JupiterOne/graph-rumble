@@ -38,7 +38,7 @@ describe('validateInvocation - common', () => {
     });
 
     await expect(validateInvocation(executionContext)).rejects.toThrow(
-      'Config requires only one of an Account API Key or an Export Token',
+      'Config requires either an Account API Key or an Export Token, but not both',
     );
   });
 });

@@ -58,7 +58,7 @@ export async function validateInvocation(
     );
   } else if (config.accountAPIKey && config.exportToken) {
     throw new IntegrationValidationError(
-      'Config requires only one of an Account API Key or an Export Token',
+      'Config requires either an Account API Key or an Export Token, but not both',
     );
   }
 

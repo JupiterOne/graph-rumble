@@ -38,6 +38,7 @@ export function createAssetEntity(asset: RumbleAsset): Entity {
         osName: asset.os_product,
         osVersion: asset.os_version,
         macAddresses: asset.macs,
+        deviceId: null,
       },
     },
   });

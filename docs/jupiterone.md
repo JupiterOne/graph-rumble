@@ -19,6 +19,10 @@
 
 ## Requirements
 
+You can configure the Rumble Integration using either an **Account API Key** or
+a single **Export Token**. The **Export Token** has more limited read-only
+permissions, but will limit the data collected.
+
 ### Using an Account API Key
 
 - JupiterOne integration requires a Rumble **Account API Key**. To generate an
