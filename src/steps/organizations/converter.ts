@@ -23,11 +23,12 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         displayName: org.name ?? undefined,
         // RumbleOrganization specific properties
         clientId: org.client_id,
-        createdAt: parseTimePropertyValue(org.created_at),
+        createdAt: parseTimePropertyValue(org.created_at, 'ms'),
         createdBy: org.created_by,
-        updatedAt: parseTimePropertyValue(org.updated_at),
+        updatedAt: parseTimePropertyValue(org.updated_at, 'ms'),
         downloadTokenCreatedAt: parseTimePropertyValue(
           org.download_token_created_at,
+          'ms',
         ),
         demo: org.demo,
         project: org.project,
@@ -35,7 +36,7 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         // description can be a null field, if it is coerce to empty string
         description: org.description ?? undefined,
         inactive: org.inactive,
-        deactivatedAt: parseTimePropertyValue(org.deactivated_at),
+        deactivatedAt: parseTimePropertyValue(org.deactivated_at, 'ms'),
         serviceCount: org.service_count,
         serviceCountTCP: org.service_count_tcp,
         serviceCountUDP: org.service_count_udp,
@@ -44,9 +45,11 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         assetCount: org.asset_count,
         exportTokenCreatedAt: parseTimePropertyValue(
           org.export_token_created_at,
+          'ms',
         ),
         exportTokenLastUsedAt: parseTimePropertyValue(
           org.export_token_last_used_at,
+          'ms',
         ),
         exportTokenLastUsedBy: org.export_token_last_used_by,
         exportTokenCounter: org.export_token_counter,
@@ -55,6 +58,7 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         expirationScans: org.expiration_scans,
         expirationWarningLastSent: parseTimePropertyValue(
           org.expiration_warning_last_sent,
+          'ms',
         ),
         // Fields that are on RumbleOrganization but excluded from assign:
         // download_token

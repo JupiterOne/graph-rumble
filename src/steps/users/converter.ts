@@ -18,7 +18,7 @@ export function createUserEntity(user: RumbleUser): Entity {
 function createAssignObject(user: RumbleUser) {
   let name: string | undefined = undefined;
   if (user.first_name && user.last_name) {
-    name = user.first_name + user.last_name;
+    name = user.first_name + ' ' + user.last_name;
   } else if (user.first_name) {
     name = user.first_name;
   } else if (user.last_name) {
@@ -40,16 +40,22 @@ function createAssignObject(user: RumbleUser) {
     username: user.email ?? undefined,
     email: user.email ?? undefined,
     orgDefaultRole: user.org_default_role ?? undefined,
-    resetTokenExpiration: parseTimePropertyValue(user.reset_token_expiration),
-    inviteTokenExpiration: parseTimePropertyValue(user.invite_token_expiration),
+    resetTokenExpiration: parseTimePropertyValue(
+      user.reset_token_expiration,
+      'ms',
+    ),
+    inviteTokenExpiration: parseTimePropertyValue(
+      user.invite_token_expiration,
+      'ms',
+    ),
     lastLoginIP: user.last_login_ip ?? undefined,
-    lastLoginAt: parseTimePropertyValue(user.last_login_at),
+    lastLoginAt: parseTimePropertyValue(user.last_login_at, 'ms'),
     lastLoginUa: user.last_login_ua ?? undefined,
-    lastActivityAt: parseTimePropertyValue(user.last_activity_at),
+    lastActivityAt: parseTimePropertyValue(user.last_activity_at, 'ms'),
     ssoOnly: user.sso_only,
     loginFailures: user.login_failures,
     actions: user.actions,
-    lastActionAt: parseTimePropertyValue(user.last_action_at),
+    lastActionAt: parseTimePropertyValue(user.last_action_at, 'ms'),
     active: true,
   };
 }
