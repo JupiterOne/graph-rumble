@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+[2.0.1] - 2022-09-21
+
+### Changed
+
+- Added `sourcePrecision` parameter to `parseTimePropertyValue` calls.
+- Added a space to `displayName` of users
+- Bumped SDK dependencies to ^8.24.0
+
 [2.0.0]
 
 ### Added
