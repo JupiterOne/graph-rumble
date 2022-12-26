@@ -43,6 +43,10 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         serviceCountARP: org.service_count_arp,
         serviceCountICMP: org.service_count_icmp,
         assetCount: org.asset_count,
+        liveAssetCount: org.live_asset_count,
+        recentAssetCount: org.recent_asset_count,
+        softwareCount: org.software_count,
+        vulnerabilityCount: org.vulnerability_count,
         exportTokenCreatedAt: parseTimePropertyValue(
           org.export_token_created_at,
           'ms',
