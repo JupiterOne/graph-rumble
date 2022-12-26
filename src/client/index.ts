@@ -9,7 +9,7 @@ import {
 import { AccountAPIKeyClient } from './APIKeyClient';
 import { ExportTokenApiClient } from './ExportTokenClient';
 
-export const BASE_URI = 'https://console.rumble.run/api/v1.0';
+export const BASE_URI = 'https://console.runzero.com/api/v1.0';
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
 export function createAPIClient(options: APIClientOptions): APIClient {
