@@ -8,7 +8,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { RumbleUser } from '../../types';
+import { RunZeroUser } from '../../types';
 import { ACCOUNT_ENTITY_KEY } from '../account';
 import { Entities, Relationships, Steps } from '../constants';
 import { createUserEntity } from './converter';
@@ -25,7 +25,7 @@ async function fetchUserDetails({
   });
   const accountEntity = (await jobState.getData(ACCOUNT_ENTITY_KEY)) as Entity;
 
-  await apiClient.iterateUsers(async (user: RumbleUser) => {
+  await apiClient.iterateUsers(async (user: RunZeroUser) => {
     const userEntity = await jobState.addEntity(createUserEntity(user));
     // Needed in the buildUserOrganizationRelationships
     await jobState.addRelationship(
@@ -45,7 +45,7 @@ async function buildUserOrganizationRelationships({
   await jobState.iterateEntities(
     { _type: Entities.USER._type },
     async (userEntity) => {
-      const user = getRawData<RumbleUser>(userEntity);
+      const user = getRawData<RunZeroUser>(userEntity);
 
       for (const [orgId, assignedRole] of Object.entries(
         user?.org_roles || {},

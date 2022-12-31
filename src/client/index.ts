@@ -1,10 +1,10 @@
 import {
   APIClientOptions,
-  RumbleAccount,
-  RumbleAsset,
-  RumbleOrganization,
-  RumbleSite,
-  RumbleUser,
+  RunZeroAccount,
+  RunZeroAsset,
+  RunZeroOrganization,
+  RunZeroSite,
+  RunZeroUser,
 } from '../types';
 import { AccountAPIKeyClient } from './APIKeyClient';
 import { ExportTokenApiClient } from './ExportTokenClient';
@@ -22,11 +22,11 @@ export function createAPIClient(options: APIClientOptions): APIClient {
 
 export interface APIClient {
   verifyAuthentication(): Promise<void>;
-  getAccount(): Promise<RumbleAccount> | RumbleAccount;
+  getAccount(): Promise<RunZeroAccount> | RunZeroAccount;
   iterateOrganizations(
-    iteratee: ResourceIteratee<RumbleOrganization>,
+    iteratee: ResourceIteratee<RunZeroOrganization>,
   ): Promise<void>;
-  iterateUsers(iteratee: ResourceIteratee<RumbleUser>): Promise<void>;
-  iterateSites(iteratee: ResourceIteratee<RumbleSite>): Promise<void>;
-  iterateAssets(iteratee: ResourceIteratee<RumbleAsset>): Promise<void>;
+  iterateUsers(iteratee: ResourceIteratee<RunZeroUser>): Promise<void>;
+  iterateSites(iteratee: ResourceIteratee<RunZeroSite>): Promise<void>;
+  iterateAssets(iteratee: ResourceIteratee<RunZeroAsset>): Promise<void>;
 }

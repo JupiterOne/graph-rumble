@@ -3,10 +3,10 @@ import {
   Entity,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
-import { RumbleSite } from '../../types';
+import { RunZeroSite } from '../../types';
 import { Entities } from '../constants';
 
-export function createSiteEntity(site: RumbleSite): Entity {
+export function createSiteEntity(site: RunZeroSite): Entity {
   return createIntegrationEntity({
     entityData: {
       source: site,

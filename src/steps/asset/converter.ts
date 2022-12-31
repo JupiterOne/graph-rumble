@@ -3,10 +3,10 @@ import {
   Entity,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
-import { RumbleAsset } from '../../types';
+import { RunZeroAsset } from '../../types';
 import { Entities } from '../constants';
 
-export function createAssetEntity(asset: RumbleAsset): Entity {
+export function createAssetEntity(asset: RunZeroAsset): Entity {
   const name = selectNameForAsset(asset);
 
   return createIntegrationEntity({
@@ -44,7 +44,7 @@ export function createAssetEntity(asset: RumbleAsset): Entity {
   });
 }
 
-function selectNameForAsset(asset: RumbleAsset) {
+function selectNameForAsset(asset: RunZeroAsset) {
   if (asset.names && asset.names.length > 0) {
     return asset.names[0];
   } else if (asset.hw) {

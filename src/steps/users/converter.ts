@@ -3,10 +3,10 @@ import {
   Entity,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
-import { RumbleUser } from '../../types';
+import { RunZeroUser } from '../../types';
 import { Entities } from '../constants';
 
-export function createUserEntity(user: RumbleUser): Entity {
+export function createUserEntity(user: RunZeroUser): Entity {
   return createIntegrationEntity({
     entityData: {
       source: user,
@@ -15,7 +15,7 @@ export function createUserEntity(user: RumbleUser): Entity {
   });
 }
 
-function createAssignObject(user: RumbleUser) {
+function createAssignObject(user: RunZeroUser) {
   let name: string | undefined = undefined;
   if (user.first_name && user.last_name) {
     name = user.first_name + ' ' + user.last_name;

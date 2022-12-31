@@ -7,7 +7,7 @@ import {
   apiKeyIntegrationConfig,
   exportTokenIntegrationConfig,
 } from '../test/config';
-import { setupRumbleRecording } from '../test/recording';
+import { setupRunZeroRecording } from '../test/recording';
 import { IntegrationConfig, validateInvocation } from './config';
 
 let recording: Recording;
@@ -45,7 +45,7 @@ describe('validateInvocation - common', () => {
 
 describe('configTest - API Key', () => {
   it('validates invocation', async () => {
-    recording = setupRumbleRecording({
+    recording = setupRunZeroRecording({
       directory: __dirname,
       name: 'client-validates-invocation',
     });
@@ -58,7 +58,7 @@ describe('configTest - API Key', () => {
   });
 
   it('auth error', async () => {
-    recording = setupRumbleRecording({
+    recording = setupRunZeroRecording({
       directory: __dirname,
       name: 'client-auth-error',
       options: {
@@ -81,7 +81,7 @@ describe('configTest - API Key', () => {
 
 describe('validateInvocation - Export Token', () => {
   it('auth error', async () => {
-    recording = setupRumbleRecording({
+    recording = setupRunZeroRecording({
       directory: __dirname,
       name: 'validateInvocationAuthFailureExportToken',
       options: {
@@ -102,7 +102,7 @@ describe('validateInvocation - Export Token', () => {
   });
 
   it('validates invocation', async () => {
-    recording = setupRumbleRecording({
+    recording = setupRunZeroRecording({
       directory: __dirname,
       name: 'validatesInvocationSuccessExportToken',
     });

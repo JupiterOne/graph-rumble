@@ -4,7 +4,7 @@ import {
 } from '../../../test/config';
 import {
   createStepCollectionTest,
-  rumbleRecordingOptions,
+  runZeroRecordingOptions,
 } from '../../../test/recording';
 import { Steps } from '../constants';
 
@@ -16,7 +16,7 @@ describe('siteSteps - API Key', () => {
         recordingSetup: {
           directory: __dirname,
           name: 'fetchSiteDetailsShouldCollectData',
-          ...rumbleRecordingOptions,
+          ...runZeroRecordingOptions,
         },
         stepConfig: buildStepTestConfigForAPIKey(Steps.SITES),
       }),
@@ -29,7 +29,7 @@ describe('siteSteps - API Key', () => {
           recordingSetup: {
             directory: __dirname,
             name: 'buildOrganizationSiteRelationshipsShouldBuildRelationship',
-            ...rumbleRecordingOptions,
+            ...runZeroRecordingOptions,
           },
           stepConfig: buildStepTestConfigForAPIKey(
             Steps.BUILD_ORGANIZATION_SITE_RELATIONSHIPS,
@@ -46,7 +46,7 @@ describe('siteSteps - API Key', () => {
         recordingSetup: {
           directory: __dirname,
           name: 'buildAccountSiteRelationships',
-          ...rumbleRecordingOptions,
+          ...runZeroRecordingOptions,
         },
         stepConfig: buildStepTestConfigForAPIKey(
           Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,
@@ -63,7 +63,7 @@ describe('siteSteps - Export Tokens', () => {
       recordingSetup: {
         directory: __dirname,
         name: 'fetchSiteDetailsExportTokens',
-        ...rumbleRecordingOptions,
+        ...runZeroRecordingOptions,
       },
       stepConfig: buildStepTestConfigForExportToken(Steps.SITES),
     }),
@@ -75,7 +75,7 @@ describe('siteSteps - Export Tokens', () => {
       recordingSetup: {
         directory: __dirname,
         name: 'buildAccountHasSiteRelationshipsExportToken',
-        ...rumbleRecordingOptions,
+        ...runZeroRecordingOptions,
       },
       stepConfig: buildStepTestConfigForExportToken(
         Steps.BUILD_ACCOUNT_SITE_RELATIONSHIPS,

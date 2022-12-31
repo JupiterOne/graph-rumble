@@ -1,9 +1,9 @@
-import { RumbleSite } from '../../types';
+import { RunZeroSite } from '../../types';
 import { createSiteEntity } from './converter';
 
 describe('#createSiteEntity', () => {
   test('should convert to entity', () => {
-    const site: RumbleSite = {
+    const site: RunZeroSite = {
       id: 'site_id',
       created_at: 1644331146,
       updated_at: 1645561808,
@@ -38,7 +38,7 @@ describe('#createSiteEntity', () => {
     expect(siteEntity).toEqual({
       _class: ['Site'],
       _key: 'site_id',
-      _type: 'rumble_site',
+      _type: 'runzero_site',
       name: 'test_site',
       description: '',
       displayName: 'test_site',

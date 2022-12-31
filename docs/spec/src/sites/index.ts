@@ -4,7 +4,7 @@ import { IntegrationConfig } from '../../../../src/config';
 export const sitesSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
-     * ENDPOINT: https://console.rumble.run/api/v1.0/account/sites
+     * ENDPOINT: https://console.runzero.com/api/v1.0/account/sites
      * PATTERN: Fetch Entities
      */
     id: 'fetch-sites',
@@ -12,7 +12,7 @@ export const sitesSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Site',
-        _type: 'rumble_site',
+        _type: 'runzero_site',
         _class: ['Site'],
       },
     ],
@@ -26,10 +26,10 @@ export const sitesSpec: StepSpec<IntegrationConfig>[] = [
     entities: [],
     relationships: [
       {
-        _type: 'rumble_organization_has_site',
-        sourceType: 'rumble_organization',
+        _type: 'runzero_organization_has_site',
+        sourceType: 'runzero_organization',
         _class: RelationshipClass.HAS,
-        targetType: 'rumble_site',
+        targetType: 'runzero_site',
       },
     ],
     dependsOn: ['fetch-sites', 'fetch-organization'],
@@ -41,9 +41,9 @@ export const sitesSpec: StepSpec<IntegrationConfig>[] = [
     entities: [],
     relationships: [
       {
-        sourceType: 'rumble_account',
-        targetType: 'rumble_site',
-        _type: 'rumble_account_has_site',
+        sourceType: 'runzero_account',
+        targetType: 'runzero_site',
+        _type: 'runzero_account_has_site',
         _class: RelationshipClass.HAS,
       },
     ],

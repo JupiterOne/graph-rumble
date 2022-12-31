@@ -4,7 +4,7 @@ import {
   Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { apiKeyIntegrationConfig } from '../../test/config';
-import { setupRumbleRecording } from '../../test/recording';
+import { setupRunZeroRecording } from '../../test/recording';
 import { IntegrationConfig } from '../config';
 import { AccountAPIKeyClient } from './APIKeyClient';
 
@@ -16,7 +16,7 @@ describe('apiClient - API Key', () => {
 
   describe('#getExportTokens', () => {
     test('successfully gets export tokens', async () => {
-      recording = setupRumbleRecording({
+      recording = setupRunZeroRecording({
         directory: __dirname,
         name: 'get-keys-collects-data',
       });
@@ -36,7 +36,7 @@ describe('apiClient - API Key', () => {
     });
 
     test('logs warning for missing keys', async () => {
-      recording = setupRumbleRecording({
+      recording = setupRunZeroRecording({
         directory: __dirname,
         name: 'logger-warns-missing-keys',
       });

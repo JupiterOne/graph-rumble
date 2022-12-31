@@ -36,7 +36,7 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
   /**
-   * The Rumble Account API Key used to authenticate requests.
+   * The RunZero Account API Key used to authenticate requests.
    */
   accountAPIKey: string;
 

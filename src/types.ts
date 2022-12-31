@@ -6,12 +6,12 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
 
-export interface RumbleAccount {
+export interface RunZeroAccount {
   id: string;
   name: string;
 }
 
-export interface RumbleOrganization {
+export interface RunZeroOrganization {
   id: string;
   name: string;
   created_at: number;
@@ -47,7 +47,7 @@ export interface RumbleOrganization {
   expiration_warning_last_sent: number;
 }
 
-export interface RumbleUser {
+export interface RunZeroUser {
   id: string;
   client_id: string;
   created_at: number;
@@ -72,7 +72,7 @@ export interface RumbleUser {
   last_action_at: number;
 }
 
-export interface RumbleSite {
+export interface RunZeroSite {
   id: string;
   created_at: number;
   updated_at: number;
@@ -103,7 +103,7 @@ export interface RumbleSite {
   last_task_duration: number;
 }
 
-export interface RumbleAsset {
+export interface RunZeroAsset {
   id: string;
   created_at: number;
   updated_at: number;

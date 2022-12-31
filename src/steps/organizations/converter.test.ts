@@ -1,9 +1,9 @@
-import { RumbleOrganization } from '../../types';
+import { RunZeroOrganization } from '../../types';
 import { createOrganizationEntity } from './converter';
 
 describe('#createOrganizationEntity', () => {
   test('should convert to entity', () => {
-    const org: RumbleOrganization = {
+    const org: RunZeroOrganization = {
       id: 'organization_id',
       name: 'test_org',
       created_at: 10000,
@@ -43,7 +43,7 @@ describe('#createOrganizationEntity', () => {
     expect(orgEntity).toEqual({
       _class: ['Organization'],
       _key: 'organization_id',
-      _type: 'rumble_organization',
+      _type: 'runzero_organization',
       name: 'test_org',
       createdOn: undefined,
       description: 'test_organization',

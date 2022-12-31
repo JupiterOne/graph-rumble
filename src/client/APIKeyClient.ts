@@ -9,11 +9,11 @@ import { promisify } from 'util';
 import { parser } from 'stream-json/jsonl/Parser';
 import {
   APIClientOptions,
-  RumbleAccount,
-  RumbleAsset,
-  RumbleOrganization,
-  RumbleSite,
-  RumbleUser,
+  RunZeroAccount,
+  RunZeroAsset,
+  RunZeroOrganization,
+  RunZeroSite,
+  RunZeroUser,
 } from '../types';
 import { APIClient, BASE_URI, ResourceIteratee } from '.';
 
@@ -32,7 +32,7 @@ export class AccountAPIKeyClient implements APIClient {
    * Since there are several calls made to /account/orgs
    * it is worth caching the results
    */
-  orgCache: { [key: string]: RumbleOrganization[] } = {};
+  orgCache: { [key: string]: RunZeroOrganization[] } = {};
 
   public async verifyAuthentication(): Promise<void> {
     try {
@@ -48,37 +48,37 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * getAccount gets account info from the Rumble API by making a call to /account/orgs
-   * @returns a Promise for a RumbleAccount
+   * getAccount gets account info from the RunZero API by making a call to /account/orgs
+   * @returns a Promise for a RunZeroAccount
    */
-  public async getAccount(): Promise<RumbleAccount> {
+  public async getAccount(): Promise<RunZeroAccount> {
     // We use the organizations endpoint to get client_id for the account
     // since there is not an account information endpoint
     const organizations = await this.getOrganizations();
 
-    const acc: RumbleAccount = {
+    const acc: RunZeroAccount = {
       // Every account is guaranteed at least one Organization
       // so we can expect one organization to read the client_id from
-      // See https://www.rumble.run/docs/organizations-and-sites/
+      // See https://www.runzero.com/docs/sites/
       id: organizations[0].client_id,
 
       // we use integration name for the account name
       // since there is not an obvious name value from
-      // the rumble api. accountId tag might work as well.
+      // the runZero api. accountId tag might work as well.
       name: this.options.name,
     };
     return acc;
   }
 
   /**
-   * iterateOrganizations gets all Rumble Organizations from the /account/orgs endpoint
+   * iterateOrganizations gets all RunZero Organizations from the /account/orgs endpoint
    * and then calls the iteratee for each organization
    *
    * @param iteratee the function called for each resource
    * @returns Promise<void>
    */
   public async iterateOrganizations(
-    iteratee: ResourceIteratee<RumbleOrganization>,
+    iteratee: ResourceIteratee<RunZeroOrganization>,
   ): Promise<void> {
     const organizations = await this.getOrganizations();
 
@@ -88,14 +88,14 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * iterateUsers gets all Rumble Users from the /account/orgs endpoint
+   * iterateUsers gets all RunZero Users from the /account/orgs endpoint
    * and then calls the iteratee for each user
    *
    * @param iteratee the function called for each User
    * @returns Promise<void>
    */
   public async iterateUsers(
-    iteratee: ResourceIteratee<RumbleUser>,
+    iteratee: ResourceIteratee<RunZeroUser>,
   ): Promise<void> {
     const uri = '/account/users';
     const endpoint = BASE_URI + uri;
@@ -107,14 +107,14 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * iterateSits gets all Rumble Sites from the /account/sites endpoint
+   * iterateSits gets all RunZero Sites from the /account/sites endpoint
    * and then calls the iteratee for each site
    *
    * @param iteratee the function called for each Site
    * @return Promise<void>
    */
   public async iterateSites(
-    iteratee: ResourceIteratee<RumbleSite>,
+    iteratee: ResourceIteratee<RunZeroSite>,
   ): Promise<void> {
     const uri = '/account/sites';
     const endpoint = BASE_URI + uri;
@@ -126,13 +126,13 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * iterateAssets gets all RumbleAssets for an organization from the /export/org/assets.json
+   * iterateAssets gets all RunZeroAssets for an organization from the /export/org/assets.json
    * endpoint and then calls the iteratee for each site. This is repeated for each organization
    * that has an export token.
    * @param iteratee the function called for each sites
    */
   public async iterateAssets(
-    iteratee: ResourceIteratee<RumbleAsset>,
+    iteratee: ResourceIteratee<RunZeroAsset>,
   ): Promise<void> {
     const endpoint = BASE_URI + '/export/org/assets.jsonl';
 
@@ -195,7 +195,7 @@ export class AccountAPIKeyClient implements APIClient {
     return tokens;
   }
 
-  private async getOrganizations(): Promise<RumbleOrganization[]> {
+  private async getOrganizations(): Promise<RunZeroOrganization[]> {
     const uri = '/account/orgs';
     const endpoint = BASE_URI + uri;
 
@@ -210,7 +210,7 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * callApi is a generic method for making calls to the Rumble API.
+   * callApi is a generic method for making calls to the RunZero API.
    * The function takes options. The only mandatory option is `url`.
    * Default headers will be set if none are passed in the options.
    *
