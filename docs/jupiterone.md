@@ -1,17 +1,17 @@
 # Integration with JupiterOne
 
-## RunZero + JupiterOne Integration Benefits
+## runZero + JupiterOne Integration Benefits
 
-- Visualize your RunZero organizations, users, and scanned assets and services
+- Visualize your runZero organizations, users, and scanned assets and services
   in the JupiterOne graph.
-- Map RunZero users to employees in your JupiterOne account.
-- Monitor changes to RunZero users using JupiterOne alerts.
+- Map runZero users to employees in your JupiterOne account.
+- Monitor changes to runZero users using JupiterOne alerts.
 - Discover which assets in your network are running a vulnerable OS
 
 ## How it Works
 
 - JupiterOne periodically fetches organizations, users, assets, and other
-  entities from RunZero to update the graph.
+  entities from runZero to update the graph.
 - Write JupiterOne queries to review and monitor updates to the graph, or
   leverage existing queries.
 - Configure alerts to take action when the JupiterOne graph changes, or leverage
@@ -19,16 +19,16 @@
 
 ## Requirements
 
-You can configure the RunZero Integration using either an **Account API Key** or
+You can configure the runZero Integration using either an **Account API Key** or
 a single **Export Token**. The **Export Token** has more limited read-only
 permissions, but will limit the data collected.
 
 ### Using an Account API Key
 
-- JupiterOne integration requires a RunZero **Account API Key**. To generate an
+- JupiterOne integration requires a runZero **Account API Key**. To generate an
   **Account API Key** you'll need:
 
-  - RunZero Enterprise License
+  - runZero Enterprise License
   - Administrator access
 
 - JupiterOne integration also requires an **Export Token** for each organization
@@ -44,7 +44,7 @@ permissions, but will limit the data collected.
 
 If you are configuring the integration using an **Export Token**, you'll need:
 
-- Admin access to the RunZero organization for which you want to generate an
+- Admin access to the runZero organization for which you want to generate an
   **Export Token**.
 - You must have permission in JupiterOne to install new integrations.
 
@@ -59,13 +59,13 @@ You'll need an **Account API Key** and administrator access to the account to
 integrate with JupiterOne. You'll also need to generate **Export Tokens** for
 all organizations whose data you want to ingest.
 
-### In RunZero
+### In runZero
 
 #### Configuring Using An Account API Key
 
 **Account API Key Generation**
 
-1. Navigate to the [RunZero Console](https://console.runzero.com/).
+1. Navigate to the [runZero Console](https://console.runzero.com/).
 2. In the navigation bar, go to `Account`
 3. On the Account page under the Account API keys section, click "Generate API
    Key"
@@ -79,7 +79,7 @@ services, and wireless data you want to include in the graph. The integration
 will automatically collect these tokens if they are present. Organizations
 without export tokens will not have assets, services, or wireless data ingested.
 
-1. Navigate to the [RunZero Console](https://console.runzero.com/)
+1. Navigate to the [runZero Console](https://console.runzero.com/)
 2. In the navigation bar, go to `Organizations`
 3. Click on the organization in which you want to create an `Export Token`
 4. Press the **Generate Export Token** button.
@@ -90,7 +90,7 @@ without export tokens will not have assets, services, or wireless data ingested.
 You'll need to generate an export token for the organization whose data you want
 to ingest.
 
-1. Navigate to the [RunZero Console](https://console.runzero.com/)
+1. Navigate to the [runZero Console](https://console.runzero.com/)
 2. In the navigation bar, go to `Organizations`
 3. Click on the organization in which you want to create an `Export Token`
 4. Press the **Generate Export Token** button.
@@ -99,10 +99,10 @@ to ingest.
 ### In JupiterOne
 
 1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **RunZero** integration tile and click it.
+2. Scroll to the **runZero** integration tile and click it.
 3. Click the **Add Configuration** button and configure the following settings:
 
-- Enter the **Account Name** by which you'd like to identify this RunZero
+- Enter the **Account Name** by which you'd like to identify this runZero
   account in JupiterOne. Ingested entities will have this value stored in
   `tag.AccountName` when **Tag with Account Name** is checked.
 - Enter a **Description** that will further assist your team when identifying
@@ -110,7 +110,7 @@ to ingest.
 - Select a **Polling Interval** that you feel is sufficient for your monitoring
   needs. You may leave this as `DISABLED` and manually execute the integration.
 - If you're configuring the integration with an `Account API Key` then put the
-  key in the `RunZero Account API Key` box. If you are configuring the
+  key in the `runZero Account API Key` box. If you are configuring the
   integration with an Export Token put the token into the `Export Token` box.
 
 4. Click **Create Configuration** once all values are provided.
@@ -118,7 +118,7 @@ to ingest.
 ## How to Uninstall
 
 1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **RunZero** integration tile and click it.
+2. Scroll to the **runZero** integration tile and click it.
 3. Identify and click the **integration to delete**.
 4. Click the **trash can** icon.
 5. Click the **Remove** button to delete the integration.
