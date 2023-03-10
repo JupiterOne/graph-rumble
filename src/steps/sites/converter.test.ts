@@ -34,45 +34,6 @@ describe('#createSiteEntity', () => {
       last_task_duration: 0,
     };
 
-    const siteEntity = createSiteEntity(site);
-    expect(siteEntity).toEqual({
-      _class: ['Site'],
-      _key: 'site_id',
-      _type: 'runzero_site',
-      name: 'test_site',
-      description: '',
-      displayName: 'test_site',
-      id: 'site_id',
-      createdAt: 1644331146,
-      updatedAt: 1645561808,
-      clientId: 'client_id',
-      organizationId: 'organization_id',
-      scope: '',
-      excludes: '',
-      inactive: false,
-      serviceCount: 0,
-      serviceCountTCP: 0,
-      serviceCountUDP: 0,
-      serviceCountARP: 0,
-      serviceCountICMP: 0,
-      assetCount: 0,
-      liveAssetCount: 0,
-      recentAssetCount: 0,
-      softwareCount: 0,
-      vulnerabilityCount: 0,
-      assetAddressCount: 0,
-      assetAddressExtraCount: 0,
-      lastTaskId: 'task_id',
-      lastTaskBy: '',
-      lastTaskDuration: 0,
-      _rawData: [
-        {
-          name: 'default',
-          rawData: {
-            ...site,
-          },
-        },
-      ],
-    });
+    expect(createSiteEntity(site)).toMatchSnapshot();
   });
 });

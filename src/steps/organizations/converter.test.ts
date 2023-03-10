@@ -39,55 +39,6 @@ describe('#createOrganizationEntity', () => {
       expiration_warning_last_sent: 20,
     };
 
-    const orgEntity = createOrganizationEntity(org);
-    expect(orgEntity).toEqual({
-      _class: ['Organization'],
-      _key: 'organization_id',
-      _type: 'runzero_organization',
-      name: 'test_org',
-      createdOn: undefined,
-      description: 'test_organization',
-      displayName: 'test_org',
-      id: 'organization_id',
-      createdAt: 10000,
-      createdBy: 'test_user',
-      updatedAt: 20000,
-      clientId: 'client_id',
-      downloadTokenCreatedAt: 10000,
-      demo: false,
-      project: false,
-      parentId: 'test_parent_id',
-      inactive: false,
-      // parsePropertyTimeValue will change a 0 to undefined
-      deactivatedAt: undefined,
-      serviceCount: 100,
-      serviceCountTCP: 25,
-      serviceCountUDP: 25,
-      serviceCountARP: 25,
-      serviceCountICMP: 25,
-      assetCount: 1000,
-      liveAssetCount: 0,
-      recentAssetCount: 0,
-      softwareCount: 0,
-      vulnerabilityCount: 0,
-      exportTokenCreatedAt: 10000,
-      exportTokenLastUsedAt: 20000,
-      exportTokenLastUsedBy: 'test_user',
-      exportTokenCounter: 200,
-      expirationAssetsStale: 20,
-      expirationAssetsOffline: 10,
-      expirationScans: 20,
-      expirationWarningLastSent: 20,
-      _rawData: [
-        {
-          name: 'default',
-          rawData: {
-            ...org,
-            export_token: undefined,
-            download_token: undefined,
-          },
-        },
-      ],
-    });
+    expect(createOrganizationEntity(org)).toMatchSnapshot();
   });
 });
