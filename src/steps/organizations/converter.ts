@@ -3,10 +3,10 @@ import {
   Entity,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
-import { RumbleOrganization } from '../../types';
+import { RunZeroOrganization } from '../../types';
 import { Entities } from '../constants';
 
-export function createOrganizationEntity(org: RumbleOrganization): Entity {
+export function createOrganizationEntity(org: RunZeroOrganization): Entity {
   return createIntegrationEntity({
     entityData: {
       // for source we could pull in all the non-secret fields
@@ -21,7 +21,7 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         _class: Entities.ORGANIZATION._class,
         name: org.name,
         displayName: org.name ?? undefined,
-        // RumbleOrganization specific properties
+        // RunZeroOrganization specific properties
         clientId: org.client_id,
         createdAt: parseTimePropertyValue(org.created_at, 'ms'),
         createdBy: org.created_by,
@@ -43,6 +43,10 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
         serviceCountARP: org.service_count_arp,
         serviceCountICMP: org.service_count_icmp,
         assetCount: org.asset_count,
+        liveAssetCount: org.live_asset_count,
+        recentAssetCount: org.recent_asset_count,
+        softwareCount: org.software_count,
+        vulnerabilityCount: org.vulnerability_count,
         exportTokenCreatedAt: parseTimePropertyValue(
           org.export_token_created_at,
           'ms',
@@ -60,7 +64,7 @@ export function createOrganizationEntity(org: RumbleOrganization): Entity {
           org.expiration_warning_last_sent,
           'ms',
         ),
-        // Fields that are on RumbleOrganization but excluded from assign:
+        // Fields that are on RunZeroOrganization but excluded from assign:
         // download_token
         // export_token
       },

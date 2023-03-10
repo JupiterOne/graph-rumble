@@ -1,7 +1,7 @@
 import { buildStepTestConfigForAPIKey } from '../../../test/config';
 import {
   createStepCollectionTest,
-  rumbleRecordingOptions,
+  runZeroRecordingOptions,
 } from '../../../test/recording';
 import { Steps } from '../constants';
 
@@ -13,7 +13,7 @@ describe('userSteps - API Key', () => {
         recordingSetup: {
           directory: __dirname,
           name: 'fetchUserDetailsShouldCollectData',
-          ...rumbleRecordingOptions,
+          ...runZeroRecordingOptions,
         },
         stepConfig: buildStepTestConfigForAPIKey(Steps.USERS),
       }),
@@ -27,7 +27,7 @@ describe('userSteps - API Key', () => {
         recordingSetup: {
           directory: __dirname,
           name: 'buildUserOrganizationRelationshipsShouldCollectData',
-          ...rumbleRecordingOptions,
+          ...runZeroRecordingOptions,
         },
         stepConfig: buildStepTestConfigForAPIKey(
           Steps.BUILD_USER_ORGANIZATION_RELATIONSHIPS,

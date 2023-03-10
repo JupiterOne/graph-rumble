@@ -3,7 +3,7 @@ import {
   Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { buildStepTestConfigForAPIKey } from '../../../test/config';
-import { setupRumbleRecording } from '../../../test/recording';
+import { setupRunZeroRecording } from '../../../test/recording';
 import { Steps } from '../constants';
 
 describe('assetSteps - API Key', () => {
@@ -13,7 +13,7 @@ describe('assetSteps - API Key', () => {
   });
   describe('#fetchAssetDetails', () => {
     test.skip('creates asset entities', async () => {
-      recording = setupRumbleRecording({
+      recording = setupRunZeroRecording({
         directory: __dirname,
         name: 'fetchAssetDetailsShouldCollectData',
       });
@@ -27,7 +27,7 @@ describe('assetSteps - API Key', () => {
 
   describe('#buildSiteAssetRelationships', () => {
     test.skip('creates site has asset relationships', async () => {
-      recording = setupRumbleRecording({
+      recording = setupRunZeroRecording({
         directory: __dirname,
         name: 'buildSiteAssetRelationshipsShouldBuildRelationship',
       });

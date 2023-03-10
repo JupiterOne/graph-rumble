@@ -3,10 +3,10 @@ import {
   Entity,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
-import { RumbleSite } from '../../types';
+import { RunZeroSite } from '../../types';
 import { Entities } from '../constants';
 
-export function createSiteEntity(site: RumbleSite): Entity {
+export function createSiteEntity(site: RunZeroSite): Entity {
   return createIntegrationEntity({
     entityData: {
       source: site,
@@ -30,7 +30,12 @@ export function createSiteEntity(site: RumbleSite): Entity {
         serviceCountARP: site.service_count_arp,
         serviceCountICMP: site.service_count_icmp,
         assetCount: site.asset_count,
+        liveAssetCount: site.live_asset_count,
+        recentAssetCount: site.recent_asset_count,
+        softwareCount: site.software_count,
+        vulnerabilityCount: site.vulnerability_count,
         assetAddressCount: site.asset_address_count,
+        assetAddressExtraCount: site.asset_address_extra_count,
         lastTaskId: site.last_task_id ?? undefined,
         lastTaskAt: parseTimePropertyValue(site.last_task_at, 'ms'),
         lastTaskBy: site.last_task_by ?? undefined,

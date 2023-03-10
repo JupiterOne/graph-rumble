@@ -11,8 +11,8 @@ if (process.env.LOAD_ENV) {
   });
 }
 
-const DEFAULT_ACCOUNT_API_KEY = 'dummy-rumble-account-api-key';
-const DEFAULT_EXPORT_TOKEN = 'dummy-rumble-export-token';
+const DEFAULT_ACCOUNT_API_KEY = 'dummy-runzero-account-api-key';
+const DEFAULT_EXPORT_TOKEN = 'dummy-runzero-export-token';
 
 export const apiKeyIntegrationConfig: IntegrationConfig = {
   accountAPIKey: process.env.ACCOUNT_API_KEY || DEFAULT_ACCOUNT_API_KEY,

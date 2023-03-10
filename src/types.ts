@@ -6,12 +6,12 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from './config';
 
-export interface RumbleAccount {
+export interface RunZeroAccount {
   id: string;
   name: string;
 }
 
-export interface RumbleOrganization {
+export interface RunZeroOrganization {
   id: string;
   name: string;
   created_at: number;
@@ -32,6 +32,10 @@ export interface RumbleOrganization {
   service_count_arp: number;
   service_count_icmp: number;
   asset_count: number;
+  live_asset_count: number;
+  recent_asset_count: number;
+  software_count: number;
+  vulnerability_count: number;
   export_token: string;
   export_token_created_at: number;
   export_token_last_used_at: number;
@@ -43,7 +47,7 @@ export interface RumbleOrganization {
   expiration_warning_last_sent: number;
 }
 
-export interface RumbleUser {
+export interface RunZeroUser {
   id: string;
   client_id: string;
   created_at: number;
@@ -68,7 +72,7 @@ export interface RumbleUser {
   last_action_at: number;
 }
 
-export interface RumbleSite {
+export interface RunZeroSite {
   id: string;
   created_at: number;
   updated_at: number;
@@ -86,15 +90,20 @@ export interface RumbleSite {
   service_count_arp: number;
   service_count_icmp: number;
   asset_count: number;
+  live_asset_count: number;
+  recent_asset_count: number;
+  software_count: number;
+  vulnerability_count: number;
   subnets: Record<string, string | null>;
   asset_address_count: number;
+  asset_address_extra_count: number;
   last_task_id: string | null;
   last_task_at: number;
   last_task_by: string | null;
   last_task_duration: number;
 }
 
-export interface RumbleAsset {
+export interface RunZeroAsset {
   id: string;
   created_at: number;
   updated_at: number;
@@ -116,7 +125,47 @@ export interface RumbleAsset {
   addresses?: string[];
   addresses_extra?: string[];
   macs?: string[];
+  mac_vendors?: string[];
   names?: string[];
+  domains?: string[];
+  // TODO: better typings
+  // Documentation schema not updated
+  services?: Record<string, Object>;
+  credentials: Object;
+  rtts: Record<string, string[]>;
+  attributes: Record<string, string>;
+  service_count: number;
+  service_count_tcp: number;
+  service_count_udp: number;
+  service_count_arp: number;
+  service_count_icmp: number;
+  software_count: number;
+  vulnerability_count: number;
+  lowest_ttl: number;
+  lowest_rtt: number;
+  last_agent_id: string;
+  last_task_id: string;
+  newest_mac: string;
+  newest_mac_vendor: string;
+  newest_mac_age: number;
+  service_ports_tcp: string[];
+  service_ports_udp: string[];
+  service_protocols: string[];
+  service_products: string[];
+  scanned: boolean;
+  source_ids: number[];
+  eol_os: number;
+  eol_os_exit: number;
+  outlier_score: number;
+  outlier_raw: number;
+  sources: string[];
+  org_name: string;
+  site_name: string;
+  agent_name: string | null;
+  agent_external_ip: string | null;
+  hosted_zone_name: string | null;
+  subnets: Record<string, string | null>;
+  foreign_attributes: Object;
 }
 
 export type APIClientOptions = {

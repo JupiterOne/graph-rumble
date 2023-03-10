@@ -9,7 +9,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { RumbleSite } from '../../types';
+import { RunZeroSite } from '../../types';
 import { ACCOUNT_ENTITY_KEY } from '../account';
 import { Entities, Relationships, Steps } from '../constants';
 import { createSiteEntity } from './converter';
@@ -25,7 +25,7 @@ async function fetchSitesDetails({
     name: instance.name,
   });
 
-  await apiClient.iterateSites(async (site: RumbleSite) => {
+  await apiClient.iterateSites(async (site: RunZeroSite) => {
     await jobState.addEntity(createSiteEntity(site));
   });
 }
@@ -36,7 +36,7 @@ async function buildOrganizationSiteRelationships({
   await jobState.iterateEntities(
     { _type: Entities.SITE._type },
     async (siteEntity) => {
-      const site = getRawData<RumbleSite>(siteEntity);
+      const site = getRawData<RunZeroSite>(siteEntity);
       const orgId = site?.organization_id;
 
       const orgEntity = await jobState.findEntity(orgId);

@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Updated endpoints and names referencing `Rumble` to `runZero` as part of the
+  rebranding.
+
 [2.0.1] - 2022-09-21
 
 ### Changed

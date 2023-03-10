@@ -15,11 +15,11 @@ import {
 
 export { Recording };
 
-export const rumbleRecordingOptions: Partial<SetupRecordingInput> = {
+export const runZeroRecordingOptions: Partial<SetupRecordingInput> = {
   mutateEntry: (entry) => redact(entry),
 };
 
-export function setupRumbleRecording(
+export function setupRunZeroRecording(
   input: Omit<SetupRecordingInput, 'mutateEntry'>,
 ): Recording {
   return setupRecording({
