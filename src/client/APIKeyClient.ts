@@ -48,8 +48,8 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * getAccount gets account info from the RunZero API by making a call to /account/orgs
-   * @returns a Promise for a RunZeroAccount
+   * getAccount gets account info from the runZero API by making a call to /account/orgs
+   * @returns a Promise for a runZeroAccount
    */
   public async getAccount(): Promise<RunZeroAccount> {
     // We use the organizations endpoint to get client_id for the account
@@ -71,7 +71,7 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * iterateOrganizations gets all RunZero Organizations from the /account/orgs endpoint
+   * iterateOrganizations gets all runZero Organizations from the /account/orgs endpoint
    * and then calls the iteratee for each organization
    *
    * @param iteratee the function called for each resource
@@ -88,7 +88,7 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * iterateUsers gets all RunZero Users from the /account/orgs endpoint
+   * iterateUsers gets all runZero Users from the /account/orgs endpoint
    * and then calls the iteratee for each user
    *
    * @param iteratee the function called for each User
@@ -107,7 +107,7 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * iterateSits gets all RunZero Sites from the /account/sites endpoint
+   * iterateSits gets all runZero Sites from the /account/sites endpoint
    * and then calls the iteratee for each site
    *
    * @param iteratee the function called for each Site
@@ -126,7 +126,7 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * iterateAssets gets all RunZeroAssets for an organization from the /export/org/assets.json
+   * iterateAssets gets all runZeroAssets for an organization from the /export/org/assets.json
    * endpoint and then calls the iteratee for each site. This is repeated for each organization
    * that has an export token.
    * @param iteratee the function called for each sites
@@ -210,7 +210,7 @@ export class AccountAPIKeyClient implements APIClient {
   }
 
   /**
-   * callApi is a generic method for making calls to the RunZero API.
+   * callApi is a generic method for making calls to the runZero API.
    * The function takes options. The only mandatory option is `url`.
    * Default headers will be set if none are passed in the options.
    *

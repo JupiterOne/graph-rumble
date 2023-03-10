@@ -24,7 +24,7 @@ describe('#fetchAccountDetails - API Key', () => {
 
 describe('#fetchAccountDetails - Export Tokens', () => {
   // NOTE: This test won't produce a recording under current implementation
-  // of client. RunZero account produced using static integration data.
+  // of client. runZero account produced using static integration data.
   test(
     'should collect data and create account entity',
     createStepCollectionTest({

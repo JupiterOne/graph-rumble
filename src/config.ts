@@ -36,7 +36,7 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
   /**
-   * The RunZero Account API Key used to authenticate requests.
+   * The runZero Account API Key used to authenticate requests.
    */
   accountAPIKey: string;
 
