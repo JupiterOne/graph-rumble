@@ -116,7 +116,40 @@ export interface RumbleAsset {
   addresses?: string[];
   addresses_extra?: string[];
   macs?: string[];
+  mac_vendors?: string[];
   names?: string[];
+  tags?: Record<string, any>;
+  domains?: string[];
+  services?: Record<string, any>;
+  credentials?: Record<string, any>;
+  rtts?: Record<string, any>;
+  attributes?: Record<string, any>;
+  service_count?: number;
+  service_count_tcp?: number;
+  service_count_udp?: number;
+  service_count_arp?: number;
+  service_count_icmp?: number;
+  lowest_ttl?: number;
+  lowest_rtt?: number;
+  last_agent_id?: string;
+  last_task_id?: string;
+  newest_mac?: string;
+  newest_mac_vendor?: string;
+  newest_mac_age?: number;
+  comments?: string | null;
+  service_ports_tcp?: string[];
+  service_ports_udp?: string[];
+  service_protocols?: string[];
+  service_products?: string[];
+  scanned?: boolean;
+  source_ids?: number[];
+  eol_os?: number;
+  eol_os_ext?: number;
+  sources?: string[];
+  org_name?: string;
+  site_name?: string;
+  agent_name?: string | null;
+  subnets?: Record<string, any>;
 }
 
 export type APIClientOptions = {
