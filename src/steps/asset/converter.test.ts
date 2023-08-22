@@ -150,7 +150,7 @@ describe('#createAssetEntity', () => {
       scanned: true,
       source_ids: [1],
       eol_os: 0,
-      eol_os_exit: 0,
+      eol_os_ext: 0,
       sources: ['rumble'],
       org_name: 'Demo Organization',
       site_name: 'Corporate',

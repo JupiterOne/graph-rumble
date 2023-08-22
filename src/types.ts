@@ -128,6 +128,7 @@ export interface RunZeroAsset {
   mac_vendors?: string[];
   names?: string[];
   domains?: string[];
+  tags?: Record<string, any>;
   // TODO: better typings
   // Documentation schema not updated
   services?: Record<string, Object>;
@@ -155,7 +156,7 @@ export interface RunZeroAsset {
   scanned: boolean;
   source_ids: number[];
   eol_os: number;
-  eol_os_exit: number;
+  eol_os_ext: number;
   outlier_score: number;
   outlier_raw: number;
   sources: string[];
