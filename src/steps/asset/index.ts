@@ -8,7 +8,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { RumbleAsset } from '../../types';
+import { RunZeroAsset } from '../../types';
 import { Entities, Relationships, Steps } from '../constants';
 import { createAssetEntity } from './converter';
 
@@ -34,7 +34,7 @@ async function buildSiteAssetRelationships({
   await jobState.iterateEntities(
     { _type: Entities.ASSET._type },
     async (assetEntity) => {
-      const asset = getRawData<RumbleAsset>(assetEntity) as RumbleAsset;
+      const asset = getRawData<RunZeroAsset>(assetEntity) as RunZeroAsset;
 
       const siteEntity = await jobState.findEntity(asset.site_id);
       if (!siteEntity) {

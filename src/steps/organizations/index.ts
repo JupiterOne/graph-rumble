@@ -8,7 +8,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { RumbleOrganization } from '../../types';
+import { RunZeroOrganization } from '../../types';
 import { ACCOUNT_ENTITY_KEY } from '../account';
 import { Entities, Relationships, Steps } from '../constants';
 import { createOrganizationEntity } from './converter';
@@ -30,7 +30,7 @@ async function fetchOrganizationDetails({
       `Expected to find Account Entity in jobState with key: ${ACCOUNT_ENTITY_KEY}`,
     );
   }
-  await apiClient.iterateOrganizations(async (org: RumbleOrganization) => {
+  await apiClient.iterateOrganizations(async (org: RunZeroOrganization) => {
     const orgEntity = await jobState.addEntity(createOrganizationEntity(org));
     // build the relationships between the organizations and account
     await jobState.addRelationship(

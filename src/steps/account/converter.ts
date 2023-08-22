@@ -2,10 +2,10 @@ import {
   createIntegrationEntity,
   Entity,
 } from '@jupiterone/integration-sdk-core';
-import { RumbleAccount } from '../../types';
+import { RunZeroAccount } from '../../types';
 
 import { Entities } from '../constants';
-export function createAccountEntity(account: RumbleAccount): Entity {
+export function createAccountEntity(account: RunZeroAccount): Entity {
   return createIntegrationEntity({
     entityData: {
       source: {

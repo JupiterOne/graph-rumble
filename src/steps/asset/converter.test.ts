@@ -1,9 +1,9 @@
-import { RumbleAsset } from '../../types';
+import { RunZeroAsset } from '../../types';
 import { createAssetEntity } from './converter';
 
 describe('#createAssetEntity', () => {
   test('should convert to entity', () => {
-    const asset: RumbleAsset = {
+    const asset: RunZeroAsset = {
       id: '40fa9e9a-e798-44e4-a521-d06a7782ed14',
       created_at: 1642795487,
       updated_at: 1642795487,
@@ -27,7 +27,6 @@ describe('#createAssetEntity', () => {
       macs: ['a0:36:9f:50:77:d8'],
       mac_vendors: ['Intel Corporate'],
       names: ['ROUTER'],
-      tags: {},
       domains: [],
       services: {
         '192.168.0.1/0/arp/': {
@@ -86,8 +85,8 @@ describe('#createAssetEntity', () => {
       },
       credentials: {},
       rtts: {
-        'icmp/echo': [78781, 104457],
-        'udp/dns': [93812355, 158454077],
+        'icmp/echo': ['78781', '104457'],
+        'udp/dns': ['93812355', '158454077'],
       },
       attributes: {
         '@rumble.scan._links.ports.connected':
@@ -144,7 +143,6 @@ describe('#createAssetEntity', () => {
       newest_mac: 'a0:36:9f:50:77:d8',
       newest_mac_vendor: 'Intel Corporate',
       newest_mac_age: 1304035200000000000,
-      comments: null,
       service_ports_tcp: [],
       service_ports_udp: ['53', '5353'],
       service_protocols: ['dns', 'mdns'],
@@ -152,12 +150,19 @@ describe('#createAssetEntity', () => {
       scanned: true,
       source_ids: [1],
       eol_os: 0,
-      eol_os_ext: 0,
+      eol_os_exit: 0,
       sources: ['rumble'],
       org_name: 'Demo Organization',
       site_name: 'Corporate',
       agent_name: null,
       subnets: {},
+      software_count: 0,
+      vulnerability_count: 0,
+      outlier_score: 0,
+      outlier_raw: 0,
+      agent_external_ip: null,
+      hosted_zone_name: null,
+      foreign_attributes: {},
     };
     expect(createAssetEntity(asset)).toMatchSnapshot();
   });

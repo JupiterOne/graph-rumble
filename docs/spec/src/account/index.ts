@@ -12,7 +12,7 @@ export const accountSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Account',
-        _type: 'rumble_account',
+        _type: 'runzero_account',
         _class: ['Account'],
       },
     ],

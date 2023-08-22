@@ -4,7 +4,7 @@ import { IntegrationConfig } from '../../../../src/config';
 export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
-     * ENDPOINT: https://console.rumble.run/api/v1.0/account/orgs
+     * ENDPOINT: https://console.runzero.com/api/v1.0/account/orgs
      * PATTERN: Fetch Entities
      */
     id: 'fetch-organization',
@@ -12,16 +12,16 @@ export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Organization',
-        _type: 'rumble_organization',
+        _type: 'runzero_organization',
         _class: ['Organization'],
       },
     ],
     relationships: [
       {
-        _type: 'rumble_account_has_organization',
-        sourceType: 'rumble_account',
+        _type: 'runzero_account_has_organization',
+        sourceType: 'runzero_account',
         _class: RelationshipClass.HAS,
-        targetType: 'rumble_organization',
+        targetType: 'runzero_organization',
       },
     ],
     dependsOn: ['fetch-account'],

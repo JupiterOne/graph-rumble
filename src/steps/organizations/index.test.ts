@@ -1,7 +1,7 @@
 import { buildStepTestConfigForAPIKey } from '../../../test/config';
 import {
   createStepCollectionTest,
-  rumbleRecordingOptions,
+  runZeroRecordingOptions,
 } from '../../../test/recording';
 import { Steps } from '../constants';
 
@@ -12,7 +12,7 @@ describe('#fetchOrganizationsDetails - API Key', () => {
       recordingSetup: {
         directory: __dirname,
         name: 'fetchOrganizationsDetailsShouldCollectData',
-        ...rumbleRecordingOptions,
+        ...runZeroRecordingOptions,
       },
       stepConfig: buildStepTestConfigForAPIKey(Steps.ORGANIZATION),
     }),
