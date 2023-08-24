@@ -1,15 +1,14 @@
 ---
 sourceId: managed:rumble
 integrationDefinitionId: '${integration_definition_id}'
-questions: 
-- id: integration-question-Rumble-user-last-properties
-  title: What are the last properties of an active Rumble user?
-  description:
-    Returns all the last properties for a Rumble user.
-  queries:
-  - query: |
-      FIND rumble_user WITH active = true AS user
-      RETURN   
-      user.username,user.lastActionAt,user.lastActivityAt,user.lastLoginAt,user.lastLoginIP,user.lastLoginUa
-  tags:
-  - Rumble  
+questions:
+  - id: integration-question-runZero-user-last-properties
+    title: What are the last properties of an active runZero user?
+    description: Returns all the last properties for a runZero user.
+    queries:
+      - query: |
+          FIND rumble_user WITH active = true AS user
+          RETURN   
+          user.username,user.lastActionAt,user.lastActivityAt,user.lastLoginAt,user.lastLoginIP,user.lastLoginUa
+    tags:
+      - runZero

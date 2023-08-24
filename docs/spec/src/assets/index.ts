@@ -28,7 +28,7 @@ export const assetSpec: StepSpec<IntegrationConfig>[] = [
         targetType: 'rumble_asset',
       },
     ],
-    dependsOn: ['rumble-site', 'rumble-asset'],
+    dependsOn: ['fetch-sites', 'fetch-assets'],
     implemented: true,
   },
 ];

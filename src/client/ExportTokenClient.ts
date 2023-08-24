@@ -7,11 +7,11 @@ import { OptionsOfTextResponseBody } from 'got/dist/source';
 import { APIClient, BASE_URI, ResourceIteratee } from '.';
 import {
   APIClientOptions,
-  RumbleAccount,
-  RumbleAsset,
-  RumbleOrganization,
-  RumbleSite,
-  RumbleUser,
+  RunZeroAccount,
+  RunZeroAsset,
+  RunZeroOrganization,
+  RunZeroSite,
+  RunZeroUser,
 } from '../types';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
@@ -43,7 +43,7 @@ export class ExportTokenApiClient implements APIClient {
     }
   }
 
-  public getAccount(): RumbleAccount {
+  public getAccount(): RunZeroAccount {
     return {
       id: this.options.instance.id,
       name: this.options.name,
@@ -51,7 +51,7 @@ export class ExportTokenApiClient implements APIClient {
   }
 
   public async iterateSites(
-    iteratee: ResourceIteratee<RumbleSite>,
+    iteratee: ResourceIteratee<RunZeroSite>,
   ): Promise<void> {
     const uri = '/export/org/sites.json';
     const endpoint = BASE_URI + uri;
@@ -72,16 +72,16 @@ export class ExportTokenApiClient implements APIClient {
   }
 
   async iterateOrganizations(
-    iteratee: ResourceIteratee<RumbleOrganization>,
+    iteratee: ResourceIteratee<RunZeroOrganization>,
   ): Promise<void> {
     return await Promise.resolve();
   }
 
-  async iterateUsers(iteratee: ResourceIteratee<RumbleUser>): Promise<void> {
+  async iterateUsers(iteratee: ResourceIteratee<RunZeroUser>): Promise<void> {
     return await Promise.resolve();
   }
 
-  public async iterateAssets(iteratee: ResourceIteratee<RumbleAsset>) {
+  public async iterateAssets(iteratee: ResourceIteratee<RunZeroAsset>) {
     const endpoint = BASE_URI + '/export/org/assets.jsonl';
     await this.streamJsonl(endpoint, iteratee);
   }

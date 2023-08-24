@@ -4,7 +4,7 @@ import { IntegrationConfig } from '../../../../src/config';
 export const usersSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
-     * ENDPOINT: https://console.rumble.run/api/v1.0/account/users
+     * ENDPOINT: https://console.runzero.com/api/v1.0/account/users
      * PATTERN: Fetch Entities
      */
     id: 'fetch-users',

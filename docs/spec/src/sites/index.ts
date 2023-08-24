@@ -4,7 +4,7 @@ import { IntegrationConfig } from '../../../../src/config';
 export const sitesSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
-     * ENDPOINT: https://console.rumble.run/api/v1.0/account/sites
+     * ENDPOINT: https://console.runzero.com/api/v1.0/account/sites
      * PATTERN: Fetch Entities
      */
     id: 'fetch-sites',
