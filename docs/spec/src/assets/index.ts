@@ -8,7 +8,7 @@ export const assetSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Asset',
-        _type: 'runzero_asset',
+        _type: 'rumble_asset',
         _class: ['Device'],
       },
     ],
@@ -22,10 +22,10 @@ export const assetSpec: StepSpec<IntegrationConfig>[] = [
     entities: [],
     relationships: [
       {
-        _type: 'runzero_site_has_asset',
-        sourceType: 'runzero_site',
+        _type: 'rumble_site_has_asset',
+        sourceType: 'rumble_site',
         _class: RelationshipClass.HAS,
-        targetType: 'runzero_asset',
+        targetType: 'rumble_asset',
       },
     ],
     dependsOn: ['fetch-sites', 'fetch-assets'],

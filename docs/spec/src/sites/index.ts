@@ -12,7 +12,7 @@ export const sitesSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Site',
-        _type: 'runzero_site',
+        _type: 'rumble_site',
         _class: ['Site'],
       },
     ],
@@ -26,10 +26,10 @@ export const sitesSpec: StepSpec<IntegrationConfig>[] = [
     entities: [],
     relationships: [
       {
-        _type: 'runzero_organization_has_site',
-        sourceType: 'runzero_organization',
+        _type: 'rumble_organization_has_site',
+        sourceType: 'rumble_organization',
         _class: RelationshipClass.HAS,
-        targetType: 'runzero_site',
+        targetType: 'rumble_site',
       },
     ],
     dependsOn: ['fetch-sites', 'fetch-organization'],
@@ -41,9 +41,9 @@ export const sitesSpec: StepSpec<IntegrationConfig>[] = [
     entities: [],
     relationships: [
       {
-        sourceType: 'runzero_account',
-        targetType: 'runzero_site',
-        _type: 'runzero_account_has_site',
+        sourceType: 'rumble_account',
+        targetType: 'rumble_site',
+        _type: 'rumble_account_has_site',
         _class: RelationshipClass.HAS,
       },
     ],

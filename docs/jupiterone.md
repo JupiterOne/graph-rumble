@@ -140,26 +140,26 @@ https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources    | Entity `_type`         | Entity `_class` |
-| ------------ | ---------------------- | --------------- |
-| Account      | `runzero_account`      | `Account`       |
-| Asset        | `runzero_asset`        | `Device`        |
-| Organization | `runzero_organization` | `Organization`  |
-| Site         | `runzero_site`         | `Site`          |
-| User         | `runzero_user`         | `User`          |
+| Resources    | Entity `_type`        | Entity `_class` |
+| ------------ | --------------------- | --------------- |
+| Account      | `rumble_account`      | `Account`       |
+| Asset        | `rumble_asset`        | `Device`        |
+| Organization | `rumble_organization` | `Organization`  |
+| Site         | `rumble_site`         | `Site`          |
+| User         | `rumble_user`         | `User`          |
 
 ### Relationships
 
 The following relationships are created:
 
-| Source Entity `_type`  | Relationship `_class` | Target Entity `_type`  |
-| ---------------------- | --------------------- | ---------------------- |
-| `runzero_account`      | **HAS**               | `runzero_organization` |
-| `runzero_account`      | **HAS**               | `runzero_site`         |
-| `runzero_account`      | **HAS**               | `runzero_user`         |
-| `runzero_organization` | **HAS**               | `runzero_site`         |
-| `runzero_site`         | **HAS**               | `runzero_asset`        |
-| `runzero_user`         | **ASSIGNED**          | `runzero_organization` |
+| Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
+| --------------------- | --------------------- | --------------------- |
+| `rumble_account`      | **HAS**               | `rumble_organization` |
+| `rumble_account`      | **HAS**               | `rumble_site`         |
+| `rumble_account`      | **HAS**               | `rumble_user`         |
+| `rumble_organization` | **HAS**               | `rumble_site`         |
+| `rumble_site`         | **HAS**               | `rumble_asset`        |
+| `rumble_user`         | **ASSIGNED**          | `rumble_organization` |
 
 <!--
 ********************************************************************************

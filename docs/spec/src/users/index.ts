@@ -12,16 +12,16 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'User',
-        _type: 'runzero_user',
+        _type: 'rumble_user',
         _class: ['User'],
       },
     ],
     relationships: [
       {
-        _type: 'runzero_account_has_user',
-        sourceType: 'runzero_account',
+        _type: 'rumble_account_has_user',
+        sourceType: 'rumble_account',
         _class: RelationshipClass.HAS,
-        targetType: 'runzero_user',
+        targetType: 'rumble_user',
       },
     ],
     dependsOn: ['fetch-account'],
@@ -37,10 +37,10 @@ export const usersSpec: StepSpec<IntegrationConfig>[] = [
     entities: [],
     relationships: [
       {
-        _type: 'runzero_user_assigned_organization',
-        sourceType: 'runzero_user',
+        _type: 'rumble_user_assigned_organization',
+        sourceType: 'rumble_user',
         _class: RelationshipClass.ASSIGNED,
-        targetType: 'runzero_organization',
+        targetType: 'rumble_organization',
       },
     ],
     dependsOn: ['fetch-users', 'fetch-organization'],

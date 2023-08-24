@@ -12,16 +12,16 @@ export const organizationsSpec: StepSpec<IntegrationConfig>[] = [
     entities: [
       {
         resourceName: 'Organization',
-        _type: 'runzero_organization',
+        _type: 'rumble_organization',
         _class: ['Organization'],
       },
     ],
     relationships: [
       {
-        _type: 'runzero_account_has_organization',
-        sourceType: 'runzero_account',
+        _type: 'rumble_account_has_organization',
+        sourceType: 'rumble_account',
         _class: RelationshipClass.HAS,
-        targetType: 'runzero_organization',
+        targetType: 'rumble_organization',
       },
     ],
     dependsOn: ['fetch-account'],

@@ -46,7 +46,7 @@ Object {
       },
     },
   ],
-  "_type": "runzero_organization",
+  "_type": "rumble_organization",
   "assetCount": 1000,
   "clientId": "client_id",
   "createdAt": 10000,

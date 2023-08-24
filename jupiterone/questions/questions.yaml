@@ -7,7 +7,7 @@ questions:
     description: Returns all the last properties for a runZero user.
     queries:
       - query: |
-          FIND runzero_user WITH active = true AS user
+          FIND rumble_user WITH active = true AS user
           RETURN   
           user.username,user.lastActionAt,user.lastActivityAt,user.lastLoginAt,user.lastLoginIP,user.lastLoginUa
     tags:

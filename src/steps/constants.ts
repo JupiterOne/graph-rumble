@@ -24,12 +24,12 @@ export const Entities: Record<
 > = {
   ACCOUNT: {
     resourceName: 'Account',
-    _type: 'runzero_account',
+    _type: 'rumble_account',
     _class: ['Account'],
     schema: {
       additionalProperties: true,
       properties: {
-        _type: { const: 'runzero_account' },
+        _type: { const: 'rumble_account' },
         _key: { type: 'string' },
         name: { type: 'string' },
         displayName: { type: 'string' },
@@ -47,12 +47,12 @@ export const Entities: Record<
   },
   ORGANIZATION: {
     resourceName: 'Organization',
-    _type: 'runzero_organization',
+    _type: 'rumble_organization',
     _class: ['Organization'],
     schema: {
       additionalProperties: true,
       properties: {
-        _type: { const: 'runzero_organization' },
+        _type: { const: 'rumble_organization' },
         _key: { type: 'string' },
         name: { type: 'string' },
         displayName: { type: 'string' },
@@ -72,12 +72,12 @@ export const Entities: Record<
   },
   USER: {
     resourceName: 'User',
-    _type: 'runzero_user',
+    _type: 'rumble_user',
     _class: ['User'],
     schema: {
       additionalProperties: true,
       properties: {
-        _type: { const: 'runzero_user' },
+        _type: { const: 'rumble_user' },
         _key: { type: 'string' },
         name: { type: 'string' },
         displayName: { type: 'string' },
@@ -95,12 +95,12 @@ export const Entities: Record<
   },
   SITE: {
     resourceName: 'Site',
-    _type: 'runzero_site',
+    _type: 'rumble_site',
     _class: ['Site'],
     schema: {
       additionalProperties: true,
       properties: {
-        _type: { const: 'runzero_site ' },
+        _type: { const: 'rumble_site ' },
         _key: { type: 'string' },
         name: { type: 'string' },
         displayName: { type: 'string' },
@@ -118,12 +118,12 @@ export const Entities: Record<
   },
   ASSET: {
     resourceName: 'Asset',
-    _type: 'runzero_asset',
+    _type: 'rumble_asset',
     _class: ['Device'],
     schema: {
       additionalProperties: true,
       properties: {
-        _type: { const: 'runzero_asset' },
+        _type: { const: 'rumble_asset' },
         _key: { type: 'string' },
         name: { type: 'string' },
         displayName: { type: 'string' },
@@ -151,19 +151,19 @@ export const Relationships: Record<
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
-    _type: 'runzero_account_has_user',
+    _type: 'rumble_account_has_user',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.USER._type,
   },
   ACCOUNT_HAS_ORGANIZATION: {
-    _type: 'runzero_account_has_organization',
+    _type: 'rumble_account_has_organization',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.ORGANIZATION._type,
   },
   USER_ASSIGNED_ORGANIZATION: {
-    _type: 'runzero_user_assigned_organization',
+    _type: 'rumble_user_assigned_organization',
     sourceType: Entities.USER._type,
     _class: RelationshipClass.ASSIGNED,
     targetType: Entities.ORGANIZATION._type,
@@ -174,13 +174,13 @@ export const Relationships: Record<
     },
   },
   ORGANIZATION_HAS_SITE: {
-    _type: 'runzero_organization_has_site',
+    _type: 'rumble_organization_has_site',
     sourceType: Entities.ORGANIZATION._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.SITE._type,
   },
   SITE_HAS_ASSET: {
-    _type: 'runzero_site_has_asset',
+    _type: 'rumble_site_has_asset',
     sourceType: Entities.SITE._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.ASSET._type,
@@ -188,7 +188,7 @@ export const Relationships: Record<
   ACCOUNT_HAS_SITE: {
     sourceType: Entities.ACCOUNT._type,
     targetType: Entities.SITE._type,
-    _type: 'runzero_account_has_site',
+    _type: 'rumble_account_has_site',
     _class: RelationshipClass.HAS,
   },
 };

@@ -196,7 +196,7 @@ Object {
       },
     },
   ],
-  "_type": "runzero_asset",
+  "_type": "rumble_asset",
   "alive": true,
   "category": "Server",
   "createdAt": 1642795487,
