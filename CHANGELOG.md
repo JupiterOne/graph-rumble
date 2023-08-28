@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+[2.1.0]
+
+## Changed
+
+- Renamed `rumble` to `runZero`
+
 [2.0.2] - 2023-06-20
 
 ### Added
