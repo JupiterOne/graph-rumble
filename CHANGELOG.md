@@ -8,13 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
-[2.1.0]
+## [2.2.0] - 2023-09-19
 
-## Changed
+### Changed
+
+- `lastSeenOn`, `createdAt`, `updatedAt`, `lastSeen`, and `firstSeen` timestamps
+  converted as seconds instead of milliseconds.
+
+## [2.1.0] - 2023-08-28
+
+### Changed
 
 - Renamed `rumble` to `runZero`
 
-[2.0.2] - 2023-06-20
+## [2.0.2] - 2023-06-20
 
 ### Added
 
@@ -25,7 +32,7 @@ and this project adheres to
 - Updated endpoints and names referencing `Rumble` to `runZero` as part of the
   rebranding.
 
-[2.0.1] - 2022-09-21
+## [2.0.1] - 2022-09-21
 
 ### Changed
 
@@ -33,7 +40,7 @@ and this project adheres to
 - Added a space to `displayName` of users
 - Bumped SDK dependencies to ^8.24.0
 
-[2.0.0]
+## [2.0.0] - 2022-08-22
 
 ### Added
 
@@ -47,36 +54,39 @@ and this project adheres to
 
 - Assets step now uses streams to handle response
 
-[1.2.2] - 2022-05-25
+## [1.2.2] - 2022-05-25
 
-Adding new managed question
+### Added
 
-[1.2.1] - 2022-03-08
+- New managed question
+
+## [1.2.1] - 2022-03-08
 
 ### Changed
 
 - The path `src/steps/assets` has been renamed to `src/steps/asset` to avoid
   having the directory removed by common node_modules pruning scripts
 
-[1.2.0] - 2022-03-07
+## [1.2.0] - 2022-03-07
 
-- Added `rumble_asset` type and `ASSETS` and `BUILD_SITE_ASSET_RELATIONSHIPS`
-  steps.
+### Added
 
-[1.1.1] - 2022-02-28
+- `rumble_asset` type and `ASSETS` and `BUILD_SITE_ASSET_RELATIONSHIPS` steps.
+
+## [1.1.1] - 2022-02-28
 
 ### Removed
 
 - Subnet property removed from `Site` entity to fix error when ingesting objects
 
-[1.1.0] - 2022-02-24
+## [1.1.0] - 2022-02-24
 
 ### Added
 
 - Ingest site entities and site relationships
 - Ingest user entity and create related relationships
 
-[1.0.1] - 2022-02-14
+## [1.0.1] - 2022-02-14
 
 ### Added
 
