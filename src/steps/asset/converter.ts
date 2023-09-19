@@ -21,7 +21,7 @@ export function createAssetEntity(asset: RunZeroAsset): Entity {
         updatedAt: parseTimePropertyValue(asset.updated_at, 'ms'),
         alive: asset.alive,
         lastSeen: parseTimePropertyValue(asset.last_seen, 'ms'),
-        lastSeenOn: parseTimePropertyValue(asset.last_seen, 'ms'),
+        lastSeenOn: parseTimePropertyValue(asset.last_seen, 'sec'),
         firstSeen: parseTimePropertyValue(asset.first_seen, 'ms'),
         detectedBy: asset.detected_by,
         type: asset.type,
