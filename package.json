@@ -2,6 +2,10 @@
   "name": "@jupiterone/graph-rumble",
   "version": "2.2.0",
   "description": "graph-rumble integration project",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JupiterOne/graph-rumble"
+  },
   "license": "MPL-2.0",
   "main": "src/index.js",
   "types": "src/index.d.ts",
