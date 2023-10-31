@@ -1,3 +1,7 @@
+# DEPRECATED: MOVED TO MONOREPO
+## Use @jupiterone/integration-deployments/graph-public/graph-rumble instead
+
+
 # JupiterOne Integration
 
 Learn about the data ingested, benefits of this integration, and how to use it
